@@ -1,0 +1,11 @@
+[
+  {
+    "modid": "textiles",
+    "name": "Textiles",
+    "description": "Decorative textile blocks.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "https://github.com/ISurrealI/Spindles",
+    "authorList": ["Surreal"]
+  }
+]

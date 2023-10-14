@@ -1,0 +1,21 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cross",
+    "transform": "forge:default-block"
+  },
+  "variants": {
+    "age=0,bottom=true": { "textures": { "cross": "textiles:blocks/crop_flax_bottom_0" } },
+    "age=1,bottom=true": { "textures": { "cross": "textiles:blocks/crop_flax_bottom_1" } },
+    "age=2,bottom=true": { "textures": { "cross": "textiles:blocks/crop_flax_bottom_2" } },
+    "age=3,bottom=true": { "textures": { "cross": "textiles:blocks/crop_flax_bottom_3" } },
+    "age=4,bottom=true": { "textures": { "cross": "textiles:blocks/crop_flax_bottom_4" } },
+    "age=5,bottom=true": { "textures": { "cross": "textiles:blocks/crop_flax_bottom_5" } },
+    "age=0,bottom=false": { "textures": { "cross": "textiles:blocks/crop_flax_top_0" } },
+    "age=1,bottom=false": { "textures": { "cross": "textiles:blocks/crop_flax_top_1" } },
+    "age=2,bottom=false": { "textures": { "cross": "textiles:blocks/crop_flax_top_2" } },
+    "age=3,bottom=false": { "textures": { "cross": "textiles:blocks/crop_flax_top_3" } },
+    "age=4,bottom=false": { "textures": { "cross": "textiles:blocks/crop_flax_top_4" } },
+    "age=5,bottom=false": { "textures": { "cross": "textiles:blocks/crop_flax_top_5" } }
+  }
+}

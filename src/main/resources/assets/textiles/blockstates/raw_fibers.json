@@ -1,0 +1,490 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "textiles:fiber_1",
+    "transform": "forge:default-block",
+    "textures": {
+      "sides": "textiles:blocks/raw_fibers_sides_0",
+      "ends": "textiles:blocks/raw_fibers_ends_0"
+    }
+  },
+  "variants": {
+    "age=0,amount=0": [
+      {}, { "y": 90 }, { "y": 180 }, { "y": 270 }
+    ],
+    "age=1,amount=0": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        }
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "y": 270
+      }
+    ],
+    "age=2,amount=0": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        }
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "y": 270
+      }
+    ],
+    "age=0,amount=1": [
+      {
+        "model": "textiles:fiber_2"
+      },
+      {
+        "model": "textiles:fiber_2",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_2",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_2",
+        "y": 270
+      }
+    ],
+    "age=1,amount=1": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_2"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_2",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_2",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_2",
+        "y": 270
+      }
+    ],
+    "age=2,amount=1": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_2"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_2",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_2",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_2",
+        "y": 270
+      }
+    ],
+    "age=0,amount=2": [
+      {
+        "model": "textiles:fiber_3"
+      },
+      {
+        "model": "textiles:fiber_3",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_3",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_3",
+        "y": 270
+      }
+    ],
+    "age=1,amount=2": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_3"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_3",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_3",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_3",
+        "y": 270
+      }
+    ],
+    "age=2,amount=2": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_3"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_3",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_3",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_3",
+        "y": 270
+      }
+    ],
+    "age=0,amount=3": [
+      {
+        "model": "textiles:fiber_4"
+      },
+      {
+        "model": "textiles:fiber_4",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_4",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_4",
+        "y": 270
+      }
+    ],
+    "age=1,amount=3": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_4"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_4",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_4",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_4",
+        "y": 270
+      }
+    ],
+    "age=2,amount=3": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_4"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_4",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_4",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_4",
+        "y": 270
+      }
+    ],
+    "age=0,amount=4": [
+      {
+        "model": "textiles:fiber_5"
+      },
+      {
+        "model": "textiles:fiber_5",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_5",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_5",
+        "y": 270
+      }
+    ],
+    "age=1,amount=4": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_5"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_5",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_5",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_5",
+        "y": 270
+      }
+    ],
+    "age=2,amount=4": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_5"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_5",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_5",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_5",
+        "y": 270
+      }
+    ],
+    "age=0,amount=5": [
+      {
+        "model": "textiles:fiber_6"
+      },
+      {
+        "model": "textiles:fiber_6",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_6",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_6",
+        "y": 270
+      }
+    ],
+    "age=1,amount=5": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_6"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_6",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_6",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_1",
+          "ends": "textiles:blocks/raw_fibers_ends_1"
+        },
+        "model": "textiles:fiber_6",
+        "y": 270
+      }
+    ],
+    "age=2,amount=5": [
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_6"
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_6",
+        "y": 90
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_6",
+        "y": 180
+      },
+      {
+        "textures": {
+          "sides": "textiles:blocks/raw_fibers_sides_2",
+          "ends": "textiles:blocks/raw_fibers_ends_2"
+        },
+        "model": "textiles:fiber_6",
+        "y": 270
+      }
+    ],
+    "inventory": [{}]
+  }
+}

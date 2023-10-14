@@ -1,0 +1,170 @@
+{
+	"credit": "Made with Blockbench by Malcolm Riley",
+	"parent": "textiles:block/fabric_base",
+	"elements": [
+		{
+			"name": "Dowel",
+			"from": [7.45, 2.15, 1],
+			"to": [8.5, 3.2, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.975, 2.675, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Dowel",
+			"from": [12.55, 2.15, 1],
+			"to": [13.6, 3.2, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13.075, 2.675, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Dowel",
+			"from": [2.35, 2.15, 1],
+			"to": [3.4, 3.2, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.875, 2.675, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Dowel",
+			"from": [2.35, 7.45, 1],
+			"to": [3.4, 8.5, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.875, 7.975, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Dowel",
+			"from": [12.55, 7.45, 1],
+			"to": [13.6, 8.5, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [13.075, 7.975, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Dowel",
+			"from": [7.45, 7.45, 1],
+			"to": [8.5, 8.5, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [7.975, 7.975, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Fabric",
+			"from": [0.3, 0, 2],
+			"to": [15.63, 10.66, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [1.71154, 2.71741, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 15, 10], "texture": "#ends"},
+				"east": {"uv": [0, 4, 10, 16], "rotation": 90, "texture": "#sides"},
+				"south": {"uv": [0, 0, 15, 10], "texture": "#ends"},
+				"west": {"uv": [0, 4, 10, 16], "rotation": 90, "texture": "#sides"},
+				"up": {"uv": [0, 0, 15, 12], "texture": "#sides"},
+				"down": {"uv": [0, 0, 15, 12], "texture": "#sides", "cullface": "down"}
+			}
+		},
+		{
+			"name": "Fabric",
+			"from": [8.3, 10.7, 1],
+			"to": [13.63, 16.03, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9.82488, 13.63075, 7]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 5], "texture": "#ends"},
+				"east": {"uv": [0, 4, 5, 16], "rotation": 90, "texture": "#sides"},
+				"south": {"uv": [0, 0, 5, 5], "texture": "#ends"},
+				"west": {"uv": [0, 4, 5, 16], "rotation": 90, "texture": "#sides"},
+				"up": {"uv": [0, 0, 5, 12], "texture": "#sides"},
+				"down": {"uv": [5, 0, 10, 12], "texture": "#sides"}
+			}
+		},
+		{
+			"name": "Fabric",
+			"from": [13.3, 11.7, 1],
+			"to": [13.63, 16.03, 13],
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [13.465, 16, 7]},
+			"faces": {
+				"east": {"uv": [10, 0, 14, 12], "rotation": 90, "texture": "#extras"},
+				"west": {"uv": [10, 12, 14, 0], "rotation": 90, "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Dowel",
+			"from": [10.45, 12.85, 0],
+			"to": [11.5, 13.9, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [9.82488, 13.63075, 7]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Fabric",
+			"from": [1.3, 10.7, 3],
+			"to": [6.63, 16.03, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.82488, 13.63075, 9]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 5], "texture": "#ends"},
+				"east": {"uv": [0, 4, 5, 16], "rotation": 90, "texture": "#sides"},
+				"south": {"uv": [0, 0, 5, 5], "texture": "#ends"},
+				"west": {"uv": [0, 4, 5, 16], "rotation": 90, "texture": "#sides"},
+				"up": {"uv": [0, 0, 5, 12], "texture": "#sides"},
+				"down": {"uv": [5, 0, 10, 12], "texture": "#sides"}
+			}
+		},
+		{
+			"name": "Dowel",
+			"from": [3.45, 12.85, 2],
+			"to": [4.5, 13.9, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [2.82488, 13.63075, 9]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		}
+	]
+}

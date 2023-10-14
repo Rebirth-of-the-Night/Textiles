@@ -1,0 +1,19 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "cube_column",
+        "transform": "forge:default-block",
+        "textures": {
+            "end": "textiles:blocks/feather_block_end",
+            "side": "textiles:blocks/feather_block_side"
+        }
+    },
+    "variants": {
+        "axis": {
+            "axis_y": {},
+            "axis_x": { "x": 90, "y": 90 },
+            "axis_z": { "x": 90 }
+        },
+        "inventory": [{}]
+    }
+}

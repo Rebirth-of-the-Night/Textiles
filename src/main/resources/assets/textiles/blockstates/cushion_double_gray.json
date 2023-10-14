@@ -1,0 +1,16 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_column",
+    "transform": "forge:default-block",
+    "textures": {
+      "side": "textiles:blocks/cushion_gray_sides",
+      "end": "textiles:blocks/cushion_gray_ends_1"
+    }
+  },
+  "variants": {
+      "axis=axis_y": [{}, { "textures": { "end": "textiles:blocks/cushion_gray_ends_2" } }, { "textures": { "end": "textiles:blocks/cushion_gray_ends_3" } }],
+      "axis=axis_x": [{ "x": 90, "y": 90 }, { "x": 90, "y": 90, "textures": { "end": "textiles:blocks/cushion_gray_ends_2" } }, { "x": 90, "y": 90, "textures": { "end": "textiles:blocks/cushion_gray_ends_3" } }],
+      "axis=axis_z": [{ "x": 90 }, { "x": 90, "textures": { "end": "textiles:blocks/cushion_gray_ends_2" } }, { "x": 90, "textures": { "end": "textiles:blocks/cushion_gray_ends_3" } }]
+  }
+}

@@ -1,0 +1,20 @@
+{
+	"credit": "Made with Blockbench by Malcolm Riley",
+	"parent": "textiles:block/fiber_base",
+	"elements": [
+		{
+			"name": "1",
+			"from": [5, 0, 1],
+			"to": [10.33333, 5.3333, 16],
+			"rotation": {"angle": 22.5, "axis": "y", "origin": [7.66667, 2.66665, 8]},
+			"faces": {
+				"north": {"uv": [10, 10, 15, 15], "texture": "#ends"},
+				"east": {"uv": [11, 4, 16, 16], "rotation": 90, "texture": "#sides"},
+				"south": {"uv": [9, 2, 14, 7], "texture": "#ends"},
+				"west": {"uv": [4, 2, 9, 14], "rotation": 90, "texture": "#sides"},
+				"up": {"uv": [5, 2, 10, 14], "texture": "#sides"},
+				"down": {"uv": [11, 4, 16, 16], "texture": "#sides"}
+			}
+		}
+	]
+}

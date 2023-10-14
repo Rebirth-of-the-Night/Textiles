@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "textiles:blocks/crop_flax_top_5"
+  }
+}

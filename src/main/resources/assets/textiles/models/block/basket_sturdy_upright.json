@@ -1,0 +1,9 @@
+{
+  "parent": "textiles:block/basket_base_upright",
+  "textures": {
+    "sides": "textiles:blocks/basket_sturdy_sides",
+    "sides_alt": "textiles:blocks/basket_sturdy_sides_alt",
+    "bottom": "textiles:blocks/basket_sturdy_bottom",
+    "inner": "textiles:blocks/basket_sturdy_inner"
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "textiles:fiber_1",
+    "transform": "forge:default-block",
+    "textures": {
+      "sides": "textiles:blocks/retted_fibers_sides",
+      "ends": "textiles:blocks/retted_fibers_ends"
+    }
+  },
+  "variants": {
+    "amount=0": [
+      {}, { "y": 90 }, { "y": 180 }, { "y": 270 }
+    ],
+    "amount=1": [
+      {
+        "model": "textiles:fiber_2"
+      },
+      {
+        "model": "textiles:fiber_2",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_2",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_2",
+        "y": 270
+      }
+    ],
+    "amount=2": [
+      {
+        "model": "textiles:fiber_3"
+      },
+      {
+        "model": "textiles:fiber_3",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_3",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_3",
+        "y": 270
+      }
+    ],
+    "amount=3": [
+      {
+        "model": "textiles:fiber_4"
+      },
+      {
+        "model": "textiles:fiber_4",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_4",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_4",
+        "y": 270
+      }
+    ],
+    "amount=4": [
+      {
+        "model": "textiles:fiber_5"
+      },
+      {
+        "model": "textiles:fiber_5",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_5",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_5",
+        "y": 270
+      }
+    ],
+    "amount=5": [
+      {
+        "model": "textiles:fiber_6"
+      },
+      {
+        "model": "textiles:fiber_6",
+        "y": 90
+      },
+      {
+        "model": "textiles:fiber_6",
+        "y": 180
+      },
+      {
+        "model": "textiles:fiber_6",
+        "y": 270
+      }
+    ],
+    "inventory": [{}]
+  }
+}

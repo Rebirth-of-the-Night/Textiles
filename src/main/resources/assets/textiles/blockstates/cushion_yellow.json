@@ -1,0 +1,20 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "textiles:half_slab_end",
+    "transform": "forge:default-block",
+    "textures": {
+      "end": "textiles:blocks/cushion_yellow_ends_1",
+      "side": "textiles:blocks/cushion_yellow_sides"
+    }
+  },
+  "variants": {
+    "axis=axis_y,half=top": [{ "model": "textiles:upper_slab_end" }, { "model": "textiles:upper_slab_end", "textures": { "end": "textiles:blocks/cushion_yellow_ends_2" } }, { "model": "textiles:upper_slab_end", "textures": { "end": "textiles:blocks/cushion_yellow_ends_3" } }],
+    "axis=axis_y,half=bottom": [{}, { "textures": { "end": "textiles:blocks/cushion_yellow_ends_2" } }, { "textures": { "end": "textiles:blocks/cushion_yellow_ends_3" } }],
+    "axis=axis_x,half=top": [{ "model": "textiles:upper_slab_end", "x": 90, "y": 90 }, { "model": "textiles:upper_slab_end", "x": 90, "y": 90, "textures": { "end": "textiles:blocks/cushion_yellow_ends_2" } }, { "model": "textiles:upper_slab_end", "x": 90, "y": 90, "textures": { "end": "textiles:blocks/cushion_yellow_ends_3" } }],
+    "axis=axis_x,half=bottom": [{ "x": 90, "y": 90 }, { "x": 90, "y": 90, "textures": { "end": "textiles:blocks/cushion_yellow_ends_2" } }, { "x": 90, "y": 90, "textures": { "end": "textiles:blocks/cushion_yellow_ends_3" } }],
+    "axis=axis_z,half=bottom": [{ "model": "textiles:upper_slab_end", "x": 90 }, { "model": "textiles:upper_slab_end", "x": 90, "textures": { "end": "textiles:blocks/cushion_yellow_ends_2" } }, { "model": "textiles:upper_slab_end", "x": 90, "textures": { "end": "textiles:blocks/cushion_yellow_ends_3" } }],
+    "axis=axis_z,half=top": [{ "x": 90 }, { "x": 90, "textures": { "end": "textiles:blocks/cushion_yellow_ends_2" } }, { "x": 90, "textures": { "end": "textiles:blocks/cushion_yellow_ends_3" } }],
+    "inventory": [{}]
+  }
+}

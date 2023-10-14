@@ -62,18 +62,13 @@ minecraft {
 
     // Include and use dependencies' Access Transformer files
     useDependencyAccessTransformers = true
-    
-    // Add any properties you want to swap out for a dynamic value at build time here
-    // Any properties here will be added to a class at build time, the name can be configured below
-    // Example:
-    // injectedTags.put('VERSION', project.version)
-    // injectedTags.put('MOD_ID', project.archives_base_name)
+
+    injectedTags.put('VERSION', project.version)
 }
 
-// Generate a group.archives_base_name.Tags class
 tasks.injectTags.configure {
     // Change Tags class' name here:
-    outputClassName.set("${project.group}.${project.archives_base_name}.Tags")
+    outputClassName.set("${project.group}.${project.mod_id}.Tags")
 }
 
 repositories {
@@ -84,13 +79,6 @@ repositories {
     maven {
         name 'SpongePowered Maven'
         url 'https://repo.spongepowered.org/maven'
-    }
-    maven {
-        name 'CurseMaven'
-        url 'https://cursemaven.com'
-        content {
-            includeGroup 'curse.maven'
-        }
     }
     mavenLocal() // Must be last for caching to work
 }
@@ -103,12 +91,9 @@ dependencies {
         implementation 'zone.rong:mixinbooter:7.1'
     }
 
-    // Example of deobfuscating a dependency
-    // implementation rfg.deobf('curse.maven:had-enough-items-557549:4543375')
-
     if (project.use_mixins.toBoolean()) {
         // Change your mixin refmap name here:
-        String mixin = modUtils.enableMixins('org.spongepowered:mixin:0.8.3', "mixins.${project.archives_base_name}.refmap.json")
+        String mixin = modUtils.enableMixins('org.spongepowered:mixin:0.8.3', "mixins.${project.mod_id}.refmap.json")
         api (mixin) {
             transitive = false
         }
@@ -120,7 +105,20 @@ dependencies {
         }
     }
 
+    annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:0.4.2'
+    compileOnly 'com.github.bsideup.jabel:jabel-javac-plugin:0.4.2'
 }
+
+configure([tasks.compileJava]) {
+    sourceCompatibility = 16 // for the IDE support
+    options.release = 8
+
+    javaCompiler = javaToolchains.compilerFor {
+        languageVersion = JavaLanguageVersion.of(16)
+    }
+}
+
+apply from: 'dependencies.gradle'
 
 // Adds Access Transformer files to tasks
 if (project.use_access_transformer.toBoolean()) {
@@ -162,7 +160,7 @@ jar {
             }
         }
         if (project.use_access_transformer.toBoolean()) {
-            attribute_map['FMLAT'] = project.archives_base_name + '_at.cfg'
+            attribute_map['FMLAT'] = project.mod_id + '_at.cfg'
         }
         attributes(attribute_map)
     }

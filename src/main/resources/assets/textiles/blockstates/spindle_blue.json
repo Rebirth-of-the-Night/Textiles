@@ -1,0 +1,46 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "model": "textiles:fabric_1",
+        "transform": "forge:default-block",
+        "textures": {
+            "sides": "textiles:blocks/fabric_blue_sides",
+            "ends": "textiles:blocks/fabric_blue_ends",
+            "extras": "textiles:blocks/fabric_blue_extras"
+        }
+    },
+    "variants": {
+        "axis": {
+            "axis_x": { "y": 90 },
+            "axis_z": {}
+        },
+        "amount": {
+            "0": {},
+            "1": {
+                "model": "textiles:fabric_2"
+            },
+            "2": {
+                "model": "textiles:fabric_3"
+            },
+            "3": {
+                "model": "textiles:fabric_4"
+            },
+            "4": {
+                "model": "textiles:fabric_5"
+            },
+            "5": {
+                "model": "textiles:fabric_6"
+            },
+            "6": {
+                "model": "textiles:fabric_7"
+            },
+            "7": {
+                "model": "textiles:fabric_8"
+            },
+            "8": {
+                "model": "textiles:fabric_9"
+            }
+        },
+        "inventory": [{}]
+    }
+}

@@ -1,0 +1,13 @@
+repositories {
+    maven {
+        name 'CurseMaven'
+        url 'https://cursemaven.com'
+        content {
+            includeGroup 'curse.maven'
+        }
+    }
+}
+
+dependencies {
+    implementation rfg.deobf('curse.maven:fluidlogged-485654:4564413')
+}
