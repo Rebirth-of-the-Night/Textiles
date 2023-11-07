@@ -21,11 +21,11 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import surreal.textiles.blocks.*;
 import surreal.textiles.client.models.ModelRegistry;
 import surreal.textiles.items.*;
-import surreal.textiles.recipes.LessStupidShapedOreRecipe;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +33,7 @@ import java.util.Objects;
 import static surreal.textiles.Textiles.MODID;
 import static surreal.textiles.Textiles.TAB;
 import static surreal.textiles.items.ItemMaterial.Type.*;
+import static net.minecraft.block.BlockPlanks.EnumType.*;
 
 public class RegistryManager {
 
@@ -69,7 +70,7 @@ public class RegistryManager {
 
         // Blocks
         FEATHER_BLOCK = registerBlock("feather_block", new BlockFeather());
-        registerItem("feather_block", new ItemBlock(FEATHER_BLOCK));
+        registerItem("feather_block", new ItemBlockBase(FEATHER_BLOCK));
 
         FLAX_CROP = registerBlock("flax_crop", new BlockFlax());
 
@@ -161,6 +162,8 @@ public class RegistryManager {
     }
 
     public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        IForgeRegistry<IRecipe> registry = event.getRegistry();
+
         ItemStack flaxStalk = getMaterial(FLAX_STALKS);
 
         ItemStack wickerPatch = getMaterial(WICKER_PATCH);
@@ -274,6 +277,145 @@ public class RegistryManager {
         GameRegistry.addShapedRecipe(new ResourceLocation(MODID, "chainmail_chestplate"), null, new ItemStack(Items.CHAINMAIL_CHESTPLATE), "A A", "AAA", "AAA", 'A', chainMeshIng);
         GameRegistry.addShapedRecipe(new ResourceLocation(MODID, "chainmail_leggings"), null, new ItemStack(Items.CHAINMAIL_LEGGINGS), "AAA", "A A", "A A", 'A', chainMeshIng);
         GameRegistry.addShapedRecipe(new ResourceLocation(MODID, "chainmail_boots"), null, new ItemStack(Items.CHAINMAIL_BOOTS), "A A", "A A", 'A', chainMeshIng);
+
+        // Baskets
+        Ingredient wickerPatchIng = Ingredient.fromStacks(getMaterial(WICKER_PATCH));
+        registry.register(lessStupidOreRecipe(BASKET.getRegistryName(), new ItemStack(BASKET), "ABA", "A A", "AAA", 'A', wickerPatchIng, 'B', "stickWood"));
+        registry.register(lessStupidOreRecipe(new ResourceLocation(BASKET.getRegistryName() + "_sturdy"), new ItemStack(BASKET, 1, 1), "ABA", "ACA", "AAA", 'A', wickerPatchIng, 'B', "stickWood", 'C', new ItemStack(Items.BUCKET)));
+
+        // Wood Staining
+        addWoodRecipe(0, new ItemStack(Blocks.PLANKS, 1, OAK.getMetadata()), new ItemStack(Blocks.PLANKS, 1, SPRUCE.getMetadata()));
+        addWoodRecipe(0, new ItemStack(Blocks.PLANKS, 1, BIRCH.getMetadata()), new ItemStack(Blocks.PLANKS, 1, OAK.getMetadata()));
+        addWoodRecipe(0, new ItemStack(Blocks.PLANKS, 1, JUNGLE.getMetadata()), new ItemStack(Blocks.PLANKS, 1, ACACIA.getMetadata()));
+        addWoodRecipe(0, new ItemStack(Blocks.PLANKS, 1, SPRUCE.getMetadata()), new ItemStack(Blocks.PLANKS, 1, DARK_OAK.getMetadata()));
+        addWoodRecipe(0, new ItemStack(Blocks.PLANKS, 1, BIRCH.getMetadata()), new ItemStack(Blocks.PLANKS, 1, JUNGLE.getMetadata()), true, true);
+
+        addWoodRecipe(0, new ItemStack(Blocks.OAK_STAIRS), new ItemStack(Blocks.SPRUCE_STAIRS));
+        addWoodRecipe(0, new ItemStack(Blocks.BIRCH_STAIRS), new ItemStack(Blocks.OAK_STAIRS));
+        addWoodRecipe(0, new ItemStack(Blocks.JUNGLE_STAIRS), new ItemStack(Blocks.ACACIA_STAIRS));
+        addWoodRecipe(0, new ItemStack(Blocks.SPRUCE_STAIRS), new ItemStack(Blocks.DARK_OAK_STAIRS));
+        addWoodRecipe(0, new ItemStack(Blocks.BIRCH_STAIRS), new ItemStack(Blocks.DARK_OAK_STAIRS));
+
+        addWoodRecipe(0, new ItemStack(Blocks.OAK_FENCE), new ItemStack(Blocks.SPRUCE_FENCE));
+        addWoodRecipe(0, new ItemStack(Blocks.BIRCH_FENCE), new ItemStack(Blocks.OAK_FENCE));
+        addWoodRecipe(0, new ItemStack(Blocks.JUNGLE_FENCE), new ItemStack(Blocks.ACACIA_FENCE));
+        addWoodRecipe(0, new ItemStack(Blocks.SPRUCE_FENCE), new ItemStack(Blocks.DARK_OAK_FENCE));
+        addWoodRecipe(0, new ItemStack(Blocks.BIRCH_FENCE), new ItemStack(Blocks.JUNGLE_FENCE), true, true);
+
+        addWoodRecipe(0, new ItemStack(Blocks.OAK_FENCE_GATE), new ItemStack(Blocks.SPRUCE_FENCE_GATE));
+        addWoodRecipe(0, new ItemStack(Blocks.BIRCH_FENCE_GATE), new ItemStack(Blocks.OAK_FENCE_GATE));
+        addWoodRecipe(0, new ItemStack(Blocks.JUNGLE_FENCE_GATE), new ItemStack(Blocks.ACACIA_FENCE_GATE));
+        addWoodRecipe(0, new ItemStack(Blocks.SPRUCE_FENCE_GATE), new ItemStack(Blocks.DARK_OAK_FENCE_GATE));
+        addWoodRecipe(0, new ItemStack(Blocks.BIRCH_FENCE_GATE), new ItemStack(Blocks.JUNGLE_FENCE_GATE), true, true);
+
+        addWoodRecipe(0, new ItemStack(Blocks.WOODEN_SLAB, 1, OAK.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, SPRUCE.getMetadata()));
+        addWoodRecipe(0, new ItemStack(Blocks.WOODEN_SLAB, 1, BIRCH.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, OAK.getMetadata()));
+        addWoodRecipe(0, new ItemStack(Blocks.WOODEN_SLAB, 1, JUNGLE.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, ACACIA.getMetadata()));
+        addWoodRecipe(0, new ItemStack(Blocks.WOODEN_SLAB, 1, SPRUCE.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, DARK_OAK.getMetadata()));
+        addWoodRecipe(0, new ItemStack(Blocks.WOODEN_SLAB, 1, BIRCH.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, JUNGLE.getMetadata()), true, true);
+
+        addWoodRecipe(0, new ItemStack(Items.BOAT), new ItemStack(Items.SPRUCE_BOAT), false);
+        addWoodRecipe(0, new ItemStack(Items.BIRCH_BOAT), new ItemStack(Items.BOAT), false);
+        addWoodRecipe(0, new ItemStack(Items.JUNGLE_BOAT), new ItemStack(Items.ACACIA_BOAT), false);
+        addWoodRecipe(0, new ItemStack(Items.SPRUCE_BOAT), new ItemStack(Items.DARK_OAK_BOAT), false);
+        addWoodRecipe(0, new ItemStack(Items.BIRCH_BOAT), new ItemStack(Items.JUNGLE_BOAT), false, true);
+
+        addWoodRecipe(0, new ItemStack(Items.OAK_DOOR), new ItemStack(Items.SPRUCE_DOOR), false);
+        addWoodRecipe(0, new ItemStack(Items.BIRCH_DOOR), new ItemStack(Items.OAK_DOOR), false);
+        addWoodRecipe(0, new ItemStack(Items.JUNGLE_DOOR), new ItemStack(Items.ACACIA_DOOR), false);
+        addWoodRecipe(0, new ItemStack(Items.SPRUCE_DOOR), new ItemStack(Items.DARK_OAK_DOOR), false);
+        addWoodRecipe(0, new ItemStack(Items.BIRCH_DOOR), new ItemStack(Items.JUNGLE_DOOR), false, true);
+
+        addWoodRecipe(1, new ItemStack(Blocks.PLANKS, 1, OAK.getMetadata()), new ItemStack(Blocks.PLANKS, 1, SPRUCE.getMetadata()));
+        addWoodRecipe(1, new ItemStack(Blocks.PLANKS, 1, BIRCH.getMetadata()), new ItemStack(Blocks.PLANKS, 1, OAK.getMetadata()));
+        addWoodRecipe(1, new ItemStack(Blocks.PLANKS, 1, JUNGLE.getMetadata()), new ItemStack(Blocks.PLANKS, 1, ACACIA.getMetadata()));
+        addWoodRecipe(1, new ItemStack(Blocks.PLANKS, 1, SPRUCE.getMetadata()), new ItemStack(Blocks.PLANKS, 1, DARK_OAK.getMetadata()));
+        addWoodRecipe(1, new ItemStack(Blocks.PLANKS, 1, BIRCH.getMetadata()), new ItemStack(Blocks.PLANKS, 1, JUNGLE.getMetadata()), true, true);
+
+        addWoodRecipe(1, new ItemStack(Blocks.OAK_STAIRS), new ItemStack(Blocks.SPRUCE_STAIRS));
+        addWoodRecipe(1, new ItemStack(Blocks.BIRCH_STAIRS), new ItemStack(Blocks.OAK_STAIRS));
+        addWoodRecipe(1, new ItemStack(Blocks.JUNGLE_STAIRS), new ItemStack(Blocks.ACACIA_STAIRS));
+        addWoodRecipe(1, new ItemStack(Blocks.SPRUCE_STAIRS), new ItemStack(Blocks.DARK_OAK_STAIRS));
+        addWoodRecipe(1, new ItemStack(Blocks.BIRCH_STAIRS), new ItemStack(Blocks.DARK_OAK_STAIRS));
+
+        addWoodRecipe(1, new ItemStack(Blocks.OAK_FENCE), new ItemStack(Blocks.SPRUCE_FENCE));
+        addWoodRecipe(1, new ItemStack(Blocks.BIRCH_FENCE), new ItemStack(Blocks.OAK_FENCE));
+        addWoodRecipe(1, new ItemStack(Blocks.JUNGLE_FENCE), new ItemStack(Blocks.ACACIA_FENCE));
+        addWoodRecipe(1, new ItemStack(Blocks.SPRUCE_FENCE), new ItemStack(Blocks.DARK_OAK_FENCE));
+        addWoodRecipe(1, new ItemStack(Blocks.BIRCH_FENCE), new ItemStack(Blocks.JUNGLE_FENCE), true, true);
+
+        addWoodRecipe(1, new ItemStack(Blocks.OAK_FENCE_GATE), new ItemStack(Blocks.SPRUCE_FENCE_GATE));
+        addWoodRecipe(1, new ItemStack(Blocks.BIRCH_FENCE_GATE), new ItemStack(Blocks.OAK_FENCE_GATE));
+        addWoodRecipe(1, new ItemStack(Blocks.JUNGLE_FENCE_GATE), new ItemStack(Blocks.ACACIA_FENCE_GATE));
+        addWoodRecipe(1, new ItemStack(Blocks.SPRUCE_FENCE_GATE), new ItemStack(Blocks.DARK_OAK_FENCE_GATE));
+        addWoodRecipe(1, new ItemStack(Blocks.BIRCH_FENCE_GATE), new ItemStack(Blocks.JUNGLE_FENCE_GATE), true, true);
+
+        addWoodRecipe(1, new ItemStack(Blocks.WOODEN_SLAB, 1, OAK.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, SPRUCE.getMetadata()));
+        addWoodRecipe(1, new ItemStack(Blocks.WOODEN_SLAB, 1, BIRCH.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, OAK.getMetadata()));
+        addWoodRecipe(1, new ItemStack(Blocks.WOODEN_SLAB, 1, JUNGLE.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, ACACIA.getMetadata()));
+        addWoodRecipe(1, new ItemStack(Blocks.WOODEN_SLAB, 1, SPRUCE.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, DARK_OAK.getMetadata()));
+        addWoodRecipe(1, new ItemStack(Blocks.WOODEN_SLAB, 1, BIRCH.getMetadata()), new ItemStack(Blocks.WOODEN_SLAB, 1, JUNGLE.getMetadata()), true, true);
+
+        addWoodRecipe(1, new ItemStack(Items.BOAT), new ItemStack(Items.SPRUCE_BOAT), false);
+        addWoodRecipe(1, new ItemStack(Items.BIRCH_BOAT), new ItemStack(Items.BOAT), false);
+        addWoodRecipe(1, new ItemStack(Items.JUNGLE_BOAT), new ItemStack(Items.ACACIA_BOAT), false);
+        addWoodRecipe(1, new ItemStack(Items.SPRUCE_BOAT), new ItemStack(Items.DARK_OAK_BOAT), false);
+        addWoodRecipe(1, new ItemStack(Items.BIRCH_BOAT), new ItemStack(Items.JUNGLE_BOAT), false, true);
+
+        addWoodRecipe(1, new ItemStack(Items.OAK_DOOR), new ItemStack(Items.SPRUCE_DOOR), false);
+        addWoodRecipe(1, new ItemStack(Items.BIRCH_DOOR), new ItemStack(Items.OAK_DOOR), false);
+        addWoodRecipe(1, new ItemStack(Items.JUNGLE_DOOR), new ItemStack(Items.ACACIA_DOOR), false);
+        addWoodRecipe(1, new ItemStack(Items.SPRUCE_DOOR), new ItemStack(Items.DARK_OAK_DOOR), false);
+        addWoodRecipe(1, new ItemStack(Items.BIRCH_DOOR), new ItemStack(Items.JUNGLE_DOOR), false, true);
+    }
+
+    private void addWoodRecipe(int type, ItemStack input, ItemStack output) {
+        addWoodRecipe(type, input, output, true);
+    }
+
+    private void addWoodRecipe(int type, ItemStack input, ItemStack output, boolean multiple) {
+        addWoodRecipe(type, input, output, multiple, false);
+    }
+
+    private void addWoodRecipe(int type, ItemStack input, ItemStack output, boolean multiple, boolean jungle) {
+        int inputAmount = 1 + toInt(jungle) + (multiple ? 5 : 1);
+        Ingredient[] inputs = new Ingredient[inputAmount];
+
+        String name = type == 0 ? "_staining" : "_bleaching";
+        ItemStack bottle = type == 0 ? getMaterial(WOOD_STAIN) : getMaterial(WOOD_BLEACH);
+        if (type == 1) {
+            ItemStack s = output;
+            output = input;
+            input = s;
+        }
+
+        Ingredient in = Ingredient.fromStacks(input);
+
+        int setAmount = 1;
+
+        inputs[0] = Ingredient.fromStacks(bottle);
+        if (jungle) {
+            inputs[1] = Ingredient.fromStacks(new ItemStack(Items.DYE, 1, EnumDyeColor.PINK.getDyeDamage()));
+            setAmount++;
+        }
+
+        while (setAmount < inputs.length) {
+            inputs[setAmount] = in;
+            setAmount++;
+        }
+
+        if (multiple) output.setCount(5);
+        GameRegistry.addShapelessRecipe(new ResourceLocation(MODID, Objects.requireNonNull(output.getItem().getRegistryName()).getPath() + "." + output.getMetadata() + name), null, output, inputs);
+    }
+
+    private ShapedOreRecipe lessStupidOreRecipe(ResourceLocation registryName, ItemStack result, Object... obj) {
+        ShapedOreRecipe recipe = new ShapedOreRecipe(null, result, obj);
+        recipe.setRegistryName(registryName);
+        return recipe;
+    }
+
+    private int toInt(boolean b) {
+        return b ? 1 : 0;
     }
 
     private ItemStack getColorItem(EnumDyeColor color) {
@@ -289,7 +431,7 @@ public class RegistryManager {
         ItemStack plainFabric = new ItemStack(FABRICS.get(0));
         plainFabric.setCount(2);
 
-        registry.register(new LessStupidShapedOreRecipe(plainFabric.getItem().getRegistryName(), plainFabric, "AAA", "ABA", "AAA", 'A', twine, 'B', "stick"));
+        registry.register(lessStupidOreRecipe(plainFabric.getItem().getRegistryName(), plainFabric, "AAA", "ABA", "AAA", 'A', twine, 'B', "stickWood"));
 
         // // // CUSHIONS // // //
         Ingredient cushionMiddle = Ingredient.fromItems(getItemBlock(FEATHER_BLOCK), getItemBlock(Blocks.HAY_BLOCK));
@@ -300,7 +442,7 @@ public class RegistryManager {
 
         Ingredient plainFabricIng = Ingredient.fromItem(FABRICS.get(0));
 
-        registry.register(new LessStupidShapedOreRecipe(plainCushion.getItem().getRegistryName(), plainCushion, "AAA", "BCB", "AAA", 'A', plainFabricIng, 'B', "string", 'C', cushionMiddle));
+        registry.register(lessStupidOreRecipe(plainCushion.getItem().getRegistryName(), plainCushion, "AAA", "BCB", "AAA", 'A', plainFabricIng, 'B', "string", 'C', cushionMiddle));
 
         // Colorful Stuff
         for (int i = 1; i < 17; i++) {
@@ -309,25 +451,28 @@ public class RegistryManager {
             Item fabricItem = FABRICS.get(i);
             Item cushionItem = CUSHIONS.get(i);
 
-            ResourceLocation fabricLocation = Objects.requireNonNull(fabricItem.getRegistryName());
-            ResourceLocation cushionLocation = Objects.requireNonNull(cushionItem.getRegistryName());
+            ResourceLocation fabricLocation = fabricItem.getRegistryName();
+            ResourceLocation cushionLocation = cushionItem.getRegistryName();
 
-            ItemStack fabric = new ItemStack(fabricItem); fabric.setCount(10);
-            ItemStack cushion = new ItemStack(cushionItem); cushion.setCount(2);
+            ItemStack fabric = new ItemStack(fabricItem);
+            ItemStack fabric2 = fabric.copy(); fabric2.setCount(10);
+
+            ItemStack cushion = new ItemStack(cushionItem);
+            ItemStack cushion2 = cushion.copy(); cushion2.setCount(2);
 
             Ingredient fabricIng = Ingredient.fromItems(fabricItem);
-            Ingredient woolIng = Ingredient.fromStacks(new ItemStack(Blocks.WOOL, 1, color.getDyeDamage()));
+            Ingredient woolIng = Ingredient.fromStacks(new ItemStack(Blocks.WOOL, 1, color.getMetadata()));
             Ingredient colorIng = Ingredient.fromStacks(new ItemStack(Items.DYE, 1, color.getDyeDamage()));
 
             int whiteId = 1 + EnumDyeColor.WHITE.getDyeDamage();
             Ingredient whiteFabric = Ingredient.fromItem(FABRICS.get(whiteId));
             Ingredient whiteCushion = Ingredient.fromItem(CUSHIONS.get(whiteId));
 
-            registry.register(new LessStupidShapedOreRecipe(fabricLocation, fabric, "AAA", "ABA", "AAA", 'A', woolIng, 'B', "stick"));
-            registry.register(new LessStupidShapedOreRecipe(fabricLocation, cushion, "AAA", "BCB", "AAA", 'A', fabricIng, 'B', "string", 'C', cushionMiddle));
+            registry.register(lessStupidOreRecipe(fabricLocation, fabric2, "AAA", "ABA", "AAA", 'A', woolIng, 'B', "stickWood"));
+            registry.register(lessStupidOreRecipe(cushionLocation, cushion2, "AAA", "BCB", "AAA", 'A', fabricIng, 'B', "string", 'C', cushionMiddle));
 
             if (i == whiteId) {
-                GameRegistry.addShapelessRecipe(new ResourceLocation(fabricLocation + "_dying"), null, fabric, colorIng, plainFabricIng);
+                GameRegistry.addShapelessRecipe(new ResourceLocation(fabricLocation + "_dying"), null, fabric.copy(), colorIng, plainFabricIng);
                 GameRegistry.addShapelessRecipe(new ResourceLocation(cushionLocation + "_dying"), null, cushion, colorIng, Ingredient.fromItem(CUSHIONS.get(0)));
             }
             else {

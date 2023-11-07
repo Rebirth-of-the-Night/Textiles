@@ -2,7 +2,6 @@
     "forge_marker": 1,
     "defaults": {
         "model": "textiles:fabric_1",
-        "transform": "forge:default-block",
         "textures": {
             "sides": "textiles:blocks/fabric_gray_sides",
             "ends": "textiles:blocks/fabric_gray_ends",

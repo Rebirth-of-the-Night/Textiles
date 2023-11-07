@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * To get name as "axis_<name>" to differentiate names with degree stuff in blockstate JSONs.
+ * It looks like it should've normally work but it didn't work here for some reason :raised_eyebrow:
  * */
 public class PropertyAxis extends PropertyEnum<EnumFacing.Axis> {
 
