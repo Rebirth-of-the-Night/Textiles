@@ -6,7 +6,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import surreal.textiles.tiles.TileBasket;
+import surreal.textiles.tiles.TileSack;
 import surreal.textiles.tiles.containers.ContainerBasket;
+import surreal.textiles.tiles.containers.ContainerSack;
 
 import javax.annotation.Nullable;
 
@@ -20,6 +22,8 @@ public class GuiHandler implements IGuiHandler {
 
         if (te instanceof TileBasket basket) {
             return new ContainerBasket(basket, player);
+        } else if (te instanceof TileSack sack) {
+            return new ContainerSack(sack, player);
         }
 
         return null;
@@ -33,6 +37,8 @@ public class GuiHandler implements IGuiHandler {
 
         if (te instanceof TileBasket basket) {
             return new GuiBasket(basket);
+        } else if (te instanceof TileSack sack) {
+            return new GuiSack(sack);
         }
 
         return null;

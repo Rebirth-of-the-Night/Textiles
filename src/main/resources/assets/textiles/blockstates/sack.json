@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "dyed=false,open=false": { "model": "textiles:sack_closed" },
+    "dyed=true,open=false": { "model": "textiles:sack_closed_tint" },
+    "dyed=false,open=true": { "model": "textiles:sack_open" },
+    "dyed=true,open=true": { "model": "textiles:sack_open_tint" }
+  }
+}

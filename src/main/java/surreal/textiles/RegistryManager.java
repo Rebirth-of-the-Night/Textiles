@@ -6,10 +6,15 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,9 +28,24 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
-import surreal.textiles.blocks.*;
+import surreal.textiles.blocks.BlockBasket;
+import surreal.textiles.blocks.BlockCushion;
+import surreal.textiles.blocks.BlockFeather;
+import surreal.textiles.blocks.BlockFibers;
+import surreal.textiles.blocks.BlockFlax;
+import surreal.textiles.blocks.BlockRawFibers;
+import surreal.textiles.blocks.BlockRettedFibers;
+import surreal.textiles.blocks.BlockSack;
+import surreal.textiles.blocks.BlockSpindle;
 import surreal.textiles.client.models.ModelRegistry;
-import surreal.textiles.items.*;
+import surreal.textiles.items.ItemBlockBase;
+import surreal.textiles.items.ItemBlockBasket;
+import surreal.textiles.items.ItemBlockSack;
+import surreal.textiles.items.ItemBlockStackable;
+import surreal.textiles.items.ItemCushion;
+import surreal.textiles.items.ItemFlaxSeeds;
+import surreal.textiles.items.ItemMaterial;
+import surreal.textiles.recipes.RecipeDyeSack;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +61,7 @@ public class RegistryManager {
 
     private final List<Block> BLOCKS;
     private final List<Item> ITEMS;
+    private final List<SoundEvent> SOUNDS;
 
     private final List<Block> DOUBLE_CUSHIONS;
 
@@ -52,16 +73,25 @@ public class RegistryManager {
     public static BlockFlax FLAX_CROP;
     public static BlockFibers RAW_FIBERS, DRIED_FIBERS;
     public static BlockBasket BASKET;
+    public static BlockSack SACK;
 
     // Items
     public static ItemMaterial MATERIAL;
     public static ItemSeeds FLAX_SEEDS;
 
+    // Fluids
     public static Fluid FLAXSEED_OIL;
+
+    // Sounds
+    public static SoundEvent SACK_OPEN;
+    public static SoundEvent SACK_CLOSE;
+    public static SoundEvent SACK_INSERT;
+    public static SoundEvent SACK_EXTRACT;
 
     public RegistryManager() {
         BLOCKS = new ObjectArrayList<>();
         ITEMS = new ObjectArrayList<>();
+        SOUNDS = new ObjectArrayList<>();
 
         DOUBLE_CUSHIONS = new ObjectArrayList<>();
 
@@ -85,6 +115,9 @@ public class RegistryManager {
         BASKET = registerBlock("basket", new BlockBasket());
         registerItem("basket", new ItemBlockBasket(BASKET));
 
+        SACK = registerBlock("sack", new BlockSack());
+        registerItem("sack", new ItemBlockSack(SACK));
+
         // Items
         MATERIAL = registerItem("material", new ItemMaterial());
         FLAX_SEEDS = registerItem("flax_seeds", new ItemFlaxSeeds(FLAX_CROP));
@@ -92,6 +125,12 @@ public class RegistryManager {
         // Fluids
         ResourceLocation oilLocation = new ResourceLocation(MODID, "fluids/flaxseed_oil");
         FLAXSEED_OIL = new Fluid("flaxseed_oil", oilLocation, oilLocation);
+
+        // Sounds
+        SACK_OPEN = registerSound("block.sack.open");
+        SACK_CLOSE = registerSound("block.sack.close");
+        SACK_INSERT = registerSound("block.sack.insert");
+        SACK_EXTRACT = registerSound("block.sack.extract");
     }
 
     public ItemBlock getItemBlock(Block block) {
@@ -117,8 +156,16 @@ public class RegistryManager {
         item.setCreativeTab(TAB);
 
         ITEMS.add(item);
-
         return item;
+    }
+
+    public SoundEvent registerSound(String registryName) {
+        ResourceLocation id = new ResourceLocation(MODID, registryName);
+        SoundEvent sound = new SoundEvent(id);
+        sound.setRegistryName(id);
+
+        SOUNDS.add(sound);
+        return sound;
     }
 
     // Registries for blocks that i'm lazy to create instance one by one for
@@ -201,7 +248,7 @@ public class RegistryManager {
         OreDictionary.registerOre("string", getMaterial(TWINE));
 
         // Chain Mesh
-        GameRegistry.addShapedRecipe(new ResourceLocation(MODID, CHAIN_MESH.getName()), null,  chainMesh, "ABA", "BAB", "ABA", 'A', "nuggetIron", 'B', "ingotIron");
+        GameRegistry.addShapedRecipe(new ResourceLocation(MODID, CHAIN_MESH.getName()), null, chainMesh, "ABA", "BAB", "ABA", 'A', "nuggetIron", 'B', "ingotIron");
 
         // Feather Block
         GameRegistry.addShapedRecipe(FEATHER_BLOCK.getRegistryName(), null, new ItemStack(FEATHER_BLOCK), "AAA", "AAA", "AAA", 'A', "feather");
@@ -248,6 +295,13 @@ public class RegistryManager {
 
         GameRegistry.addShapelessRecipe(new ResourceLocation(MODID, WOOD_BLEACH.getName()), null, woodBleach3, bottle, bottle, bottle, bucketIng, redMushroom, redMushroom);
 
+        // Linen
+        Ingredient twine = Ingredient.fromStacks(getMaterial(TWINE));
+
+        ItemStack linen = getMaterial(LINEN).copy();
+
+        GameRegistry.addShapedRecipe(new ResourceLocation(MODID, LINEN.getName()), null, linen, "AAA", "AAA", "AAA", 'A', twine);
+
         // Flaxseed Oil Bucket
         Ingredient flaxseedOilBottleIng = Ingredient.fromStacks(flaxseedOilBottle);
         Ingredient emptyBucket = Ingredient.fromItem(Items.BUCKET);
@@ -282,6 +336,10 @@ public class RegistryManager {
         Ingredient wickerPatchIng = Ingredient.fromStacks(getMaterial(WICKER_PATCH));
         registry.register(lessStupidOreRecipe(BASKET.getRegistryName(), new ItemStack(BASKET), "ABA", "A A", "AAA", 'A', wickerPatchIng, 'B', "stickWood"));
         registry.register(lessStupidOreRecipe(new ResourceLocation(BASKET.getRegistryName() + "_sturdy"), new ItemStack(BASKET, 1, 1), "ABA", "ACA", "AAA", 'A', wickerPatchIng, 'B', "stickWood", 'C', new ItemStack(Items.BUCKET)));
+
+        // Sacks
+        GameRegistry.addShapedRecipe(SACK.getRegistryName(), null, new ItemStack(SACK), " A ", "ABA", "AAA", 'A', Ingredient.fromStacks(linen), 'B', twine);
+        registry.register(new RecipeDyeSack().setRegistryName(new ResourceLocation(MODID, "dye_sack")));
 
         // Wood Staining
         addWoodRecipe(0, new ItemStack(Blocks.PLANKS, 1, OAK.getMetadata()), new ItemStack(Blocks.PLANKS, 1, SPRUCE.getMetadata()));
@@ -425,13 +483,13 @@ public class RegistryManager {
     private void registerColoredRecipes(RegistryEvent.Register<IRecipe> event) {
         IForgeRegistry<IRecipe> registry = event.getRegistry();
 
-        Ingredient twine = Ingredient.fromStacks(getMaterial(TWINE));
+        Ingredient linen = Ingredient.fromStacks(getMaterial(LINEN));
 
         // Plain Fabric
         ItemStack plainFabric = new ItemStack(FABRICS.get(0));
-        plainFabric.setCount(2);
+        plainFabric.setCount(24);
 
-        registry.register(lessStupidOreRecipe(plainFabric.getItem().getRegistryName(), plainFabric, "AAA", "ABA", "AAA", 'A', twine, 'B', "stickWood"));
+        registry.register(lessStupidOreRecipe(plainFabric.getItem().getRegistryName(), plainFabric, "AAA", "ABA", "AAA", 'A', linen, 'B', "stickWood"));
 
         // // // CUSHIONS // // //
         Ingredient cushionMiddle = Ingredient.fromItems(getItemBlock(FEATHER_BLOCK), getItemBlock(Blocks.HAY_BLOCK));
@@ -455,10 +513,12 @@ public class RegistryManager {
             ResourceLocation cushionLocation = cushionItem.getRegistryName();
 
             ItemStack fabric = new ItemStack(fabricItem);
-            ItemStack fabric2 = fabric.copy(); fabric2.setCount(10);
+            ItemStack fabric2 = fabric.copy();
+            fabric2.setCount(10);
 
             ItemStack cushion = new ItemStack(cushionItem);
-            ItemStack cushion2 = cushion.copy(); cushion2.setCount(2);
+            ItemStack cushion2 = cushion.copy();
+            cushion2.setCount(2);
 
             Ingredient fabricIng = Ingredient.fromItems(fabricItem);
             Ingredient woolIng = Ingredient.fromStacks(new ItemStack(Blocks.WOOL, 1, color.getMetadata()));
@@ -474,8 +534,7 @@ public class RegistryManager {
             if (i == whiteId) {
                 GameRegistry.addShapelessRecipe(new ResourceLocation(fabricLocation + "_dying"), null, fabric.copy(), colorIng, plainFabricIng);
                 GameRegistry.addShapelessRecipe(new ResourceLocation(cushionLocation + "_dying"), null, cushion, colorIng, Ingredient.fromItem(CUSHIONS.get(0)));
-            }
-            else {
+            } else {
                 GameRegistry.addShapelessRecipe(new ResourceLocation(fabricLocation + "_dying"), null, fabric, colorIng, whiteFabric);
                 GameRegistry.addShapelessRecipe(new ResourceLocation(cushionLocation + "_dying"), null, cushion, colorIng, whiteCushion);
             }
