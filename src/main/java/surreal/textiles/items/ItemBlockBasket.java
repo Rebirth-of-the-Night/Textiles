@@ -4,9 +4,12 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import surreal.textiles.entities.EntityBasket;
+import surreal.textiles.util.ReadOnlyItemBlockInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,6 +21,12 @@ public class ItemBlockBasket extends ItemBlockBase {
     public ItemBlockBasket(Block block) {
         super(block);
         setHasSubtypes(true);
+    }
+
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(final ItemStack stack, @Nullable final NBTTagCompound nbt) {
+        return new ReadOnlyItemBlockInventory(stack);
     }
 
     @Override
@@ -38,4 +47,5 @@ public class ItemBlockBasket extends ItemBlockBase {
     public Entity createEntity(World world, Entity location, ItemStack itemstack) {
         return new EntityBasket(world, location, itemstack);
     }
+
 }

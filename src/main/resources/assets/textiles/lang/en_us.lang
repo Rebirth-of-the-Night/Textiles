@@ -47,6 +47,8 @@ tile.textiles.dried_fibers.name=Retted Fiber Bale
 tile.textiles.basket.name=Basket
 tile.textiles.basket_1.name=Sturdy Basket
 
+tile.textiles.sack.name=Sack
+
 # Items
 item.textiles.material.wicker_patch.name=Wicker Patch
 item.textiles.material.twine.name=Twine
@@ -61,4 +63,14 @@ item.textiles.material.silk_wisps.name=Silk Wisps
 item.textiles.material.flaxseed_oil.name=Flaxseed Oil Bottle
 item.textiles.material.wood_stain.name=Wood Stain
 item.textiles.material.wood_bleach.name=Wood Bleach
+item.textiles.material.linen.name=Linen
 item.textiles.flax_seeds.name=Flax Seeds
+
+# Potions
+effect.textiles.overencumbered=Overencumbered
+
+# Subtitles
+textiles.subtitles.sack_open=Sack opens
+textiles.subtitles.sack_close=Sack closes
+textiles.subtitles.sack_insert=Sack fills
+textiles.subtitles.sack_extract=Sack empties

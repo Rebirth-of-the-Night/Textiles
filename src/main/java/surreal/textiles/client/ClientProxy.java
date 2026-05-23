@@ -6,20 +6,29 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import surreal.textiles.CommonProxy;
 import surreal.textiles.RegistryManager;
 import surreal.textiles.Textiles;
+import surreal.textiles.blocks.BlockSack;
 import surreal.textiles.client.renderer.RenderEntityBasket;
+import surreal.textiles.client.renderer.RenderEntityFallingSack;
 import surreal.textiles.entities.EntityBasket;
+import surreal.textiles.entities.EntityFallingSack;
+import surreal.textiles.items.ItemBlockSack;
+import surreal.textiles.tiles.TileSack;
 
 @SideOnly(Side.CLIENT)
-public class ClientProxy {
+public class ClientProxy extends CommonProxy {
 
-    public static void preInit(FMLPreInitializationEvent event) {
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(EntityBasket.class, manager -> new RenderEntityBasket(manager, Minecraft.getMinecraft().getRenderItem()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityFallingSack.class, RenderEntityFallingSack::new);
     }
 
     @SubscribeEvent
@@ -32,4 +41,24 @@ public class ClientProxy {
         TextureMap map = event.getMap();
         map.registerSprite(new ResourceLocation(Textiles.MODID, "fluids/flaxseed_oil"));
     }
+
+    @Override
+    public void init(final FMLInitializationEvent event) {
+        final Minecraft mc = Minecraft.getMinecraft();
+        mc.getBlockColors().registerBlockColorHandler((state, world, pos, tintIndex) -> {
+            if (tintIndex == -1) return 0xFFFFFF;
+            final int fallingBlockCol = RenderEntityFallingSack.getOverrideBlockCol();
+            if (fallingBlockCol >= 0) return fallingBlockCol;
+            if (world == null || pos == null || !state.getValue(BlockSack.DYED)
+                    || !(world.getTileEntity(pos) instanceof TileSack sack)) return 0xFFFFFF;
+            final int col = sack.getDyeColor();
+            return col >= 0 ? col : 0xFFFFFF;
+        }, RegistryManager.SACK);
+        mc.getItemColors().registerItemColorHandler((stack, tintIndex) -> {
+            if (tintIndex == -1) return 0xFFFFFF;
+            final int col = ItemBlockSack.getDyeColorForStack(stack);
+            return col >= 0 ? col : 0xFFFFFF;
+        }, RegistryManager.SACK);
+    }
+
 }

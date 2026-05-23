@@ -64,7 +64,8 @@ public class ItemMaterial extends Item implements ModelRegistry {
         SILK_WISPS("silk_wisps"),
         FLAXSEED_OIL_BOTTLE("flaxseed_oil"),
         WOOD_STAIN("wood_stain"),
-        WOOD_BLEACH("wood_bleach");
+        WOOD_BLEACH("wood_bleach"),
+        LINEN("linen");
 
         static final Type[] VALUES = values();
 

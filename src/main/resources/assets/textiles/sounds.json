@@ -1,0 +1,26 @@
+{
+  "block.sack.open": {
+    "subtitle": "textiles.subtitles.sack_open",
+    "sounds": [
+      "textiles:sack_item_pick_up"
+    ]
+  },
+  "block.sack.close": {
+    "subtitle": "textiles.subtitles.sack_close",
+    "sounds": [
+      "textiles:sack_close"
+    ]
+  },
+  "block.sack.insert": {
+    "subtitle": "textiles.subtitles.sack_insert",
+    "sounds": [
+      "textiles:sack_item_deposit"
+    ]
+  },
+  "block.sack.extract": {
+    "subtitle": "textiles.subtitles.sack_extract",
+    "sounds": [
+      "textiles:sack_item_pick_up"
+    ]
+  }
+}

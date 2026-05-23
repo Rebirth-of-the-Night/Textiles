@@ -10,6 +10,8 @@ public class ModConfig {
     public static final Cushions cushions = new Cushions();
     public static final FiberBales fibers = new FiberBales();
     public static final Fabric fabric = new Fabric();
+    public static final Sack sack = new Sack();
+    public static final Overencumbrance overencumbrance = new Overencumbrance();
 
     public static class Drops {
         @Config.Name("Plant Fibers Drop")
@@ -94,5 +96,90 @@ public class ModConfig {
         })
         @Config.RangeDouble(min = 0D)
         public double walkingSpeed = 0.6D;
+    }
+
+    public static class Sack {
+        @Config.Name("Slot Row Count")
+        @Config.Comment({
+                "How many rows of slots should the sack have?",
+                "Reducing this may cause existing sacks to delete items!"
+        })
+        @Config.RangeInt(min = 1, max = 3)
+        @Config.RequiresWorldRestart
+        public int slotRowCount = 3;
+
+        @Config.Name("Slot Column Count")
+        @Config.Comment({
+                "How many columns of slots should the sack have?",
+                "Reducing this may cause existing sacks to delete items!"
+        })
+        @Config.RangeInt(min = 1, max = 9)
+        @Config.RequiresWorldRestart
+        public int slotColumnCount = 3;
+
+        @Config.Name("Inventory Interaction")
+        @Config.Comment("Allows bundle-like interaction with the sack in the inventory.")
+        public boolean inventoryInteraction = true;
+
+        @Config.Name("Gravity")
+        @Config.Comment("Should sacks be falling blocks (like sand)?")
+        public boolean gravity = true;
+
+        @Config.Name("Gravity Damage")
+        @Config.Comment("The amount of damage dealt, per non-empty inventory slot, per block fallen, by falling sacks.")
+        @Config.RangeDouble(min = 0D)
+        public double gravityDamage = 0.2D;
+    }
+
+    public static class Overencumbrance {
+        @Config.Name("Enable Overencumbrance")
+        @Config.Comment("Enables a movement-slowing effect when the player is holding too many \"heavy\" items.")
+        public boolean enabled = true;
+
+        @Config.Name("Weight Threshold")
+        @Config.Comment("The minimum weight at which overencumbrance applies.")
+        @Config.RangeDouble(min = 0D)
+        public double weightThreshold = 3D;
+
+        @Config.Name("Item Weights")
+        @Config.Comment({
+                "A list of custom item weights.",
+                "Each line should be of the form: <item_id>[:<metadata>]=<weight>"
+        })
+        @Config.RequiresMcRestart
+        public String[] itemWeights = {
+                "textiles:sack=1"
+        };
+
+        @Config.Name("Search Inside Inventories")
+        @Config.Comment({
+                "Should the overencumbrance check include the contexts of items with inventories, like shulker boxes?",
+                "If the inventory item itself has a weight, then it gets added to the weight of its contents."
+        })
+        public boolean searchInsideInventories = true;
+
+        @Config.Name("Inventories Light When Empty")
+        @Config.Comment("Should items with inventories only be considered heavy if they contain at least one item?")
+        public boolean inventoriesLightWhenEmpty = true;
+
+        @Config.Name("Overencumbrance Effect")
+        @Config.Comment("The potion effect applied by overencumbrance.")
+        @Config.RequiresMcRestart
+        public String overencumbranceEffect = "minecraft:slowness";
+
+        @Config.Name("Overencumbrance Effect Potency")
+        @Config.Comment("The level of the overencumbrance potion effect applied per unit of weight over the limit.")
+        @Config.RangeDouble(min = 0D)
+        public double overencumbranceEffectPotency = 1D;
+
+        @Config.Name("Strength Effects")
+        @Config.Comment({
+                "A list of potion effects that increase a player's carry capacity by a certain amount per level.",
+                "Each line should be of the form: <potion_id>=<weight_per_level>"
+        })
+        @Config.RequiresMcRestart
+        public String[] strengthEffects = {
+                "minecraft:strength=1"
+        };
     }
 }
