@@ -52,15 +52,10 @@ public class ItemBlockStackable extends ItemBlock implements ModelRegistry {
 
         if (!itemstack.isEmpty() && player.canPlayerEdit(pos, facing, itemstack) && worldIn.mayPlace(this.block, pos, false, facing, player)) {
             int i = this.getMetadata(itemstack.getMetadata());
-            IBlockState iblockstate1 = this.block.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, i, player, hand);
             BlockStackable stackable = (BlockStackable) this.block;
-
-            int amount = 1;
-
-            if (player.isSneaking()) {
-                amount = player.isCreative() ? stackable.getMaxAmount() + 1 : Math.min(stackable.getMaxAmount() + 1, itemstack.getCount());
-                iblockstate1 = iblockstate1.withProperty(stackable.getAmountProperty(), amount - 1);
-            }
+            int amount = getAmountToPlace(stackable, player, itemstack);
+            IBlockState iblockstate1 = this.block.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, i, player, hand)
+                    .withProperty(stackable.getAmountProperty(), amount - 1);
 
             if (placeBlockAt(itemstack, player, worldIn, pos, facing, hitX, hitY, hitZ, iblockstate1)) {
                 iblockstate1 = worldIn.getBlockState(pos);
@@ -74,4 +69,11 @@ public class ItemBlockStackable extends ItemBlock implements ModelRegistry {
 
         return EnumActionResult.FAIL;
     }
+
+    public static int getAmountToPlace(final BlockStackable block, final EntityPlayer player, final ItemStack stack) {
+        if (!player.isSneaking()) return 1;
+        if (player.isCreative()) return block.getMaxAmount() + 1;
+        return Math.min(block.getMaxAmount() + 1, stack.getCount());
+    }
+
 }

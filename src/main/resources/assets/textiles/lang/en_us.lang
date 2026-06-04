@@ -74,3 +74,7 @@ textiles.subtitles.sack_open=Sack opens
 textiles.subtitles.sack_close=Sack closes
 textiles.subtitles.sack_insert=Sack fills
 textiles.subtitles.sack_extract=Sack empties
+
+# Tooltips
+textiles.tooltip.raw_fibers.no_fluidlogged=Place on the surface of water to turn into retted fibers
+textiles.tooltip.raw_fibers.fluidlogged=Place in water to turn into retted fibers

@@ -50,7 +50,7 @@ public class Textiles {
             serverSide = "surreal.textiles.CommonProxy",
             clientSide = "surreal.textiles.client.ClientProxy"
     )
-    private static CommonProxy proxy;
+    public static CommonProxy proxy;
 
     public static Logger LOGGER;
     public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);

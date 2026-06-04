@@ -9,6 +9,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -22,11 +24,13 @@ import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import surreal.textiles.ModConfig;
 import surreal.textiles.RegistryManager;
+import surreal.textiles.compat.TextilesCompat;
 import surreal.textiles.tiles.TileRawFibers;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
 import java.util.Random;
 
 @SuppressWarnings("deprecation")
@@ -71,7 +75,7 @@ public class BlockRawFibers extends BlockFibers implements ITileEntityProvider {
         TileRawFibers tile = getTile(world, pos);
         tile.setAge(state.getValue(AGE));
 
-        if (Loader.isModLoaded("fluidlogged_api")) {
+        if (TextilesCompat.FLUIDLOGGED_LOADED) {
             if (FluidloggedUtils.getFluidState(world, pos) != FluidState.EMPTY) {
                 scheduleUpdate(world, pos);
             }
@@ -91,7 +95,7 @@ public class BlockRawFibers extends BlockFibers implements ITileEntityProvider {
     @ParametersAreNonnullByDefault
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if (Loader.isModLoaded("fluidlogged_api") || world.isUpdateScheduled(pos, this)) return;
+        if (TextilesCompat.FLUIDLOGGED_LOADED || world.isUpdateScheduled(pos, this)) return;
 
         IBlockState nState = world.getBlockState(fromPos);
         Block nBlock = nState.getBlock();
@@ -102,7 +106,7 @@ public class BlockRawFibers extends BlockFibers implements ITileEntityProvider {
     }
 
     // Fluid Logging
-    @Optional.Method(modid = "fluidlogged_api")
+    @Optional.Method(modid = TextilesCompat.FLUIDLOGGED)
     @Nonnull
     @Override
     public EnumActionResult onFluidChange(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState here, @Nonnull FluidState newFluid, int blockFlags) {
@@ -125,4 +129,12 @@ public class BlockRawFibers extends BlockFibers implements ITileEntityProvider {
     public TileEntity createNewTileEntity(@Nonnull World worldIn, int meta) {
         return new TileRawFibers();
     }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(I18n.format(TextilesCompat.FLUIDLOGGED_LOADED
+                ? "textiles.tooltip.raw_fibers.fluidlogged"
+                : "textiles.tooltip.raw_fibers.no_fluidlogged"));
+    }
+
 }

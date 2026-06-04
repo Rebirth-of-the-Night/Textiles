@@ -41,6 +41,7 @@ import surreal.textiles.blocks.BlockSpindle;
 import surreal.textiles.client.models.ModelRegistry;
 import surreal.textiles.items.ItemBlockBase;
 import surreal.textiles.items.ItemBlockBasket;
+import surreal.textiles.items.ItemBlockRawFibers;
 import surreal.textiles.items.ItemBlockSack;
 import surreal.textiles.items.ItemBlockStackable;
 import surreal.textiles.items.ItemCushion;
@@ -107,7 +108,7 @@ public class RegistryManager {
 
         RAW_FIBERS = registerBlock("raw_fibers", new BlockRawFibers());
         DRIED_FIBERS = registerBlock("dried_fibers", new BlockRettedFibers());
-        registerItem("raw_fibers", new ItemBlockStackable(RAW_FIBERS));
+        registerItem("raw_fibers", new ItemBlockRawFibers(RAW_FIBERS));
         registerItem("dried_fibers", new ItemBlockStackable(DRIED_FIBERS));
 
         registerSpindles();
