@@ -32,7 +32,9 @@ import java.util.Random;
 @SuppressWarnings("deprecation")
 public class BlockFlax extends BlockCrops {
 
-    protected static final PropertyInteger AGE = PropertyInteger.create("age", 0, 5);
+    private static final int MAX_AGE = 5;
+
+    protected static final PropertyInteger AGE = PropertyInteger.create("age", 0, MAX_AGE);
     protected static final PropertyBool BOTTOM = PropertyBool.create("bottom");
 
     protected static final AxisAlignedBB[] BOUNDING_BOXES;
@@ -67,6 +69,7 @@ public class BlockFlax extends BlockCrops {
                 worldIn.scheduleBlockUpdate(pos, this, 1, 0); // Delay a tick to make shear trick work
             }
         }
+        checkAndDropBlock(worldIn, pos, state);
     }
 
     private void handleUp(World world, BlockPos up, int ageToAdd) {
@@ -83,8 +86,15 @@ public class BlockFlax extends BlockCrops {
 
     @Override
     public boolean canBlockStay(World worldIn, BlockPos pos, @Nonnull IBlockState state) {
-        IBlockState soil = worldIn.getBlockState(pos.down());
-        return (worldIn.getLight(pos) >= 8 || worldIn.canSeeSky(pos)) && (soil.getBlock() == this || soil.getBlock().canSustainPlant(soil, worldIn, pos.down(), EnumFacing.UP, this));
+        if (worldIn.getLight(pos) < 8 && !worldIn.canSeeSky(pos)) return false;
+        IBlockState crop = worldIn.getBlockState(pos);
+        BlockPos down = pos.down();
+        IBlockState soil = worldIn.getBlockState(down);
+        if (crop.getValue(BOTTOM)) {
+            return soil.getBlock().canSustainPlant(soil, worldIn, down, EnumFacing.UP, this);
+        } else {
+            return soil.getBlock() == this && isMaxAge(soil);
+        }
     }
 
     @ParametersAreNonnullByDefault
@@ -100,6 +110,8 @@ public class BlockFlax extends BlockCrops {
             if (worldIn.isAirBlock(up) || upState.getBlock().isReplaceable(worldIn, up)) {
                 worldIn.setBlockState(up, getDefaultState().withProperty(BOTTOM, false));
             }
+
+            checkAndDropBlock(worldIn, pos, state);
 
         } else super.updateTick(worldIn, pos, state, rand);
     }
@@ -247,12 +259,12 @@ public class BlockFlax extends BlockCrops {
 
     @Override
     public int getMaxAge() {
-        return 5;
+        return MAX_AGE;
     }
 
     @Override
     public boolean isMaxAge(@Nonnull IBlockState state) {
-        return getAge(state) == 5;
+        return getAge(state) == MAX_AGE;
     }
 
     static {
