@@ -25,6 +25,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -321,7 +322,7 @@ public class RegistryManager {
         Ingredient vibrantBlossoms = Ingredient.fromStacks(getMaterial(VIBRANT_FLAX_BLOSSOMS));
         Ingredient exquisiteBlossoms = Ingredient.fromStacks(getMaterial(EXQUISITE_FLAX_BLOSSOMS));
 
-        Ingredient chainMeshIng = Ingredient.fromStacks(chainMesh);
+        Ingredient chainMeshIng = Ingredient.fromStacks(ItemHandlerHelper.copyStackWithSize(chainMesh, 1));
 
         GameRegistry.addShapelessRecipe(new ResourceLocation(MODID, "lightblue_dye_from_pale_blossoms"), null, getColorItem(EnumDyeColor.LIGHT_BLUE), paleBlossoms, paleBlossoms, paleBlossoms);
         GameRegistry.addShapelessRecipe(new ResourceLocation(MODID, "cyan_dye_from_vibrant_blossoms"), null, getColorItem(EnumDyeColor.CYAN), vibrantBlossoms, vibrantBlossoms, vibrantBlossoms);
