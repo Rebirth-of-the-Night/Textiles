@@ -2,6 +2,7 @@ package surreal.textiles.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -38,6 +39,7 @@ public class BlockCushion extends BlockSlabBase {
 
     public BlockCushion() {
         super(Material.CLOTH);
+        setSoundType(SoundType.CLOTH);
         setHardness(0.8F).setResistance(8.0F);
         setDefaultState(getDefaultState().withProperty(AXIS, EnumFacing.Axis.Y).withProperty(HALF, EnumBlockHalf.TOP));
         useNeighborBrightness = true;

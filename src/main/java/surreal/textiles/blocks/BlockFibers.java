@@ -1,5 +1,6 @@
 package surreal.textiles.blocks;
 
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -22,6 +23,7 @@ public abstract class BlockFibers extends BlockStackable {
 
     public BlockFibers() {
         super(Material.PLANTS);
+        setSoundType(SoundType.PLANT);
         setHardness(0.3F).setResistance(0.3F);
         setDefaultState(getDefaultState().withProperty(getAmountProperty(), 0));
     }

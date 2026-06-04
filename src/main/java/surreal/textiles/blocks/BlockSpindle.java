@@ -40,6 +40,7 @@ public class BlockSpindle extends BlockStackable implements ITileEntityProvider 
 
     public BlockSpindle() {
         super(Material.CLOTH);
+        setSoundType(SoundType.CLOTH);
         setDefaultState(getDefaultState().withProperty(AXIS, EnumFacing.Axis.X));
         setHardness(0.08F).setResistance(2F);
     }

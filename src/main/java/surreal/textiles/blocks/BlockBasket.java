@@ -2,6 +2,7 @@ package surreal.textiles.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -46,6 +47,7 @@ public class BlockBasket extends Block implements ITileEntityProvider {
 
     public BlockBasket() {
         super(Material.WOOD);
+        setSoundType(SoundType.WOOD);
         setDefaultState(getDefaultState().withProperty(TYPE, 0).withProperty(FACING, EnumFacing.UP));
         useNeighborBrightness = true;
     }
