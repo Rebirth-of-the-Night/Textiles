@@ -1,0 +1,8 @@
+{
+  "parent": "textiles:block/bolts/bolt_solo_floor_0",
+  "textures": {
+    "sides": "textiles:blocks/fabric_lime_sides",
+    "ends": "textiles:blocks/fabric_lime_ends",
+    "extras": "textiles:blocks/fabric_lime_extras"
+  }
+}

@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -17,6 +18,7 @@ import surreal.textiles.CommonProxy;
 import surreal.textiles.RegistryManager;
 import surreal.textiles.Textiles;
 import surreal.textiles.blocks.BlockSack;
+import surreal.textiles.client.models.BlockSpindleModel;
 import surreal.textiles.client.renderer.RenderEntityBasket;
 import surreal.textiles.client.renderer.RenderEntityFallingSack;
 import surreal.textiles.entities.EntityBasket;
@@ -31,6 +33,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        ModelLoaderRegistry.registerLoader(new BlockSpindleModel.Loader());
         RenderingRegistry.registerEntityRenderingHandler(EntityBasket.class, manager -> new RenderEntityBasket(manager, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityFallingSack.class, RenderEntityFallingSack::new);
     }

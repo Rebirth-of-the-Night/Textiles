@@ -1,0 +1,45 @@
+{
+	"format_version": "1.21.11",
+	"credit": "Made with Blockbench by Malcolm Riley",
+	"parent": "textiles:block/fabric_base",
+	"elements": [
+		{
+			"name": "Fray",
+			"from": [9.5394, 11.2211, 2],
+			"to": [9.5394, 15.2211, 14],
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [11.85488, 13.61575, 8]},
+			"faces": {
+				"east": {"uv": [10, 14, 14, 2], "rotation": 90, "texture": "#extras"},
+				"west": {"uv": [10, 3, 14, 15], "rotation": 90, "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Dowel",
+			"from": [12.48, 12.805, 1],
+			"to": [13.53, 13.855, 15],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11.85488, 13.58575, 8]},
+			"faces": {
+				"north": {"uv": [14, 0, 15, 1], "texture": "#extras"},
+				"east": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"south": {"uv": [15, 0, 16, 1], "texture": "#extras"},
+				"west": {"uv": [14, 2, 15, 16], "rotation": 90, "texture": "#extras"},
+				"up": {"uv": [14, 2, 15, 16], "texture": "#extras"},
+				"down": {"uv": [15, 2, 16, 16], "texture": "#extras"}
+			}
+		},
+		{
+			"name": "Fabric",
+			"from": [10.33, 10.655, 2],
+			"to": [15.66, 15.985, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [11.85488, 13.58575, 8]},
+			"faces": {
+				"north": {"uv": [0, 0, 5, 5], "texture": "#ends"},
+				"east": {"uv": [0, 4, 5, 16], "rotation": 90, "texture": "#sides"},
+				"south": {"uv": [0, 0, 5, 5], "texture": "#ends"},
+				"west": {"uv": [0, 4, 5, 16], "rotation": 90, "texture": "#sides"},
+				"up": {"uv": [0, 0, 5, 12], "texture": "#sides"},
+				"down": {"uv": [5, 0, 10, 12], "texture": "#sides", "cullface": "down"}
+			}
+		}
+	]
+}

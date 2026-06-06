@@ -30,7 +30,6 @@ public class ItemBlockStackable extends ItemBlock implements ModelRegistry {
     @Override
     public int getItemBurnTime(@Nonnull ItemStack stack) {
         if (block instanceof BlockFibers) return ModConfig.fibers.fuelAmount;
-        else if (block instanceof BlockSpindle) return ModConfig.fabric.fuelAmount;
 
         return super.getItemBurnTime(stack);
     }

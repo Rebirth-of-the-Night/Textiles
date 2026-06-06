@@ -1,0 +1,8 @@
+{
+  "parent": "textiles:block/bolts/bolt_solo_floor_0",
+  "textures": {
+    "sides": "textiles:blocks/fabric_cyan_sides",
+    "ends": "textiles:blocks/fabric_cyan_ends",
+    "extras": "textiles:blocks/fabric_cyan_extras"
+  }
+}
