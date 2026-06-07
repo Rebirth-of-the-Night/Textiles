@@ -22,6 +22,7 @@ tile.textiles.spindle_silver.name=Light Gray Fabric
 tile.textiles.spindle_gray.name=Gray Fabric
 tile.textiles.spindle_black.name=Black Fabric
 tile.textiles.spindle_brown.name=Brown Fabric
+tile.textiles.spindle_canvas.name=Bolt of Canvas
 
 tile.textiles.cushion.name=Plain Cushion
 tile.textiles.cushion_red.name=Red Cushion

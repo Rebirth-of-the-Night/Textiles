@@ -302,7 +302,8 @@ public class BlockSpindle extends BlockNotCube implements ITileEntityProvider {
         BROWN,
         GREEN,
         RED,
-        BLACK;
+        BLACK,
+        CANVAS;
 
         private final String lowerName = name().toLowerCase(Locale.ROOT);
 
