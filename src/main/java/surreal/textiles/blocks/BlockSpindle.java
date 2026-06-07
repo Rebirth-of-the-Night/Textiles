@@ -210,7 +210,7 @@ public class BlockSpindle extends BlockNotCube implements ITileEntityProvider {
     @Nonnull
     @Override
     public EnumPushReaction getPushReaction(@Nonnull IBlockState state) {
-        return EnumPushReaction.BLOCK;
+        return EnumPushReaction.DESTROY;
     }
 
     @ParametersAreNonnullByDefault
