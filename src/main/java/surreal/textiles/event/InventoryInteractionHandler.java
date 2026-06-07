@@ -17,25 +17,23 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import org.lwjgl.input.Mouse;
-import surreal.textiles.ModConfig;
 import surreal.textiles.RegistryManager;
 import surreal.textiles.Textiles;
-import surreal.textiles.items.ItemBlockSack;
-import surreal.textiles.network.C2SSackInteraction;
-import surreal.textiles.tiles.TileSack;
+import surreal.textiles.items.PortableInventoryItem;
+import surreal.textiles.network.C2SPortableInventoryInteraction;
+import surreal.textiles.util.BlockItemInventory;
 import surreal.textiles.util.TextilesUtils;
 
 import javax.annotation.Nullable;
 
 @Mod.EventBusSubscriber(modid = Textiles.MODID)
-public enum SackInteractionHandler {
+public enum InventoryInteractionHandler {
 
     ;
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onMouseInput(GuiScreenEvent.MouseInputEvent.Pre event) {
-        if (!ModConfig.sack.inventoryInteraction) return;
         final GuiScreen gui = event.getGui();
         if (!(gui instanceof GuiContainer containerGui)) return;
         final Slot slot = containerGui.getSlotUnderMouse();
@@ -62,7 +60,7 @@ public enum SackInteractionHandler {
             switch (handleSlotClick(mc.player, slot, true)) {
                 case SUCCESS:
                     Textiles.NETWORK.sendToServer(
-                            new C2SSackInteraction(containerGui.inventorySlots.windowId, slot.slotNumber));
+                            new C2SPortableInventoryInteraction(containerGui.inventorySlots.windowId, slot.slotNumber));
                     // falls through
                 case FAIL:
                     event.setCanceled(true);
@@ -82,95 +80,95 @@ public enum SackInteractionHandler {
 
         final InventoryPlayer playerInventory = player.inventory;
         final ItemStack slotStack = slot.getStack();
-        if (slotStack.getItem() instanceof ItemBlockSack) {
-            if (!slot.isItemValid(slotStack)) return EnumActionResult.PASS;
-            final ItemStack heldStack = playerInventory.getItemStack();
-            if (heldStack.isEmpty()) {
-                final ItemStack resultStack = tryExtract(player, slotStack, null, simulate);
-                if (resultStack.isEmpty()) return EnumActionResult.FAIL;
-                if (!simulate) {
-                    playerInventory.setItemStack(resultStack);
-                    slot.putStack(slotStack);
-                    slot.onSlotChanged();
+        if (slotStack.getItem() instanceof PortableInventoryItem invItem) {
+            final BlockItemInventory inventory = invItem.getPortableInventory(slotStack);
+            if (inventory != null) {
+                if (!slot.isItemValid(slotStack)) return EnumActionResult.PASS;
+                if (!inventory.deserializeFromStack(slotStack)) return EnumActionResult.FAIL;
+                final ItemStack heldStack = playerInventory.getItemStack();
+                if (heldStack.isEmpty()) {
+                    final ItemStack resultStack = tryExtract(player, inventory, null, simulate);
+                    if (resultStack.isEmpty()) return EnumActionResult.FAIL;
+                    if (!simulate) {
+                        playerInventory.setItemStack(resultStack);
+                        slot.putStack(slotStack);
+                        slot.onSlotChanged();
+                    }
+                    return EnumActionResult.SUCCESS;
+                } else {
+                    final ItemStack remStack = tryInsert(player, inventory, heldStack, simulate);
+                    if (remStack == null) return EnumActionResult.FAIL;
+                    if (!simulate) {
+                        playerInventory.setItemStack(remStack);
+                        slot.putStack(slotStack);
+                        slot.onSlotChanged();
+                    }
+                    return EnumActionResult.SUCCESS;
                 }
-                return EnumActionResult.SUCCESS;
-            } else {
-                final ItemStack remStack = tryInsert(player, slotStack, heldStack, simulate);
-                if (remStack == null) return EnumActionResult.FAIL;
-                if (!simulate) {
-                    playerInventory.setItemStack(remStack);
-                    slot.putStack(slotStack);
-                    slot.onSlotChanged();
-                }
-                return EnumActionResult.SUCCESS;
             }
         }
 
         final ItemStack heldStack = playerInventory.getItemStack();
-        if (heldStack.getItem() instanceof ItemBlockSack) {
-            if (slotStack.isEmpty()) {
-                final ItemStack resultStack = tryExtract(player, heldStack, slot, simulate);
-                if (resultStack.isEmpty()) return EnumActionResult.FAIL;
-                if (!simulate) {
-                    slot.putStack(resultStack);
-                    slot.onSlotChanged();
-                }
-                return EnumActionResult.SUCCESS;
-            } else {
-                final ItemStack remStack = tryInsert(player, heldStack, slotStack, simulate);
-                if (remStack == null) return EnumActionResult.FAIL;
-                if (!simulate) {
-                    final ItemStack takenStack = ItemHandlerHelper.copyStackWithSize(
-                            slotStack, slotStack.getCount() - remStack.getCount());
-                    final ItemStack newSlotStack = slot.decrStackSize(takenStack.getCount());
-                    if (newSlotStack.isEmpty()) {
-                        slot.putStack(ItemStack.EMPTY);
+        if (heldStack.getItem() instanceof PortableInventoryItem invItem) {
+            final BlockItemInventory inventory = invItem.getPortableInventory(heldStack);
+            if (inventory != null) {
+                inventory.deserializeFromStack(heldStack);
+                if (slotStack.isEmpty()) {
+                    final ItemStack resultStack = tryExtract(player, inventory, slot, simulate);
+                    if (resultStack.isEmpty()) return EnumActionResult.FAIL;
+                    if (!simulate) {
+                        slot.putStack(resultStack);
+                        slot.onSlotChanged();
                     }
-                    slot.onTake(player, takenStack);
-                    // Container#slotClick calls slot.onSlotChanged() here, but it's probably not necessary
+                    return EnumActionResult.SUCCESS;
+                } else {
+                    final ItemStack remStack = tryInsert(player, inventory, slotStack, simulate);
+                    if (remStack == null) return EnumActionResult.FAIL;
+                    if (!simulate) {
+                        final ItemStack takenStack = ItemHandlerHelper.copyStackWithSize(
+                                slotStack, slotStack.getCount() - remStack.getCount());
+                        final ItemStack newSlotStack = slot.decrStackSize(takenStack.getCount());
+                        if (newSlotStack.isEmpty()) {
+                            slot.putStack(ItemStack.EMPTY);
+                        }
+                        slot.onTake(player, takenStack);
+                        // Container#slotClick calls slot.onSlotChanged() here, but it's probably not necessary
+                    }
+                    return EnumActionResult.SUCCESS;
                 }
-                return EnumActionResult.SUCCESS;
             }
         }
         return EnumActionResult.PASS;
     }
 
-    private static ItemStack tryExtract(final EntityPlayer player, final ItemStack sackStack,
+    private static ItemStack tryExtract(final EntityPlayer player, final BlockItemInventory inventory,
                                         @Nullable final Slot destSlot, final boolean simulate) {
-        final TileSack.SackInventory sackInventory = new TileSack.SackInventory(sackStack);
-        if (!sackInventory.deserializeFromStack(sackStack)) return ItemStack.EMPTY;
-
         // may diverge from the random selection on the server, but it's only simulated on the client anyways
-        final int slotIndex = TextilesUtils.getRandomNonEmptySlot(sackInventory, player.world.rand);
-        if (slotIndex < 0 || (destSlot != null && !destSlot.isItemValid(sackInventory.getStackInSlot(slotIndex)))) {
+        final int slotIndex = TextilesUtils.getRandomNonEmptySlot(inventory, player.world.rand);
+        if (slotIndex < 0 || (destSlot != null && !destSlot.isItemValid(inventory.getStackInSlot(slotIndex)))) {
             return ItemStack.EMPTY;
         }
 
-        final ItemStack resultStack = sackInventory.extractItem(slotIndex, Integer.MAX_VALUE, simulate);
+        final ItemStack resultStack = inventory.extractItem(slotIndex, Integer.MAX_VALUE, simulate);
         if (resultStack.isEmpty()) return ItemStack.EMPTY;
         player.playSound(RegistryManager.SACK_EXTRACT, 0.75F, 1F);
         return resultStack;
     }
 
     @Nullable
-    private static ItemStack tryInsert(final EntityPlayer player, final ItemStack sackStack,
+    private static ItemStack tryInsert(final EntityPlayer player, final BlockItemInventory inventory,
                                        final ItemStack insertStack, final boolean simulate) {
         if (TextilesUtils.isItemWithInventory(insertStack)) return null;
-
-        final TileSack.SackInventory sackInventory = new TileSack.SackInventory(sackStack);
-        sackInventory.deserializeFromStack(sackStack);
-
         if (simulate) {
-            final ItemStack remStack = ItemHandlerHelper.insertItemStacked(sackInventory, insertStack, true);
+            final ItemStack remStack = ItemHandlerHelper.insertItemStacked(inventory, insertStack, true);
             if (remStack.getCount() >= insertStack.getCount()) return null;
             player.playSound(RegistryManager.SACK_INSERT, 0.75F, 1F);
             return remStack;
         }
 
-        final ItemStack remStack = ItemHandlerHelper.insertItemStacked(sackInventory, insertStack.copy(), false);
+        final ItemStack remStack = ItemHandlerHelper.insertItemStacked(inventory, insertStack.copy(), false);
         if (remStack.getCount() >= insertStack.getCount()) return null;
         player.playSound(RegistryManager.SACK_INSERT, 0.75F, 1F);
-        sackInventory.serializeToStack(sackStack);
         return remStack;
     }
 

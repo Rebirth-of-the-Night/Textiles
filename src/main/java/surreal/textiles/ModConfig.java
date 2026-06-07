@@ -11,6 +11,7 @@ public class ModConfig {
     public static final FiberBales fibers = new FiberBales();
     public static final Fabric fabric = new Fabric();
     public static final Sack sack = new Sack();
+    public static final Basket basket = new Basket();
     public static final Overencumbrance overencumbrance = new Overencumbrance();
 
     public static class Drops {
@@ -131,6 +132,25 @@ public class ModConfig {
         public double gravityDamage = 0.2D;
     }
 
+    public static class Basket {
+        @Config.Name("Keep Inventory")
+        @Config.Comment("Should the (non-sturdy) basket retain its inventory when broken?")
+        @Config.RequiresWorldRestart
+        public boolean keepInventory = true;
+
+        @Config.Name("Keep Inventory (Sturdy)")
+        @Config.Comment("Should the sturdy basket retain its inventory when broken?")
+        @Config.RequiresWorldRestart
+        public boolean keepInventorySturdy = true;
+
+        @Config.Name("Inventory Interaction")
+        @Config.Comment({
+                "Allows bundle-like interaction with the basket in the inventory.",
+                "Only useful when the \"keep inventory\" setting is enabled."
+        })
+        public boolean inventoryInteraction = true;
+    }
+
     public static class Overencumbrance {
         @Config.Name("Enable Overencumbrance")
         @Config.Comment("Enables a movement-slowing effect when the player is holding too many \"heavy\" items.")
@@ -148,7 +168,8 @@ public class ModConfig {
         })
         @Config.RequiresMcRestart
         public String[] itemWeights = {
-                "textiles:sack=1"
+                "textiles:sack=1",
+                "textiles:basket=2"
         };
 
         @Config.Name("Search Inside Inventories")

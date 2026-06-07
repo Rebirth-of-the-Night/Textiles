@@ -5,8 +5,8 @@
   },
   "variants": {
     "type": {
-      "0": { "model": "textiles:basket_upright" },
-      "1": { "model": "textiles:basket_sturdy_upright" }
+      "default": { "model": "textiles:basket_upright" },
+      "sturdy": { "model": "textiles:basket_sturdy_upright" }
     },
     "facing": {
       "up": {},

@@ -17,4 +17,7 @@ public enum TextilesCompat {
     public static final String FLUIDLOGGED = "fluidlogged_api";
     public static final boolean FLUIDLOGGED_LOADED = Loader.isModLoaded(FLUIDLOGGED);
 
+    public static final String PORTABLE_INV_TOOLS = "portableinventorytools";
+    public static final boolean PORTABLE_INV_TOOLS_LOADED = Loader.isModLoaded(PORTABLE_INV_TOOLS);
+
 }

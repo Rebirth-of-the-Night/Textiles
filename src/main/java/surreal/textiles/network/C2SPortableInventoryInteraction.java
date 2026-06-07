@@ -9,18 +9,18 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import surreal.textiles.ModConfig;
-import surreal.textiles.event.SackInteractionHandler;
+import surreal.textiles.event.InventoryInteractionHandler;
 
 import java.util.List;
 
-public class C2SSackInteraction implements IMessage {
+public class C2SPortableInventoryInteraction implements IMessage {
 
     private int windowId;
     private int slot;
 
-    public C2SSackInteraction() {}
+    public C2SPortableInventoryInteraction() {}
 
-    public C2SSackInteraction(final int windowId, final int slot) {
+    public C2SPortableInventoryInteraction(final int windowId, final int slot) {
         this.windowId = windowId;
         this.slot = slot;
     }
@@ -36,10 +36,10 @@ public class C2SSackInteraction implements IMessage {
         slot = buf.readShort();
     }
 
-    public static class Handler implements IMessageHandler<C2SSackInteraction, IMessage> {
+    public static class Handler implements IMessageHandler<C2SPortableInventoryInteraction, IMessage> {
 
         @Override
-        public IMessage onMessage(final C2SSackInteraction message, final MessageContext ctx) {
+        public IMessage onMessage(final C2SPortableInventoryInteraction message, final MessageContext ctx) {
             final EntityPlayerMP player = ctx.getServerHandler().player;
             player.getServerWorld().addScheduledTask(() -> {
                 if (!ModConfig.sack.inventoryInteraction) return;
@@ -50,8 +50,7 @@ public class C2SSackInteraction implements IMessage {
                 final List<Slot> slots = container.inventorySlots;
                 if (slotIndex >= slots.size()) return;
                 final Slot slot = slots.get(slotIndex);
-                if (SackInteractionHandler.handleSlotClick(player, slot, false) == EnumActionResult.SUCCESS) {
-//                    player.sendSlotContents(container, slotIndex, slot.getStack()); // FIXME
+                if (InventoryInteractionHandler.handleSlotClick(player, slot, false) == EnumActionResult.SUCCESS) {
                     player.updateHeldItem();
                 }
             });
