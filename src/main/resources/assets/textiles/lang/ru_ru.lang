@@ -1,0 +1,76 @@
+itemGroup.textiles=Текстиль
+
+fluid.flaxseed_oil=Льняное масло
+
+# Блоки
+tile.textiles.feather_block.name=Пучок перьев
+
+tile.textiles.spindle.name=Однотонная ткань
+tile.textiles.spindle_red.name=Красная ткань
+tile.textiles.spindle_orange.name=Оранжевая ткань
+tile.textiles.spindle_yellow.name=Желтая ткань
+tile.textiles.spindle_lime.name=Лаймовая ткань
+tile.textiles.spindle_green.name=Зеленая ткань
+tile.textiles.spindle_cyan.name=Бирюзовая ткань
+tile.textiles.spindle_light_blue.name=Светло-голубая ткань
+tile.textiles.spindle_blue.name=Синяя Ткань
+tile.textiles.spindle_purple.name=Фиолетовая ткань
+tile.textiles.spindle_magenta.name=Малиновая ткань
+tile.textiles.spindle_pink.name=Розовая ткань
+tile.textiles.spindle_white.name=Белая ткань
+tile.textiles.spindle_silver.name=Светло-серая ткань
+tile.textiles.spindle_gray.name=Серая ткань
+tile.textiles.spindle_black.name=Черная ткань
+tile.textiles.spindle_brown.name=Коричневая ткань
+
+tile.textiles.cushion.name=Обычная подушка
+tile.textiles.cushion_red.name=Красная подушка
+tile.textiles.cushion_orange.name=Оранжевая подушка
+tile.textiles.cushion_yellow.name=Желтая Подушка
+tile.textiles.cushion_lime.name=Лаймовая подушка
+tile.textiles.cushion_green.name=Зеленая подушка
+tile.textiles.cushion_cyan.name=Бирюзовая подушка
+tile.textiles.cushion_light_blue.name=Светло-голубая подушка
+tile.textiles.cushion_blue.name=Синяя подушка
+tile.textiles.cushion_purple.name=Фиолетовая подушка
+tile.textiles.cushion_magenta.name=Пурпурная подушка
+tile.textiles.cushion_pink.name=Розовая подушка
+tile.textiles.cushion_white.name=Белая подушка
+tile.textiles.cushion_silver.name=Светло-серая подушка
+tile.textiles.cushion_gray.name=Серая Подушка
+tile.textiles.cushion_black.name=Черная подушка
+tile.textiles.cushion_brown.name=Коричневая подушка
+
+tile.textiles.raw_fibers.name=Тюк сырого волокна
+tile.textiles.dried_fibers.name=Тюк высушенного волокна
+
+tile.textiles.basket.name=Корзина
+tile.textiles.basket_1.name=Прочная корзина
+
+tile.textiles.sack.name=Мешок
+
+# Товары
+item.textiles.material.wicker_patch.name=Плетеный лоскут
+item.textiles.material.twine.name=Шпага
+item.textiles.material.flax_stalks.name=Стебли льна
+item.textiles.material.pale_blossom.name=Бледный лен Цветы
+item.textiles.material.vibrant_blossom.name=Яркие льняные цветы
+item.textiles.material.exquisite_blossom.name=Изысканные льняные цветы
+item.textiles.material.chain_mesh.name=Сетка из цепей
+item.textiles.material.plant_fibers.name=Сырые растительные волокна
+item.textiles.material.silk_thread.name=Шелковая нить
+item.textiles.material.silk_wisps.name=Шелковые нити
+item.textiles.material.flaxseed_oil.name=Бутылка с льняным маслом
+item.textiles.material.wood_stain.name=Морская морилка
+item.textiles.material.wood_bleach.name=Дерево Отбеливатель
+item.textiles.material.linen.name=Лен
+item.textiles.flax_seeds.name=Семена льна
+
+# Зелья
+effect.textiles.overencumbered=Перегруженный
+
+# Субтитры
+textiles.subtitles.sack_open=Мешок открывается
+textiles.subtitles.sack_close=Мешок закрывается
+textiles.subtitles.sack_insert=Мешок наполняется
+textiles.subtitles.sack_extract=Мешок опустошается
