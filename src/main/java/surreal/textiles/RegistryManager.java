@@ -25,6 +25,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -40,7 +41,9 @@ import surreal.textiles.blocks.BlockSpindle;
 import surreal.textiles.client.models.ModelRegistry;
 import surreal.textiles.items.ItemBlockBase;
 import surreal.textiles.items.ItemBlockBasket;
+import surreal.textiles.items.ItemBlockRawFibers;
 import surreal.textiles.items.ItemBlockSack;
+import surreal.textiles.items.ItemBlockSpindle;
 import surreal.textiles.items.ItemBlockStackable;
 import surreal.textiles.items.ItemCushion;
 import surreal.textiles.items.ItemFlaxSeeds;
@@ -65,7 +68,6 @@ public class RegistryManager {
 
     private final List<Block> DOUBLE_CUSHIONS;
 
-    private final List<Item> FABRICS;
     private final List<Item> CUSHIONS;
 
     // Blocks
@@ -74,6 +76,7 @@ public class RegistryManager {
     public static BlockFibers RAW_FIBERS, DRIED_FIBERS;
     public static BlockBasket BASKET;
     public static BlockSack SACK;
+    public static BlockSpindle SPINDLE;
 
     // Items
     public static ItemMaterial MATERIAL;
@@ -95,7 +98,6 @@ public class RegistryManager {
 
         DOUBLE_CUSHIONS = new ObjectArrayList<>();
 
-        FABRICS = new ObjectArrayList<>();
         CUSHIONS = new ObjectArrayList<>();
 
         // Blocks
@@ -106,10 +108,9 @@ public class RegistryManager {
 
         RAW_FIBERS = registerBlock("raw_fibers", new BlockRawFibers());
         DRIED_FIBERS = registerBlock("dried_fibers", new BlockRettedFibers());
-        registerItem("raw_fibers", new ItemBlockStackable(RAW_FIBERS));
+        registerItem("raw_fibers", new ItemBlockRawFibers(RAW_FIBERS));
         registerItem("dried_fibers", new ItemBlockStackable(DRIED_FIBERS));
 
-        registerSpindles();
         registerCushions();
 
         BASKET = registerBlock("basket", new BlockBasket());
@@ -117,6 +118,9 @@ public class RegistryManager {
 
         SACK = registerBlock("sack", new BlockSack());
         registerItem("sack", new ItemBlockSack(SACK));
+
+        SPINDLE = registerBlock("spindle", new BlockSpindle());
+        registerItem("spindle", new ItemBlockSpindle(SPINDLE));
 
         // Items
         MATERIAL = registerItem("material", new ItemMaterial());
@@ -166,18 +170,6 @@ public class RegistryManager {
 
         SOUNDS.add(sound);
         return sound;
-    }
-
-    // Registries for blocks that i'm lazy to create instance one by one for
-    private void registerSpindles() {
-        FABRICS.add(registerItem("spindle", new ItemBlockStackable(registerBlock("spindle", new BlockSpindle()))));
-
-        for (int i = 0; i < 16; i++) {
-            EnumDyeColor color = EnumDyeColor.byDyeDamage(i);
-            String regName = "spindle_" + color.getName();
-
-            FABRICS.add(registerItem(regName, new ItemBlockStackable(registerBlock(regName, new BlockSpindle()))));
-        }
     }
 
     private void registerCushions() {
@@ -321,7 +313,7 @@ public class RegistryManager {
         Ingredient vibrantBlossoms = Ingredient.fromStacks(getMaterial(VIBRANT_FLAX_BLOSSOMS));
         Ingredient exquisiteBlossoms = Ingredient.fromStacks(getMaterial(EXQUISITE_FLAX_BLOSSOMS));
 
-        Ingredient chainMeshIng = Ingredient.fromStacks(chainMesh);
+        Ingredient chainMeshIng = Ingredient.fromStacks(ItemHandlerHelper.copyStackWithSize(chainMesh, 1));
 
         GameRegistry.addShapelessRecipe(new ResourceLocation(MODID, "lightblue_dye_from_pale_blossoms"), null, getColorItem(EnumDyeColor.LIGHT_BLUE), paleBlossoms, paleBlossoms, paleBlossoms);
         GameRegistry.addShapelessRecipe(new ResourceLocation(MODID, "cyan_dye_from_vibrant_blossoms"), null, getColorItem(EnumDyeColor.CYAN), vibrantBlossoms, vibrantBlossoms, vibrantBlossoms);
@@ -486,8 +478,7 @@ public class RegistryManager {
         Ingredient linen = Ingredient.fromStacks(getMaterial(LINEN));
 
         // Plain Fabric
-        ItemStack plainFabric = new ItemStack(FABRICS.get(0));
-        plainFabric.setCount(24);
+        ItemStack plainFabric = SPINDLE.newStack(BlockSpindle.Type.PLAIN, 24);
 
         registry.register(lessStupidOreRecipe(plainFabric.getItem().getRegistryName(), plainFabric, "AAA", "ABA", "AAA", 'A', linen, 'B', "stickWood"));
 
@@ -498,21 +489,24 @@ public class RegistryManager {
         ItemStack plainCushion = new ItemStack(CUSHIONS.get(0));
         plainCushion.setCount(2);
 
-        Ingredient plainFabricIng = Ingredient.fromItem(FABRICS.get(0));
+        Ingredient plainFabricIng = Ingredient.fromStacks(ItemHandlerHelper.copyStackWithSize(plainFabric, 1));
 
         registry.register(lessStupidOreRecipe(plainCushion.getItem().getRegistryName(), plainCushion, "AAA", "BCB", "AAA", 'A', plainFabricIng, 'B', "string", 'C', cushionMiddle));
 
         // Colorful Stuff
+        int whiteId = 1 + EnumDyeColor.WHITE.getDyeDamage();
+        Ingredient whiteFabric = Ingredient.fromStacks(SPINDLE.newStack(BlockSpindle.Type.WHITE, 1));
+        Ingredient whiteCushion = Ingredient.fromItem(CUSHIONS.get(whiteId));
         for (int i = 1; i < 17; i++) {
             EnumDyeColor color = EnumDyeColor.byDyeDamage(i - 1);
 
-            Item fabricItem = FABRICS.get(i);
             Item cushionItem = CUSHIONS.get(i);
 
-            ResourceLocation fabricLocation = fabricItem.getRegistryName();
+            ResourceLocation fabricLocation = new ResourceLocation(
+                    MODID, Objects.requireNonNull(SPINDLE.getRegistryName()).getPath() + "_" + color.getDyeColorName());
             ResourceLocation cushionLocation = cushionItem.getRegistryName();
 
-            ItemStack fabric = new ItemStack(fabricItem);
+            ItemStack fabric = SPINDLE.newStack(BlockSpindle.Type.fromDye(color), 1);
             ItemStack fabric2 = fabric.copy();
             fabric2.setCount(10);
 
@@ -520,13 +514,9 @@ public class RegistryManager {
             ItemStack cushion2 = cushion.copy();
             cushion2.setCount(2);
 
-            Ingredient fabricIng = Ingredient.fromItems(fabricItem);
+            Ingredient fabricIng = Ingredient.fromStacks(fabric);
             Ingredient woolIng = Ingredient.fromStacks(new ItemStack(Blocks.WOOL, 1, color.getMetadata()));
             Ingredient colorIng = Ingredient.fromStacks(new ItemStack(Items.DYE, 1, color.getDyeDamage()));
-
-            int whiteId = 1 + EnumDyeColor.WHITE.getDyeDamage();
-            Ingredient whiteFabric = Ingredient.fromItem(FABRICS.get(whiteId));
-            Ingredient whiteCushion = Ingredient.fromItem(CUSHIONS.get(whiteId));
 
             registry.register(lessStupidOreRecipe(fabricLocation, fabric2, "AAA", "ABA", "AAA", 'A', woolIng, 'B', "stickWood"));
             registry.register(lessStupidOreRecipe(cushionLocation, cushion2, "AAA", "BCB", "AAA", 'A', fabricIng, 'B', "string", 'C', cushionMiddle));

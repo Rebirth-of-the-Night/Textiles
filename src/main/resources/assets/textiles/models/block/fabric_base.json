@@ -2,6 +2,9 @@
 	"credit": "Made with Blockbench by Malcolm Riley",
 	"parent": "block/block",
 	"textures": {
+		"sides": "textiles:blocks/fabric_plain_sides",
+		"ends": "textiles:blocks/fabric_plain_ends",
+		"extras": "textiles:blocks/fabric_plain_extras",
 		"particle": "#sides"
 	},
 	"display": {

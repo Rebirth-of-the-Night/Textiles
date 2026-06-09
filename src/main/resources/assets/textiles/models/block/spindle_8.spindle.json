@@ -1,0 +1,12 @@
+{
+  "bolts": [
+    "textiles:block/bolts/bolts_1",
+    "textiles:block/bolts/bolts_2",
+    "textiles:block/bolts/bolts_3",
+    "textiles:block/bolts/bolts_4",
+    "textiles:block/bolts/bolts_5",
+    "textiles:block/bolts/bolts_6",
+    "textiles:block/bolts/bolt_1_floor_2",
+    "textiles:block/bolts/bolt_2_floor_2"
+  ]
+}

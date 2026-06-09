@@ -13,12 +13,13 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.common.Optional;
+import surreal.textiles.compat.TextilesCompat;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @SuppressWarnings("deprecation")
-@Optional.Interface(modid = "fluidlogged_api", iface = "git.jbredwards.fluidlogged_api.api.block.IFluidloggable")
+@Optional.Interface(modid = TextilesCompat.FLUIDLOGGED, iface = "git.jbredwards.fluidlogged_api.api.block.IFluidloggable")
 public abstract class BlockNotCube extends Block implements IFluidloggable {
 
     public BlockNotCube(Material blockMaterialIn, MapColor blockMapColorIn) {
@@ -54,7 +55,7 @@ public abstract class BlockNotCube extends Block implements IFluidloggable {
     }
 
     // Fluid Loggable
-    @Optional.Method(modid = "fluidlogged_api")
+    @Optional.Method(modid = TextilesCompat.FLUIDLOGGED)
     @Override
     public boolean isFluidValid(@Nonnull IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull Fluid fluid) {
         Block block = fluid.getBlock();

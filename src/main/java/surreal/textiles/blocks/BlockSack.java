@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
@@ -192,6 +193,12 @@ public class BlockSack extends BlockContainer {
             }
         }
         super.breakBlock(world, pos, state);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public EnumPushReaction getPushReaction(final IBlockState state) {
+        return EnumPushReaction.DESTROY;
     }
 
     @SuppressWarnings("deprecation")

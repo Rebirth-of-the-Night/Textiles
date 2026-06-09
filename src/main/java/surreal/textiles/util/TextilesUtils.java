@@ -4,7 +4,6 @@ import net.minecraft.item.ItemShulkerBox;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityShulkerBox;
-import net.minecraft.util.EnumActionResult;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -48,6 +47,14 @@ public enum TextilesUtils {
             currentOdds++;
         }
         return currentSlot;
+    }
+
+    public static int getLeastSquareBound(final int n) {
+        int k = 0;
+        while (k * k < n) {
+            k++;
+        }
+        return k;
     }
 
 }

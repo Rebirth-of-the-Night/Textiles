@@ -6,8 +6,10 @@ let
 
   gradlePropPrefix = "ORG_GRADLE_PROJECT_";
 
-  runtimeDeps = with pkgs; [ libpulseaudio libGL glfw openal stdenv.cc.cc.lib udev ]
-    ++ (with xorg; [ libX11 libXext libXcursor libXrandr libXxf86vm ]);
+  runtimeDeps = with pkgs; [
+    libpulseaudio libGL glfw openal stdenv.cc.cc.lib udev
+    libx11 libxext libxcursor libxrandr libxxf86vm
+  ];
 in
 
 pkgs.mkShell {

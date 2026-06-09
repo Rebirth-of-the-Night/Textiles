@@ -24,7 +24,7 @@ public class ContainerBasket extends Container {
 
         // 0 = 52, 26
         // 1 = 34, 26
-        int slotsInRow = basket.getType() == 0 ? 4 : 6;
+        int slotsInRow = basket.getType().inventorySize / 2;
         int rows = handler.getSlots() / slotsInRow;
 
         int start = slotsInRow == 4 ? 52 : 34;

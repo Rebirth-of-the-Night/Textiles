@@ -1,12 +1,7 @@
 {
     "forge_marker": 1,
     "defaults": {
-        "model": "textiles:fabric_1",
-        "textures": {
-            "sides": "textiles:blocks/fabric_plain_sides",
-            "ends": "textiles:blocks/fabric_plain_ends",
-            "extras": "textiles:blocks/fabric_plain_extras"
-        }
+        "model": "textiles:spindle_1.spindle"
     },
     "variants": {
         "axis": {
@@ -14,30 +9,30 @@
             "axis_z": {}
         },
         "amount": {
-            "0": {},
-            "1": {
-                "model": "textiles:fabric_2"
-            },
+            "1": {},
             "2": {
-                "model": "textiles:fabric_3"
+                "model": "textiles:spindle_2.spindle"
             },
             "3": {
-                "model": "textiles:fabric_4"
+                "model": "textiles:spindle_3.spindle"
             },
             "4": {
-                "model": "textiles:fabric_5"
+                "model": "textiles:spindle_4.spindle"
             },
             "5": {
-                "model": "textiles:fabric_6"
+                "model": "textiles:spindle_5.spindle"
             },
             "6": {
-                "model": "textiles:fabric_7"
+                "model": "textiles:spindle_6.spindle"
             },
             "7": {
-                "model": "textiles:fabric_8"
+                "model": "textiles:spindle_7.spindle"
             },
             "8": {
-                "model": "textiles:fabric_9"
+                "model": "textiles:spindle_8.spindle"
+            },
+            "9": {
+                "model": "textiles:spindle_9.spindle"
             }
         },
         "inventory": [{}]

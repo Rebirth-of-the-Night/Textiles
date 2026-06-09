@@ -1,6 +1,7 @@
 package surreal.textiles.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
@@ -32,6 +33,7 @@ public class BlockFeather extends Block {
 
     public BlockFeather() {
         super(Material.CLOTH);
+        setSoundType(SoundType.CLOTH);
         setDefaultState(getDefaultState().withProperty(AXIS, EnumFacing.Axis.Y));
         setHardness(0.3F).setHardness(2.0F);
     }

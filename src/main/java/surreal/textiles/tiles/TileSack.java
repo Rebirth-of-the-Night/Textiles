@@ -12,29 +12,32 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
 import surreal.textiles.ModConfig;
 import surreal.textiles.RegistryManager;
 import surreal.textiles.Textiles;
 import surreal.textiles.tiles.containers.ContainerSack;
-import surreal.textiles.util.TextilesUtils;
+import surreal.textiles.util.BlockItemInventory;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class TileSack extends TileEntity implements ITickable {
 
+    public static final String TILE_ENTITY_ID = Textiles.MODID + ":sack";
+
     public static int getConfiguredSize() {
         return ModConfig.sack.slotRowCount * ModConfig.sack.slotColumnCount;
     }
 
-    private final SackInventory inventory = new SackInventory(this);
+    public static BlockItemInventory wrapStackInventory(final ItemStack stack, final boolean doRefresh) {
+        return new BlockItemInventory(getConfiguredSize(), TILE_ENTITY_ID, stack, doRefresh);
+    }
+
+    private final BlockItemInventory inventory = new BlockItemInventory(getConfiguredSize(), TILE_ENTITY_ID, this);
     private int userCount = 0;
     private int localState = 0; // tick timer on server, last known user count on client
     private int dyeColor = -1;
@@ -65,14 +68,15 @@ public class TileSack extends TileEntity implements ITickable {
 
     @Override
     public boolean hasCapability(final Capability<?> capability, @Nullable final EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY;
+        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
     }
 
     @Override
     @Nullable
     public <T> T getCapability(final Capability<T> capability, @Nullable final EnumFacing facing) {
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY
-                ? CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory) : null;
+                ? CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory)
+                : super.getCapability(capability, facing);
     }
 
     public void onOpened(final EntityPlayer player) {
@@ -176,7 +180,7 @@ public class TileSack extends TileEntity implements ITickable {
 
     public NBTTagCompound writeToExternalNBT(final NBTTagCompound tag) {
         writeStateToNBT(tag);
-        tag.setString("id", "textiles:sack");
+        tag.setString("id", TILE_ENTITY_ID);
         return tag;
     }
 
@@ -189,105 +193,6 @@ public class TileSack extends TileEntity implements ITickable {
     public void readFromNBT(final NBTTagCompound tag) {
         super.readFromNBT(tag);
         readStateFromNBT(tag);
-    }
-
-    public static class SackInventory extends ItemStackHandler {
-
-        @Nullable
-        private final TileEntity hostTile;
-        @Nullable
-        private final ItemStack hostStack;
-
-        private SackInventory(@Nullable final TileEntity hostTile, @Nullable final ItemStack hostStack) {
-            super(getConfiguredSize());
-            this.hostTile = hostTile;
-            this.hostStack = hostStack;
-        }
-
-        public SackInventory(final TileEntity hostTile) {
-            this(hostTile, null);
-        }
-
-        public SackInventory(final ItemStack hostStack) {
-            this(null, hostStack);
-        }
-
-        public SackInventory() {
-            this(null, null);
-        }
-
-        @Override
-        @Nonnull
-        public ItemStack insertItem(final int slot, @Nonnull final ItemStack stack, final boolean simulate) {
-            return isItemValid(slot, stack) ? super.insertItem(slot, stack, simulate) : stack;
-        }
-
-        @Override
-        public boolean isItemValid(final int slot, @Nonnull final ItemStack stack) {
-            return !TextilesUtils.isItemWithInventory(stack);
-        }
-
-        @Override
-        protected void onContentsChanged(final int slot) {
-            if (hostTile != null) {
-                hostTile.markDirty();
-            } else if (hostStack != null) {
-                serializeToStack(hostStack);
-            }
-        }
-
-        @Override
-        public void setSize(final int size) { // should only ever be called by deserialization
-            if (hostTile == null) return;
-            for (int i = size; i < stacks.size(); i++) {
-                if (!stacks.get(i).isEmpty()) {
-                    final World world = hostTile.getWorld();
-                    //noinspection ConstantValue
-                    if (world == null) {
-                        Textiles.LOGGER.warn(
-                                "Sack at {} has lost contents due to lower configured sack inventory size!",
-                                hostTile.getPos());
-                    } else {
-                        Textiles.LOGGER.warn(
-                                "Sack in world {} at {} has lost contents due to lower configured sack inventory size!",
-                                world.provider.getDimension(), hostTile.getPos());
-                    }
-                    return;
-                }
-            }
-        }
-
-        public void serializeToStack(final ItemStack stack) {
-            NBTTagCompound stackData = stack.getTagCompound();
-            final NBTTagCompound tileData;
-            if (stackData == null) {
-                stackData = new NBTTagCompound();
-                tileData = new NBTTagCompound();
-                tileData.setString("id", "textiles:sack");
-                stackData.setTag("BlockEntityTag", tileData);
-                stack.setTagCompound(stackData);
-            } else if (stackData.hasKey("BlockEntityTag", Constants.NBT.TAG_COMPOUND)) {
-                tileData = stackData.getCompoundTag("BlockEntityTag");
-            } else {
-                tileData = new NBTTagCompound();
-                tileData.setString("id", "textiles:sack");
-                stackData.setTag("BlockEntityTag", tileData);
-            }
-            tileData.setTag("inventory", serializeNBT());
-        }
-
-        public boolean deserializeFromStack(final ItemStack stack) {
-            final NBTTagCompound stackData = stack.getTagCompound();
-            if (stackData != null && stackData.hasKey("BlockEntityTag", Constants.NBT.TAG_COMPOUND)) {
-                final NBTTagCompound tileData = stackData.getCompoundTag("BlockEntityTag");
-                if (tileData.hasKey("inventory", Constants.NBT.TAG_COMPOUND)) {
-                    deserializeNBT(tileData.getCompoundTag("inventory"));
-                    return true;
-                }
-            }
-            return false;
-        }
-
     }
 
 }

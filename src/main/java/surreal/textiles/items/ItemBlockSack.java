@@ -15,15 +15,16 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.Constants;
+import surreal.textiles.ModConfig;
 import surreal.textiles.blocks.BlockSack;
 import surreal.textiles.tiles.TileSack;
-import surreal.textiles.util.ReadOnlyItemBlockInventory;
+import surreal.textiles.util.BlockItemInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public class ItemBlockSack extends ItemBlockBase {
+public class ItemBlockSack extends ItemBlockBase implements PortableInventoryItem {
 
     public ItemBlockSack(final BlockSack block) {
         super(block);
@@ -33,8 +34,14 @@ public class ItemBlockSack extends ItemBlockBase {
 
     @Nullable
     @Override
+    public BlockItemInventory getPortableInventory(final ItemStack stack) {
+        return ModConfig.sack.inventoryInteraction ? TileSack.wrapStackInventory(stack, false) : null;
+    }
+
+    @Nullable
+    @Override
     public ICapabilityProvider initCapabilities(final ItemStack stack, @Nullable final NBTTagCompound nbt) {
-        return new ReadOnlyItemBlockInventory(stack, TileSack.getConfiguredSize());
+        return TileSack.wrapStackInventory(stack, true);
     }
 
     @Override

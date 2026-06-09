@@ -25,11 +25,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 import surreal.textiles.client.guis.GuiHandler;
-import surreal.textiles.entities.EntityBasket;
+import surreal.textiles.compat.TextilesCompat;
 import surreal.textiles.entities.EntityFallingSack;
+import surreal.textiles.event.InventoryInteractionHandler;
 import surreal.textiles.event.OverencumbranceHandler;
 import surreal.textiles.items.ItemMaterial;
-import surreal.textiles.network.C2SSackInteraction;
+import surreal.textiles.network.C2SPortableInventoryInteraction;
 import surreal.textiles.tiles.TileBasket;
 import surreal.textiles.tiles.TileRawFibers;
 import surreal.textiles.tiles.TileSack;
@@ -50,7 +51,7 @@ public class Textiles {
             serverSide = "surreal.textiles.CommonProxy",
             clientSide = "surreal.textiles.client.ClientProxy"
     )
-    private static CommonProxy proxy;
+    public static CommonProxy proxy;
 
     public static Logger LOGGER;
     public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
@@ -77,17 +78,21 @@ public class Textiles {
     public void preInit(FMLPreInitializationEvent event) {
         LOGGER = event.getModLog();
 
-        NETWORK.registerMessage(new C2SSackInteraction.Handler(), C2SSackInteraction.class, 0, Side.SERVER);
+        if (!TextilesCompat.PORTABLE_INV_TOOLS_LOADED) {
+            MinecraftForge.EVENT_BUS.register(InventoryInteractionHandler.class);
+        }
+
+        NETWORK.registerMessage(new C2SPortableInventoryInteraction.Handler(), C2SPortableInventoryInteraction.class, 0, Side.SERVER);
 
         GameRegistry.registerTileEntity(TileSpindle.class, new ResourceLocation(MODID, "spindle"));
         GameRegistry.registerTileEntity(TileRawFibers.class, new ResourceLocation(MODID, "raw_fibers"));
-        GameRegistry.registerTileEntity(TileBasket.class, new ResourceLocation(MODID, "basket"));
+        GameRegistry.registerTileEntity(TileBasket.Default.class, new ResourceLocation(MODID, "basket"));
+        GameRegistry.registerTileEntity(TileBasket.Sturdy.class, new ResourceLocation(MODID, "basket_sturdy"));
         GameRegistry.registerTileEntity(TileSack.class, new ResourceLocation(MODID, "sack"));
 
         FluidRegistry.registerFluid(RegistryManager.FLAXSEED_OIL);
         FluidRegistry.addBucketForFluid(RegistryManager.FLAXSEED_OIL);
 
-        EntityRegistry.registerModEntity(new ResourceLocation(MODID, "basket"), EntityBasket.class, "Basket", 1, INSTANCE, 30, 3, true);
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "falling_sack"), EntityFallingSack.class, "Falling Sack", 2, INSTANCE, 160, 20, true);
 
         proxy.preInit(event);

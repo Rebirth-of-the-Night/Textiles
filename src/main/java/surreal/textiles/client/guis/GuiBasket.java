@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import surreal.textiles.Textiles;
+import surreal.textiles.blocks.BlockBasket;
 import surreal.textiles.tiles.TileBasket;
 import surreal.textiles.tiles.containers.ContainerBasket;
 
@@ -15,7 +16,7 @@ public class GuiBasket extends GuiContainer {
 
     protected static final ResourceLocation BASKET, STURDY_BASKET;
 
-    private final int type;
+    private final BlockBasket.Type type;
 
     public GuiBasket(TileBasket basket) {
         super(new ContainerBasket(basket, Minecraft.getMinecraft().player));
@@ -32,7 +33,10 @@ public class GuiBasket extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(this.type == 0 ? BASKET : STURDY_BASKET);
+        this.mc.getTextureManager().bindTexture(switch (type) {
+            case DEFAULT -> BASKET;
+            case STURDY -> STURDY_BASKET;
+        });
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, 256, 256);

@@ -2,9 +2,13 @@ package surreal.textiles.client;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -15,19 +19,26 @@ import surreal.textiles.CommonProxy;
 import surreal.textiles.RegistryManager;
 import surreal.textiles.Textiles;
 import surreal.textiles.blocks.BlockSack;
-import surreal.textiles.client.renderer.RenderEntityBasket;
+import surreal.textiles.client.event.InventoryRenderHandler;
+import surreal.textiles.client.models.BlockSpindleModel;
 import surreal.textiles.client.renderer.RenderEntityFallingSack;
-import surreal.textiles.entities.EntityBasket;
+import surreal.textiles.compat.TextilesCompat;
 import surreal.textiles.entities.EntityFallingSack;
 import surreal.textiles.items.ItemBlockSack;
 import surreal.textiles.tiles.TileSack;
+
+import javax.annotation.Nullable;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(EntityBasket.class, manager -> new RenderEntityBasket(manager, Minecraft.getMinecraft().getRenderItem()));
+        if (!TextilesCompat.PORTABLE_INV_TOOLS_LOADED) {
+            MinecraftForge.EVENT_BUS.register(InventoryRenderHandler.class);
+        }
+
+        ModelLoaderRegistry.registerLoader(new BlockSpindleModel.Loader());
         RenderingRegistry.registerEntityRenderingHandler(EntityFallingSack.class, RenderEntityFallingSack::new);
     }
 
@@ -59,6 +70,13 @@ public class ClientProxy extends CommonProxy {
             final int col = ItemBlockSack.getDyeColorForStack(stack);
             return col >= 0 ? col : 0xFFFFFF;
         }, RegistryManager.SACK);
+    }
+
+    @Nullable
+    @Override
+    public RayTraceResult getKnownRayTrace(final EntityPlayer player) {
+        final Minecraft mc = Minecraft.getMinecraft();
+        return player == mc.player ? mc.objectMouseOver : null;
     }
 
 }
