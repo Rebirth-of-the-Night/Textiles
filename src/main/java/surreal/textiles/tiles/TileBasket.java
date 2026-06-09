@@ -22,10 +22,10 @@ public abstract class TileBasket extends TileEntity {
     public static BlockItemInventory wrapStackInventory(final ItemStack stack, final boolean doRefresh) {
         return switch (BlockBasket.Type.fromMeta(stack.getMetadata())) {
             case DEFAULT -> !ModConfig.basket.keepInventory ? null : new BlockItemInventory(
-                    BlockBasket.Type.fromMeta(stack.getMetadata()).inventorySize, Default.TILE_ENTITY_ID,
+                    BlockBasket.Type.DEFAULT.inventorySize, Default.TILE_ENTITY_ID,
                     stack, doRefresh);
             case STURDY -> !ModConfig.basket.keepInventorySturdy ? null : new BlockItemInventory(
-                    BlockBasket.Type.fromMeta(stack.getMetadata()).inventorySize, Sturdy.TILE_ENTITY_ID,
+                    BlockBasket.Type.STURDY.inventorySize, Sturdy.TILE_ENTITY_ID,
                     stack, doRefresh);
         };
     }

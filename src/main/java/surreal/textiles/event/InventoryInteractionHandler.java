@@ -84,9 +84,9 @@ public enum InventoryInteractionHandler {
             final BlockItemInventory inventory = invItem.getPortableInventory(slotStack);
             if (inventory != null) {
                 if (!slot.isItemValid(slotStack)) return EnumActionResult.PASS;
-                if (!inventory.deserializeFromStack(slotStack)) return EnumActionResult.FAIL;
                 final ItemStack heldStack = playerInventory.getItemStack();
                 if (heldStack.isEmpty()) {
+                    if (!inventory.deserializeFromStack(slotStack)) return EnumActionResult.FAIL;
                     final ItemStack resultStack = tryExtract(player, inventory, null, simulate);
                     if (resultStack.isEmpty()) return EnumActionResult.FAIL;
                     if (!simulate) {
@@ -96,6 +96,7 @@ public enum InventoryInteractionHandler {
                     }
                     return EnumActionResult.SUCCESS;
                 } else {
+                    inventory.deserializeFromStack(slotStack);
                     final ItemStack remStack = tryInsert(player, inventory, heldStack, simulate);
                     if (remStack == null) return EnumActionResult.FAIL;
                     if (!simulate) {
@@ -112,8 +113,8 @@ public enum InventoryInteractionHandler {
         if (heldStack.getItem() instanceof PortableInventoryItem invItem) {
             final BlockItemInventory inventory = invItem.getPortableInventory(heldStack);
             if (inventory != null) {
-                inventory.deserializeFromStack(heldStack);
                 if (slotStack.isEmpty()) {
+                    if (!inventory.deserializeFromStack(heldStack)) return EnumActionResult.FAIL;
                     final ItemStack resultStack = tryExtract(player, inventory, slot, simulate);
                     if (resultStack.isEmpty()) return EnumActionResult.FAIL;
                     if (!simulate) {
@@ -122,6 +123,7 @@ public enum InventoryInteractionHandler {
                     }
                     return EnumActionResult.SUCCESS;
                 } else {
+                    inventory.deserializeFromStack(heldStack);
                     final ItemStack remStack = tryInsert(player, inventory, slotStack, simulate);
                     if (remStack == null) return EnumActionResult.FAIL;
                     if (!simulate) {

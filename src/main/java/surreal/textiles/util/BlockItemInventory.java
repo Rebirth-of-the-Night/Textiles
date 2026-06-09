@@ -103,9 +103,10 @@ public class BlockItemInventory extends ItemStackHandler implements ICapabilityP
 
     @Override
     public void setSize(final int size) { // should only ever be called by deserialization
-        if (host != null) {
+        if (host != null && size != stacks.size()) {
             host.checkSizeChange(this, size);
         }
+        stacks.clear();
     }
 
     public void serializeToStack(final ItemStack stack) {
@@ -136,6 +137,8 @@ public class BlockItemInventory extends ItemStackHandler implements ICapabilityP
                 return true;
             }
         }
+        stacks.clear();
+        onLoad();
         return false;
     }
 
