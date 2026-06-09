@@ -5,7 +5,7 @@
     "description": "Decorative textile blocks.",
     "version": "${version}",
     "mcversion": "${mcversion}",
-    "url": "https://github.com/ISurrealI/Spindles",
-    "authorList": ["Surreal"]
+    "url": "https://github.com/Rebirth-of-the-Night/Textiles",
+    "authorList": ["Surreal", "phantamanta44", "Foreck1"]
   }
 ]
