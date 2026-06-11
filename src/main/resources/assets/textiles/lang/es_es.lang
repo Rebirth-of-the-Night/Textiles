@@ -1,0 +1,76 @@
+itemGroup.textiles=Textiles
+
+fluid.flaxseed_oil=Aceite de linaza
+
+# Bloques
+tile.textiles.feather_block.name=Lote de plumas
+
+tile.textiles.spindle.name=Tela sencilla
+tile.textiles.spindle_red.name=Tela roja
+tile.textiles.spindle_orange.name=Tela naranja
+tile.textiles.spindle_yellow.name=Tela amarilla
+tile.textiles.spindle_lime.name=Tela verde lima
+tile.textiles.spindle_green.name=Tela verde
+tile.textiles.spindle_cyan.name=Tela cian
+tile.textiles.spindle_light_blue.name=Tela azul claro
+tile.textiles.spindle_blue.name=Tela azul
+tile.textiles.spindle_purple.name=Tela morada
+tile.textiles.spindle_magenta.name=Tela magenta
+tile.textiles.spindle_pink.name=Tela rosa
+tile.textiles.spindle_white.name=Tela blanca
+tile.textiles.spindle_silver.name=Tela gris claro
+tile.textiles.spindle_gray.name=Tela gris
+tile.textiles.spindle_black.name=Tela negra
+tile.textiles.spindle_brown.name=Tela marrón
+
+tile.textiles.cushion.name=Cojín sencillo
+tile.textiles.cushion_red.name=Cojín rojo
+tile.textiles.cushion_orange.name=Cojín naranja
+tile.textiles.cushion_yellow.name=Cojín amarillo
+tile.textiles.cushion_lime.name=Cojín verde lima
+tile.textiles.cushion_green.name=Cojín verde
+tile.textiles.cushion_cyan.name=Cojín cian
+tile.textiles.cushion_light_blue.name=Cojín azul claro
+tile.textiles.cushion_blue.name=Cojín azul
+tile.textiles.cushion_purple.name=Cojín morado
+tile.textiles.cushion_magenta.name=Cojín magenta
+tile.textiles.cushion_pink.name=Cojín rosa
+tile.textiles.cushion_white.name=Cojín blanco
+tile.textiles.cushion_silver.name=Cojín gris claro
+tile.textiles.cushion_gray.name=Cojín gris
+tile.textiles.cushion_black.name=Cojín negro
+tile.textiles.cushion_brown.name=Cojín marrón
+
+tile.textiles.raw_fibers.name=Fardo de fibra de planta
+tile.textiles.dried_fibers.name=Fardo de fibra de planta macerada
+
+tile.textiles.basket.name=Canasta de mimbre
+tile.textiles.basket_1.name=Canasta de mimbre reforzada
+
+tile.textiles.sack.name=Saco
+
+# Items
+item.textiles.material.wicker_patch.name=Trozo de mimbre
+item.textiles.material.twine.name=Cordel
+item.textiles.material.flax_stalks.name=Tallos de lino
+item.textiles.material.pale_blossom.name=Brotes de lino
+item.textiles.material.vibrant_blossom.name=Brotes de lino vibrantes
+item.textiles.material.exquisite_blossom.name=Brotes de lino exquisitos
+item.textiles.material.chain_mesh.name=Malla de cadena
+item.textiles.material.plant_fibers.name=Fibra de planta sin tratar
+item.textiles.material.silk_thread.name=Hilo de seda
+item.textiles.material.silk_wisps.name=Jirones de seda
+item.textiles.material.flaxseed_oil.name=Botella de aceite de linaza
+item.textiles.material.wood_stain.name=Tinte para madera oscuro
+item.textiles.material.wood_bleach.name=Tinte para madera claro
+item.textiles.material.linen.name=Lino
+item.textiles.flax_seeds.name=Linaza
+
+# Pociones
+effect.textiles.overencumbered=Sobrecargado
+
+# Subtítulos
+textiles.subtitles.sack_open=Abrir saco
+textiles.subtitles.sack_close=Cerrar saco
+textiles.subtitles.sack_insert=Llenar saco
+textiles.subtitles.sack_extract=Vaciar saco
