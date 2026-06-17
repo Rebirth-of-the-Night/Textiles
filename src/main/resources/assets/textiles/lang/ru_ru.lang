@@ -8,9 +8,9 @@ tile.textiles.feather_block.name=Пучок перьев
 tile.textiles.spindle.name=Однотонная ткань
 tile.textiles.spindle_red.name=Красная ткань
 tile.textiles.spindle_orange.name=Оранжевая ткань
-tile.textiles.spindle_yellow.name=Желтая ткань
+tile.textiles.spindle_yellow.name=Жёлтая ткань
 tile.textiles.spindle_lime.name=Лаймовая ткань
-tile.textiles.spindle_green.name=Зеленая ткань
+tile.textiles.spindle_green.name=Зелёная ткань
 tile.textiles.spindle_cyan.name=Бирюзовая ткань
 tile.textiles.spindle_light_blue.name=Голубая ткань
 tile.textiles.spindle_blue.name=Синяя ткань
@@ -20,16 +20,16 @@ tile.textiles.spindle_pink.name=Розовая ткань
 tile.textiles.spindle_white.name=Белая ткань
 tile.textiles.spindle_silver.name=Светло-серая ткань
 tile.textiles.spindle_gray.name=Серая ткань
-tile.textiles.spindle_black.name=Черная ткань
+tile.textiles.spindle_black.name=Чёрная ткань
 tile.textiles.spindle_brown.name=Коричневая ткань
 tile.textiles.spindle_canvas.name=Рулон холста
 
 tile.textiles.cushion.name=Обычная подушка
 tile.textiles.cushion_red.name=Красная подушка
 tile.textiles.cushion_orange.name=Оранжевая подушка
-tile.textiles.cushion_yellow.name=Желтая подушка
+tile.textiles.cushion_yellow.name=Жёлтая подушка
 tile.textiles.cushion_lime.name=Лаймовая подушка
-tile.textiles.cushion_green.name=Зеленая подушка
+tile.textiles.cushion_green.name=Зелёная подушка
 tile.textiles.cushion_cyan.name=Бирюзовая подушка
 tile.textiles.cushion_light_blue.name=Светло-голубая подушка
 tile.textiles.cushion_blue.name=Синяя подушка
@@ -39,11 +39,11 @@ tile.textiles.cushion_pink.name=Розовая подушка
 tile.textiles.cushion_white.name=Белая подушка
 tile.textiles.cushion_silver.name=Светло-серая подушка
 tile.textiles.cushion_gray.name=Серая подушка
-tile.textiles.cushion_black.name=Черная подушка
+tile.textiles.cushion_black.name=Чёрная подушка
 tile.textiles.cushion_brown.name=Коричневая подушка
 
 tile.textiles.raw_fibers.name=Тюк сырого волокна
-tile.textiles.dried_fibers.name=Тюк высушенного волокна
+tile.textiles.dried_fibers.name=Тюк вымоченного волокна
 
 tile.textiles.basket.name=Корзина
 tile.textiles.basket_1.name=Прочная корзина
@@ -51,7 +51,7 @@ tile.textiles.basket_1.name=Прочная корзина
 tile.textiles.sack.name=Мешок
 
 # Items
-item.textiles.material.wicker_patch.name=Плетеный лоскут
+item.textiles.material.wicker_patch.name=Плетёный лоскут
 item.textiles.material.twine.name=Верёвка
 item.textiles.material.flax_stalks.name=Стебли льна
 item.textiles.material.pale_blossom.name=Бледные цветы льна
