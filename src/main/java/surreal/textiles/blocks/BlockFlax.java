@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import surreal.textiles.ModConfig;
 import surreal.textiles.RegistryManager;
 import surreal.textiles.items.ItemMaterial;
@@ -99,21 +100,24 @@ public class BlockFlax extends BlockCrops {
 
     @ParametersAreNonnullByDefault
     @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        int age = getAge(state);
-        boolean bottom = state.getValue(BOTTOM);
-
-        if (bottom && age == getMaxAge()) {
-            BlockPos up = pos.up();
-            IBlockState upState = worldIn.getBlockState(up);
-
-            if (worldIn.isAirBlock(up) || upState.getBlock().isReplaceable(worldIn, up)) {
-                worldIn.setBlockState(up, getDefaultState().withProperty(BOTTOM, false));
-            }
-
-            checkAndDropBlock(worldIn, pos, state);
-
-        } else super.updateTick(worldIn, pos, state, rand);
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+        checkAndDropBlock(world, pos, state);
+        if (!world.isAreaLoaded(pos, 1) || world.getBlockState(pos) != state) return;
+        final BlockPos up = pos.up();
+        if (world.getLightFromNeighbors(up) < 9) return;
+        final float growthChance = getGrowthChance(this, world, pos);
+        if (!ForgeHooks.onCropsGrowPre(world, pos, state, rand.nextInt(1 + (int) (25F / growthChance)) == 0)) return;
+        final int age = getAge(state);
+        if (age >= MAX_AGE) {
+            if (!state.getValue(BOTTOM)) return;
+            if (!world.isAirBlock(up) && !world.getBlockState(up).getBlock().isReplaceable(world, up)) return;
+            world.setBlockState(up, getDefaultState().withProperty(BOTTOM, false));
+            ForgeHooks.onCropsGrowPost(world, pos, state, state);
+        } else {
+            final IBlockState newState = state.withProperty(getAgeProperty(), getAge(state) + 1);
+            world.setBlockState(pos, newState, 2);
+            ForgeHooks.onCropsGrowPost(world, pos, state, newState);
+        }
     }
 
     @Override
