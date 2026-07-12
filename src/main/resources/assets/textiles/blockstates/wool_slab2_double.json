@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "color=silver": {
+      "model": "silver_wool"
+    },
+    "color=cyan": {
+      "model": "cyan_wool"
+    },
+    "color=purple": {
+      "model": "purple_wool"
+    },
+    "color=blue": {
+      "model": "blue_wool"
+    },
+    "color=brown": {
+      "model": "brown_wool"
+    },
+    "color=green": {
+      "model": "green_wool"
+    },
+    "color=red": {
+      "model": "red_wool"
+    },
+    "color=black": {
+      "model": "black_wool"
+    }
+  }
+}

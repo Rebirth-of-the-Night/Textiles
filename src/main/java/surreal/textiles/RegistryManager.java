@@ -28,6 +28,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import net.minecraftforge.registries.IForgeRegistry;
 import surreal.textiles.blocks.BlockBasket;
 import surreal.textiles.blocks.BlockCushion;
@@ -38,6 +39,7 @@ import surreal.textiles.blocks.BlockRawFibers;
 import surreal.textiles.blocks.BlockRettedFibers;
 import surreal.textiles.blocks.BlockSack;
 import surreal.textiles.blocks.BlockSpindle;
+import surreal.textiles.blocks.BlockWoolSlab;
 import surreal.textiles.client.models.ModelRegistry;
 import surreal.textiles.items.ItemBlockBase;
 import surreal.textiles.items.ItemBlockBasket;
@@ -48,7 +50,9 @@ import surreal.textiles.items.ItemBlockStackable;
 import surreal.textiles.items.ItemCushion;
 import surreal.textiles.items.ItemFlaxSeeds;
 import surreal.textiles.items.ItemMaterial;
+import surreal.textiles.items.ItemWoolSlab;
 import surreal.textiles.recipes.RecipeDyeSack;
+import surreal.textiles.util.TextilesUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -77,6 +81,10 @@ public class RegistryManager {
     public static BlockBasket BASKET;
     public static BlockSack SACK;
     public static BlockSpindle SPINDLE;
+    public static BlockWoolSlab WOOL_SLAB1_HALF;
+    public static BlockWoolSlab WOOL_SLAB1_DOUBLE;
+    public static BlockWoolSlab WOOL_SLAB2_HALF;
+    public static BlockWoolSlab WOOL_SLAB2_DOUBLE;
 
     // Items
     public static ItemMaterial MATERIAL;
@@ -121,6 +129,13 @@ public class RegistryManager {
 
         SPINDLE = registerBlock("spindle", new BlockSpindle());
         registerItem("spindle", new ItemBlockSpindle(SPINDLE));
+
+        WOOL_SLAB1_HALF = registerBlock("wool_slab1", new BlockWoolSlab.Half.Lower());
+        WOOL_SLAB1_DOUBLE = registerBlock("wool_slab1_double", new BlockWoolSlab.Double.Lower());
+        registerItem("wool_slab1", new ItemWoolSlab(WOOL_SLAB1_HALF, WOOL_SLAB1_DOUBLE));
+        WOOL_SLAB2_HALF = registerBlock("wool_slab2", new BlockWoolSlab.Half.Upper());
+        WOOL_SLAB2_DOUBLE = registerBlock("wool_slab2_double", new BlockWoolSlab.Double.Upper());
+        registerItem("wool_slab2", new ItemWoolSlab(WOOL_SLAB2_HALF, WOOL_SLAB2_DOUBLE));
 
         // Items
         MATERIAL = registerItem("material", new ItemMaterial());
@@ -333,6 +348,22 @@ public class RegistryManager {
         GameRegistry.addShapedRecipe(SACK.getRegistryName(), null, new ItemStack(SACK), " A ", "ABA", "AAA", 'A', Ingredient.fromStacks(linen), 'B', twine);
         registry.register(new RecipeDyeSack().setRegistryName(new ResourceLocation(MODID, "dye_sack")));
 
+        // Wool Slabs
+        final EnumDyeColor[] cols = EnumDyeColor.values();
+        for (final EnumDyeColor col : cols) {
+            registry.register(lessStupidOreRecipe(new ResourceLocation(MODID, "wool_slab_" + col.getName()),
+                    BlockWoolSlab.newStack(col, 6), "WWW", 'W', "wool" + TextilesUtils.getDyeOreName(col)));
+            final ItemStack[] otherWools = new ItemStack[15];
+            int i = 0;
+            for (final EnumDyeColor otherCol : cols) {
+                if (otherCol != col) {
+                    otherWools[i++] = BlockWoolSlab.newStack(otherCol, 1);
+                }
+            }
+            registry.register(shapelessOreRecipe(new ResourceLocation(MODID, "dye_wool_slab_" + col.getName()),
+                    BlockWoolSlab.newStack(col, 1), Ingredient.fromStacks(otherWools), "dye" + TextilesUtils.getDyeOreName(col)));
+        }
+
         // Wood Staining
         addWoodRecipe(0, new ItemStack(Blocks.PLANKS, 1, OAK.getMetadata()), new ItemStack(Blocks.PLANKS, 1, SPRUCE.getMetadata()));
         addWoodRecipe(0, new ItemStack(Blocks.PLANKS, 1, BIRCH.getMetadata()), new ItemStack(Blocks.PLANKS, 1, OAK.getMetadata()));
@@ -460,6 +491,12 @@ public class RegistryManager {
 
     private ShapedOreRecipe lessStupidOreRecipe(ResourceLocation registryName, ItemStack result, Object... obj) {
         ShapedOreRecipe recipe = new ShapedOreRecipe(null, result, obj);
+        recipe.setRegistryName(registryName);
+        return recipe;
+    }
+
+    private ShapelessOreRecipe shapelessOreRecipe(ResourceLocation registryName, ItemStack result, Object... obj) {
+        ShapelessOreRecipe recipe = new ShapelessOreRecipe(null, result, obj);
         recipe.setRegistryName(registryName);
         return recipe;
     }
