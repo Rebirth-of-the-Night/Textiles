@@ -70,6 +70,17 @@ public class BlockItemInventory extends ItemStackHandler implements ICapabilityP
         return super.getStackInSlot(slot);
     }
 
+    public boolean isEmpty() {
+        if (host != null) {
+            host.refresh(this);
+        }
+        final int slotCount = getSlots();
+        for (int i = 0; i < slotCount; i++) {
+            if (!super.getStackInSlot(i).isEmpty()) return false;
+        }
+        return true;
+    }
+
     @Override
     @Nonnull
     public ItemStack insertItem(final int slot, @Nonnull final ItemStack stack, final boolean simulate) {

@@ -110,17 +110,21 @@ public class BlockBasket extends BlockContainer {
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {}
 
     @Override
+    public void onBlockHarvested(final World world, final BlockPos pos, final IBlockState state,
+                                 final EntityPlayer player) {
+        if (world.getTileEntity(pos) instanceof TileBasket basket) {
+            basket.setDestroyedByCreativePlayer(player.capabilities.isCreativeMode);
+        }
+    }
+
+    @Override
     public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
-        if (!world.isRemote) {
-            if (world.getTileEntity(pos) instanceof TileBasket basket) {
-                final ItemStack stack = newStack(basket.getType(), 1);
-                final NBTTagCompound stackData = new NBTTagCompound();
-                stackData.setTag("BlockEntityTag", basket.writeToExternalNBT(new NBTTagCompound()));
-                stack.setTagCompound(stackData);
-                spawnAsEntity(world, pos, stack);
-            } else {
-                spawnAsEntity(world, pos, newStack(state.getValue(TYPE), 1));
-            }
+        if (!world.isRemote && world.getTileEntity(pos) instanceof TileBasket basket && basket.shouldDrop()) {
+            final ItemStack stack = newStack(basket.getType(), 1);
+            final NBTTagCompound stackData = new NBTTagCompound();
+            stackData.setTag("BlockEntityTag", basket.writeToExternalNBT(new NBTTagCompound()));
+            stack.setTagCompound(stackData);
+            spawnAsEntity(world, pos, stack);
         }
         super.breakBlock(world, pos, state);
     }
