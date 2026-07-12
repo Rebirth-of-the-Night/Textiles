@@ -27,6 +27,18 @@ public class ModConfig {
         @Config.Name("Always Drop Seeds")
         @Config.Comment("If Flax Crop should always drop seed no matter it's age.")
         public boolean alwaysDropSeeds = false;
+
+        @Config.Name("Flax Pale Drop")
+        @Config.Comment("Chance for fully-grown flax crops to drop Pale Flax Blossoms.")
+        public double flaxPaleDrop = 0.4;
+
+        @Config.Name("Flax Vibrant Drop")
+        @Config.Comment("Chance for fully-grown flax crops to drop Vibrant Flax Blossoms.")
+        public double flaxVibrantDrop = 0.2;
+
+        @Config.Name("Flax Exquisite Drop")
+        @Config.Comment("Chance for fully-grown flax crops to drop Exquisite Flax Blossoms.")
+        public double flaxExquisiteDrop = 0.2;
     }
 
     public static class Cushions {
