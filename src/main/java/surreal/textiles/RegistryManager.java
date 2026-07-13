@@ -52,6 +52,7 @@ import surreal.textiles.items.ItemFlaxSeeds;
 import surreal.textiles.items.ItemMaterial;
 import surreal.textiles.items.ItemWoolSlab;
 import surreal.textiles.recipes.RecipeDyeSack;
+import surreal.textiles.util.TextilesFluidStateMapper;
 import surreal.textiles.util.TextilesUtils;
 
 import java.util.List;
@@ -142,8 +143,10 @@ public class RegistryManager {
         FLAX_SEEDS = registerItem("flax_seeds", new ItemFlaxSeeds(FLAX_CROP));
 
         // Fluids
-        ResourceLocation oilLocation = new ResourceLocation(MODID, "fluids/flaxseed_oil");
-        FLAXSEED_OIL = new Fluid("flaxseed_oil", oilLocation, oilLocation);
+        FLAXSEED_OIL = new Fluid("flaxseed_oil",
+                new ResourceLocation(MODID, "blocks/flaxseed_oil_still"),
+                new ResourceLocation(MODID, "blocks/flaxseed_oil_flowing"),
+                0xBAD33A);
 
         // Sounds
         SACK_OPEN = registerSound("block.sack.open");
@@ -581,5 +584,7 @@ public class RegistryManager {
         for (Block block : DOUBLE_CUSHIONS) {
             ModelLoader.setCustomStateMapper(block, doubleCushionMap);
         }
+
+        ModelLoader.setCustomStateMapper(FLAXSEED_OIL.getBlock(), TextilesFluidStateMapper.INSTANCE);
     }
 }

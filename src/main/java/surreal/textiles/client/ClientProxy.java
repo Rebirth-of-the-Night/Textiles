@@ -50,7 +50,8 @@ public class ClientProxy extends CommonProxy {
     @SubscribeEvent
     public void registerTextures(TextureStitchEvent.Pre event) {
         TextureMap map = event.getMap();
-        map.registerSprite(new ResourceLocation(Textiles.MODID, "fluids/flaxseed_oil"));
+        map.registerSprite(new ResourceLocation(Textiles.MODID, "blocks/flaxseed_oil_still"));
+        map.registerSprite(new ResourceLocation(Textiles.MODID, "blocks/flaxseed_oil_flowing"));
     }
 
     @Override

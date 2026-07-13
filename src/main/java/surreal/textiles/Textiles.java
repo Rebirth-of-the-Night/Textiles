@@ -1,6 +1,8 @@
 package surreal.textiles;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,6 +12,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -92,6 +95,8 @@ public class Textiles {
 
         FluidRegistry.registerFluid(RegistryManager.FLAXSEED_OIL);
         FluidRegistry.addBucketForFluid(RegistryManager.FLAXSEED_OIL);
+        RegistryManager.INSTANCE.registerBlock(
+                "flaxseed_oil", new BlockFluidClassic(RegistryManager.FLAXSEED_OIL, Material.WATER, MapColor.YELLOW));
 
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "falling_sack"), EntityFallingSack.class, "Falling Sack", 2, INSTANCE, 160, 20, true);
 
