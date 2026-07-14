@@ -21,7 +21,6 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import surreal.textiles.RegistryManager;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
 public class EntityWoolCushion extends Entity implements IEntityAdditionalSpawnData {
 
@@ -121,7 +120,7 @@ public class EntityWoolCushion extends Entity implements IEntityAdditionalSpawnD
                 breakCushion(false);
                 return;
             }
-            final ItemStack stack = attacker.getHeldItem(EnumHand.MAIN_HAND);
+            final ItemStack stack = attacker.getHeldItemMainhand();
             if (stack.isEmpty()) {
                 health -= 20;
             } else {
