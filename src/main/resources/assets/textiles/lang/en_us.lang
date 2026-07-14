@@ -67,6 +67,23 @@ tile.textiles.wool_slab2.green.name=Green Wool Slab
 tile.textiles.wool_slab2.red.name=Red Wool Slab
 tile.textiles.wool_slab2.black.name=Black Wool Slab
 
+tile.textiles.wool_stairs_white.name=White Wool Stairs
+tile.textiles.wool_stairs_orange.name=Orange Wool Stairs
+tile.textiles.wool_stairs_magenta.name=Magenta Wool Stairs
+tile.textiles.wool_stairs_light_blue.name=Light Blue Wool Stairs
+tile.textiles.wool_stairs_yellow.name=Yellow Wool Stairs
+tile.textiles.wool_stairs_lime.name=Lime Wool Stairs
+tile.textiles.wool_stairs_pink.name=Pink Wool Stairs
+tile.textiles.wool_stairs_gray.name=Gray Wool Stairs
+tile.textiles.wool_stairs_silver.name=Light Gray Wool Stairs
+tile.textiles.wool_stairs_cyan.name=Cyan Wool Stairs
+tile.textiles.wool_stairs_purple.name=Purple Wool Stairs
+tile.textiles.wool_stairs_blue.name=Blue Wool Stairs
+tile.textiles.wool_stairs_brown.name=Brown Wool Stairs
+tile.textiles.wool_stairs_green.name=Green Wool Stairs
+tile.textiles.wool_stairs_red.name=Red Wool Stairs
+tile.textiles.wool_stairs_black.name=Black Wool Stairs
+
 # Items
 item.textiles.material.wicker_patch.name=Wicker Patch
 item.textiles.material.twine.name=Twine

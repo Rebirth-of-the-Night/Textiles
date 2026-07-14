@@ -3,6 +3,7 @@ package surreal.textiles;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.block.BlockStairs;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.init.Blocks;
@@ -41,6 +42,7 @@ import surreal.textiles.blocks.BlockRettedFibers;
 import surreal.textiles.blocks.BlockSack;
 import surreal.textiles.blocks.BlockSpindle;
 import surreal.textiles.blocks.BlockWoolSlab;
+import surreal.textiles.blocks.BlockWoolStairs;
 import surreal.textiles.client.models.ModelRegistry;
 import surreal.textiles.client.renderer.RenderEntityWoolCushion;
 import surreal.textiles.items.ItemBlockBase;
@@ -107,6 +109,7 @@ public class RegistryManager {
     public static BlockWoolSlab WOOL_SLAB1_DOUBLE;
     public static BlockWoolSlab WOOL_SLAB2_HALF;
     public static BlockWoolSlab WOOL_SLAB2_DOUBLE;
+    public static BlockStairs[] WOOL_STAIRS;
 
     // Items
     public static ItemMaterial MATERIAL;
@@ -159,6 +162,14 @@ public class RegistryManager {
         WOOL_SLAB2_HALF = registerBlock("wool_slab2", new BlockWoolSlab.Half.Upper());
         WOOL_SLAB2_DOUBLE = registerBlock("wool_slab2_double", new BlockWoolSlab.Double.Upper());
         registerItem("wool_slab2", new ItemWoolSlab(WOOL_SLAB2_HALF, WOOL_SLAB2_DOUBLE));
+        final EnumDyeColor[] cols = EnumDyeColor.values();
+        WOOL_STAIRS = new BlockStairs[cols.length];
+        for (final EnumDyeColor col : cols) {
+            final String name = "wool_stairs_" + col.getName();
+            final BlockStairs block = registerBlock(name, new BlockWoolStairs(col));;
+            WOOL_STAIRS[col.getMetadata()] = block;
+            registerItem(name, new ItemBlockBase(block));
+        }
 
         // Items
         MATERIAL = registerItem("material", new ItemMaterial());
@@ -387,6 +398,21 @@ public class RegistryManager {
             }
             registry.register(shapelessOreRecipe(new ResourceLocation(MODID, "dye_wool_slab_" + col.getName()),
                     BlockWoolSlab.newStack(col, 1), Ingredient.fromStacks(otherWools), "dye" + TextilesUtils.getDyeOreName(col)));
+        }
+
+        // Wool Stairs
+        for (final EnumDyeColor col : cols) {
+            registry.register(lessStupidOreRecipe(new ResourceLocation(MODID, "wool_stairs_" + col.getName()),
+                    new ItemStack(WOOL_STAIRS[col.getMetadata()], 4), "W  ", "WW ", "WWW", 'W', "wool" + TextilesUtils.getDyeOreName(col)));
+            final ItemStack[] otherWools = new ItemStack[cols.length - 1];
+            int i = 0;
+            for (final EnumDyeColor otherCol : cols) {
+                if (otherCol != col) {
+                    otherWools[i++] = new ItemStack(WOOL_STAIRS[otherCol.getMetadata()], 1);
+                }
+            }
+            registry.register(shapelessOreRecipe(new ResourceLocation(MODID, "dye_wool_stairs_" + col.getName()),
+                    new ItemStack(WOOL_STAIRS[col.getMetadata()], 1), Ingredient.fromStacks(otherWools), "dye" + TextilesUtils.getDyeOreName(col)));
         }
 
         // Wool Cushions
