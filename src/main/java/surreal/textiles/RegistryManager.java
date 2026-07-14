@@ -3,6 +3,7 @@ package surreal.textiles;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
+import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.statemap.StateMap;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -41,6 +42,7 @@ import surreal.textiles.blocks.BlockSack;
 import surreal.textiles.blocks.BlockSpindle;
 import surreal.textiles.blocks.BlockWoolSlab;
 import surreal.textiles.client.models.ModelRegistry;
+import surreal.textiles.client.renderer.RenderEntityWoolCushion;
 import surreal.textiles.items.ItemBlockBase;
 import surreal.textiles.items.ItemBlockBasket;
 import surreal.textiles.items.ItemBlockRawFibers;
@@ -50,6 +52,7 @@ import surreal.textiles.items.ItemBlockStackable;
 import surreal.textiles.items.ItemCushion;
 import surreal.textiles.items.ItemFlaxSeeds;
 import surreal.textiles.items.ItemMaterial;
+import surreal.textiles.items.ItemWoolCushion;
 import surreal.textiles.items.ItemWoolSlab;
 import surreal.textiles.recipes.RecipeDyeSack;
 import surreal.textiles.util.TextilesFluidStateMapper;
@@ -58,10 +61,28 @@ import surreal.textiles.util.TextilesUtils;
 import java.util.List;
 import java.util.Objects;
 
+import static net.minecraft.block.BlockPlanks.EnumType.ACACIA;
+import static net.minecraft.block.BlockPlanks.EnumType.BIRCH;
+import static net.minecraft.block.BlockPlanks.EnumType.DARK_OAK;
+import static net.minecraft.block.BlockPlanks.EnumType.JUNGLE;
+import static net.minecraft.block.BlockPlanks.EnumType.OAK;
+import static net.minecraft.block.BlockPlanks.EnumType.SPRUCE;
 import static surreal.textiles.Textiles.MODID;
 import static surreal.textiles.Textiles.TAB;
-import static surreal.textiles.items.ItemMaterial.Type.*;
-import static net.minecraft.block.BlockPlanks.EnumType.*;
+import static surreal.textiles.items.ItemMaterial.Type.CHAIN_MESH;
+import static surreal.textiles.items.ItemMaterial.Type.EXQUISITE_FLAX_BLOSSOMS;
+import static surreal.textiles.items.ItemMaterial.Type.FLAXSEED_OIL_BOTTLE;
+import static surreal.textiles.items.ItemMaterial.Type.FLAX_STALKS;
+import static surreal.textiles.items.ItemMaterial.Type.LINEN;
+import static surreal.textiles.items.ItemMaterial.Type.PALE_FLAX_BLOSSOMS;
+import static surreal.textiles.items.ItemMaterial.Type.RAW_PLANT_FIBERS;
+import static surreal.textiles.items.ItemMaterial.Type.SILK_THREAD;
+import static surreal.textiles.items.ItemMaterial.Type.SILK_WISPS;
+import static surreal.textiles.items.ItemMaterial.Type.TWINE;
+import static surreal.textiles.items.ItemMaterial.Type.VIBRANT_FLAX_BLOSSOMS;
+import static surreal.textiles.items.ItemMaterial.Type.WICKER_PATCH;
+import static surreal.textiles.items.ItemMaterial.Type.WOOD_BLEACH;
+import static surreal.textiles.items.ItemMaterial.Type.WOOD_STAIN;
 
 public class RegistryManager {
 
@@ -90,6 +111,7 @@ public class RegistryManager {
     // Items
     public static ItemMaterial MATERIAL;
     public static ItemSeeds FLAX_SEEDS;
+    public static ItemWoolCushion WOOL_CUSHION;
 
     // Fluids
     public static Fluid FLAXSEED_OIL;
@@ -141,12 +163,12 @@ public class RegistryManager {
         // Items
         MATERIAL = registerItem("material", new ItemMaterial());
         FLAX_SEEDS = registerItem("flax_seeds", new ItemFlaxSeeds(FLAX_CROP));
+        WOOL_CUSHION = registerItem("wool_cushion", new ItemWoolCushion());
 
         // Fluids
         FLAXSEED_OIL = new Fluid("flaxseed_oil",
                 new ResourceLocation(MODID, "blocks/flaxseed_oil_still"),
-                new ResourceLocation(MODID, "blocks/flaxseed_oil_flowing"),
-                0xBAD33A);
+                new ResourceLocation(MODID, "blocks/flaxseed_oil_flowing"));
 
         // Sounds
         SACK_OPEN = registerSound("block.sack.open");
@@ -356,7 +378,7 @@ public class RegistryManager {
         for (final EnumDyeColor col : cols) {
             registry.register(lessStupidOreRecipe(new ResourceLocation(MODID, "wool_slab_" + col.getName()),
                     BlockWoolSlab.newStack(col, 6), "WWW", 'W', "wool" + TextilesUtils.getDyeOreName(col)));
-            final ItemStack[] otherWools = new ItemStack[15];
+            final ItemStack[] otherWools = new ItemStack[cols.length - 1];
             int i = 0;
             for (final EnumDyeColor otherCol : cols) {
                 if (otherCol != col) {
@@ -365,6 +387,21 @@ public class RegistryManager {
             }
             registry.register(shapelessOreRecipe(new ResourceLocation(MODID, "dye_wool_slab_" + col.getName()),
                     BlockWoolSlab.newStack(col, 1), Ingredient.fromStacks(otherWools), "dye" + TextilesUtils.getDyeOreName(col)));
+        }
+
+        // Wool Cushions
+        for (final EnumDyeColor col : cols) {
+            GameRegistry.addShapedRecipe(new ResourceLocation(MODID, "wool_cushion_" + col.getName()), null,
+                    WOOL_CUSHION.newStack(col, 1), "SSS", 'S', Ingredient.fromStacks(BlockWoolSlab.newStack(col, 1)));
+            final ItemStack[] otherCushions = new ItemStack[cols.length - 1];
+            int i = 0;
+            for (final EnumDyeColor otherCol : cols) {
+                if (otherCol != col) {
+                    otherCushions[i++] = WOOL_CUSHION.newStack(otherCol, 1);
+                }
+            }
+            registry.register(shapelessOreRecipe(new ResourceLocation(MODID, "dye_wool_cushion_" + col.getName()),
+                    WOOL_CUSHION.newStack(col, 1), Ingredient.fromStacks(otherCushions), "dye" + TextilesUtils.getDyeOreName(col)));
         }
 
         // Wood Staining
@@ -586,5 +623,10 @@ public class RegistryManager {
         }
 
         ModelLoader.setCustomStateMapper(FLAXSEED_OIL.getBlock(), TextilesFluidStateMapper.INSTANCE);
+
+        // we need these models for the wool cushion entity renderer, and this is just the easiest way to get them into
+        // the model loader without a whole lot of hassle
+        ModelBakery.registerItemVariants(WOOL_CUSHION,
+                RenderEntityWoolCushion.CUSHION_MODELS.values().toArray(new ResourceLocation[0]));
     }
 }

@@ -1,0 +1,138 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "textiles:small_cushion"
+  },
+  "variants": {
+    "color": {
+      "white": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_white_bot",
+          "1": "textiles:blocks/small_cushion_white_top",
+          "2": "textiles:blocks/small_cushion_white_side",
+          "particle": "textiles:blocks/small_cushion_white_bot"
+        }
+      },
+      "orange": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_orange_bot",
+          "1": "textiles:blocks/small_cushion_orange_top",
+          "2": "textiles:blocks/small_cushion_orange_side",
+          "particle": "textiles:blocks/small_cushion_orange_bot"
+        }
+      },
+      "magenta": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_magenta_bot",
+          "1": "textiles:blocks/small_cushion_magenta_top",
+          "2": "textiles:blocks/small_cushion_magenta_side",
+          "particle": "textiles:blocks/small_cushion_magenta_bot"
+        }
+      },
+      "light_blue": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_light_blue_bot",
+          "1": "textiles:blocks/small_cushion_light_blue_top",
+          "2": "textiles:blocks/small_cushion_light_blue_side",
+          "particle": "textiles:blocks/small_cushion_light_blue_bot"
+        }
+      },
+      "yellow": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_yellow_bot",
+          "1": "textiles:blocks/small_cushion_yellow_top",
+          "2": "textiles:blocks/small_cushion_yellow_side",
+          "particle": "textiles:blocks/small_cushion_yellow_bot"
+        }
+      },
+      "lime": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_lime_bot",
+          "1": "textiles:blocks/small_cushion_lime_top",
+          "2": "textiles:blocks/small_cushion_lime_side",
+          "particle": "textiles:blocks/small_cushion_lime_bot"
+        }
+      },
+      "pink": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_pink_bot",
+          "1": "textiles:blocks/small_cushion_pink_top",
+          "2": "textiles:blocks/small_cushion_pink_side",
+          "particle": "textiles:blocks/small_cushion_pink_bot"
+        }
+      },
+      "gray": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_gray_bot",
+          "1": "textiles:blocks/small_cushion_gray_top",
+          "2": "textiles:blocks/small_cushion_gray_side",
+          "particle": "textiles:blocks/small_cushion_gray_bot"
+        }
+      },
+      "silver": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_light_gray_bot",
+          "1": "textiles:blocks/small_cushion_light_gray_top",
+          "2": "textiles:blocks/small_cushion_light_gray_side",
+          "particle": "textiles:blocks/small_cushion_light_gray_bot"
+        }
+      },
+      "cyan": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_cyan_bot",
+          "1": "textiles:blocks/small_cushion_cyan_top",
+          "2": "textiles:blocks/small_cushion_cyan_side",
+          "particle": "textiles:blocks/small_cushion_cyan_bot"
+        }
+      },
+      "purple": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_purple_bot",
+          "1": "textiles:blocks/small_cushion_purple_top",
+          "2": "textiles:blocks/small_cushion_purple_side",
+          "particle": "textiles:blocks/small_cushion_purple_bot"
+        }
+      },
+      "blue": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_blue_bot",
+          "1": "textiles:blocks/small_cushion_blue_top",
+          "2": "textiles:blocks/small_cushion_blue_side",
+          "particle": "textiles:blocks/small_cushion_blue_bot"
+        }
+      },
+      "brown": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_brown_bot",
+          "1": "textiles:blocks/small_cushion_brown_top",
+          "2": "textiles:blocks/small_cushion_brown_side",
+          "particle": "textiles:blocks/small_cushion_brown_bot"
+        }
+      },
+      "green": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_green_bot",
+          "1": "textiles:blocks/small_cushion_green_top",
+          "2": "textiles:blocks/small_cushion_green_side",
+          "particle": "textiles:blocks/small_cushion_green_bot"
+        }
+      },
+      "red": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_red_bot",
+          "1": "textiles:blocks/small_cushion_red_top",
+          "2": "textiles:blocks/small_cushion_red_side",
+          "particle": "textiles:blocks/small_cushion_red_bot"
+        }
+      },
+      "black": {
+        "textures": {
+          "0": "textiles:blocks/small_cushion_black_bot",
+          "1": "textiles:blocks/small_cushion_black_top",
+          "2": "textiles:blocks/small_cushion_black_side",
+          "particle": "textiles:blocks/small_cushion_black_bot"
+        }
+      }
+    }
+  }
+}

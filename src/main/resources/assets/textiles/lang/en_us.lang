@@ -84,6 +84,26 @@ item.textiles.material.wood_bleach.name=Wood Bleach
 item.textiles.material.linen.name=Linen
 item.textiles.flax_seeds.name=Flax Seeds
 
+item.textiles.wool_cushion.red.name=Small Red Cushion
+item.textiles.wool_cushion.orange.name=Small Orange Cushion
+item.textiles.wool_cushion.yellow.name=Small Yellow Cushion
+item.textiles.wool_cushion.lime.name=Small Lime Cushion
+item.textiles.wool_cushion.green.name=Small Green Cushion
+item.textiles.wool_cushion.cyan.name=Small Cyan Cushion
+item.textiles.wool_cushion.light_blue.name=Small Light Blue Cushion
+item.textiles.wool_cushion.blue.name=Small Blue Cushion
+item.textiles.wool_cushion.purple.name=Small Purple Cushion
+item.textiles.wool_cushion.magenta.name=Small Magenta Cushion
+item.textiles.wool_cushion.pink.name=Small Pink Cushion
+item.textiles.wool_cushion.white.name=Small White Cushion
+item.textiles.wool_cushion.silver.name=Small Light Gray Cushion
+item.textiles.wool_cushion.gray.name=Small Gray Cushion
+item.textiles.wool_cushion.black.name=Small Black Cushion
+item.textiles.wool_cushion.brown.name=Small Brown Cushion
+
+# Entities
+entity.SmallCushion.name=Small Cushion
+
 # Potions
 effect.textiles.overencumbered=Overencumbered
 

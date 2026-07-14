@@ -30,6 +30,7 @@ import org.apache.logging.log4j.Logger;
 import surreal.textiles.client.guis.GuiHandler;
 import surreal.textiles.compat.TextilesCompat;
 import surreal.textiles.entities.EntityFallingSack;
+import surreal.textiles.entities.EntityWoolCushion;
 import surreal.textiles.event.InventoryInteractionHandler;
 import surreal.textiles.event.OverencumbranceHandler;
 import surreal.textiles.items.ItemMaterial;
@@ -99,6 +100,7 @@ public class Textiles {
                 "flaxseed_oil", new BlockFluidClassic(RegistryManager.FLAXSEED_OIL, Material.WATER, MapColor.YELLOW));
 
         EntityRegistry.registerModEntity(new ResourceLocation(MODID, "falling_sack"), EntityFallingSack.class, "Falling Sack", 2, INSTANCE, 160, 20, true);
+        EntityRegistry.registerModEntity(new ResourceLocation(MODID, "wool_cushion"), EntityWoolCushion.class, "SmallCushion", 3, INSTANCE, 160, Integer.MAX_VALUE, false);
 
         proxy.preInit(event);
     }
