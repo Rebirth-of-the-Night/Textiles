@@ -24,23 +24,23 @@ tile.textiles.spindle_black.name=Black Fabric
 tile.textiles.spindle_brown.name=Brown Fabric
 tile.textiles.spindle_canvas.name=Bolt of Canvas
 
-tile.textiles.cushion.name=Plain Cushion
-tile.textiles.cushion_red.name=Red Cushion
-tile.textiles.cushion_orange.name=Orange Cushion
-tile.textiles.cushion_yellow.name=Yellow Cushion
-tile.textiles.cushion_lime.name=Lime Cushion
-tile.textiles.cushion_green.name=Green Cushion
-tile.textiles.cushion_cyan.name=Cyan Cushion
-tile.textiles.cushion_light_blue.name=Light Blue Cushion
-tile.textiles.cushion_blue.name=Blue Cushion
-tile.textiles.cushion_purple.name=Purple Cushion
-tile.textiles.cushion_magenta.name=Magenta Cushion
-tile.textiles.cushion_pink.name=Pink Cushion
-tile.textiles.cushion_white.name=White Cushion
-tile.textiles.cushion_silver.name=Light Gray Cushion
-tile.textiles.cushion_gray.name=Gray Cushion
-tile.textiles.cushion_black.name=Black Cushion
-tile.textiles.cushion_brown.name=Brown Cushion
+tile.textiles.cushion.name=Large Plain Cushion
+tile.textiles.cushion_red.name=Large Red Cushion
+tile.textiles.cushion_orange.name=Large Orange Cushion
+tile.textiles.cushion_yellow.name=Large Yellow Cushion
+tile.textiles.cushion_lime.name=Large Lime Cushion
+tile.textiles.cushion_green.name=Large Green Cushion
+tile.textiles.cushion_cyan.name=Large Cyan Cushion
+tile.textiles.cushion_light_blue.name=Large Light Blue Cushion
+tile.textiles.cushion_blue.name=Large Blue Cushion
+tile.textiles.cushion_purple.name=Large Purple Cushion
+tile.textiles.cushion_magenta.name=Large Magenta Cushion
+tile.textiles.cushion_pink.name=Large Pink Cushion
+tile.textiles.cushion_white.name=Large White Cushion
+tile.textiles.cushion_silver.name=Large Light Gray Cushion
+tile.textiles.cushion_gray.name=Large Gray Cushion
+tile.textiles.cushion_black.name=Large Black Cushion
+tile.textiles.cushion_brown.name=Large Brown Cushion
 
 tile.textiles.raw_fibers.name=Raw Fiber Bale
 tile.textiles.dried_fibers.name=Retted Fiber Bale
@@ -49,6 +49,40 @@ tile.textiles.basket.name=Basket
 tile.textiles.basket_1.name=Sturdy Basket
 
 tile.textiles.sack.name=Sack
+
+tile.textiles.wool_slab1.white.name=White Wool Slab
+tile.textiles.wool_slab1.orange.name=Orange Wool Slab
+tile.textiles.wool_slab1.magenta.name=Magenta Wool Slab
+tile.textiles.wool_slab1.light_blue.name=Light Blue Wool Slab
+tile.textiles.wool_slab1.yellow.name=Yellow Wool Slab
+tile.textiles.wool_slab1.lime.name=Lime Wool Slab
+tile.textiles.wool_slab1.pink.name=Pink Wool Slab
+tile.textiles.wool_slab1.gray.name=Gray Wool Slab
+tile.textiles.wool_slab2.silver.name=Light Gray Wool Slab
+tile.textiles.wool_slab2.cyan.name=Cyan Wool Slab
+tile.textiles.wool_slab2.purple.name=Purple Wool Slab
+tile.textiles.wool_slab2.blue.name=Blue Wool Slab
+tile.textiles.wool_slab2.brown.name=Brown Wool Slab
+tile.textiles.wool_slab2.green.name=Green Wool Slab
+tile.textiles.wool_slab2.red.name=Red Wool Slab
+tile.textiles.wool_slab2.black.name=Black Wool Slab
+
+tile.textiles.wool_stairs_white.name=White Wool Stairs
+tile.textiles.wool_stairs_orange.name=Orange Wool Stairs
+tile.textiles.wool_stairs_magenta.name=Magenta Wool Stairs
+tile.textiles.wool_stairs_light_blue.name=Light Blue Wool Stairs
+tile.textiles.wool_stairs_yellow.name=Yellow Wool Stairs
+tile.textiles.wool_stairs_lime.name=Lime Wool Stairs
+tile.textiles.wool_stairs_pink.name=Pink Wool Stairs
+tile.textiles.wool_stairs_gray.name=Gray Wool Stairs
+tile.textiles.wool_stairs_silver.name=Light Gray Wool Stairs
+tile.textiles.wool_stairs_cyan.name=Cyan Wool Stairs
+tile.textiles.wool_stairs_purple.name=Purple Wool Stairs
+tile.textiles.wool_stairs_blue.name=Blue Wool Stairs
+tile.textiles.wool_stairs_brown.name=Brown Wool Stairs
+tile.textiles.wool_stairs_green.name=Green Wool Stairs
+tile.textiles.wool_stairs_red.name=Red Wool Stairs
+tile.textiles.wool_stairs_black.name=Black Wool Stairs
 
 # Items
 item.textiles.material.wicker_patch.name=Wicker Patch
@@ -66,6 +100,26 @@ item.textiles.material.wood_stain.name=Wood Stain
 item.textiles.material.wood_bleach.name=Wood Bleach
 item.textiles.material.linen.name=Linen
 item.textiles.flax_seeds.name=Flax Seeds
+
+item.textiles.wool_cushion.red.name=Small Red Cushion
+item.textiles.wool_cushion.orange.name=Small Orange Cushion
+item.textiles.wool_cushion.yellow.name=Small Yellow Cushion
+item.textiles.wool_cushion.lime.name=Small Lime Cushion
+item.textiles.wool_cushion.green.name=Small Green Cushion
+item.textiles.wool_cushion.cyan.name=Small Cyan Cushion
+item.textiles.wool_cushion.light_blue.name=Small Light Blue Cushion
+item.textiles.wool_cushion.blue.name=Small Blue Cushion
+item.textiles.wool_cushion.purple.name=Small Purple Cushion
+item.textiles.wool_cushion.magenta.name=Small Magenta Cushion
+item.textiles.wool_cushion.pink.name=Small Pink Cushion
+item.textiles.wool_cushion.white.name=Small White Cushion
+item.textiles.wool_cushion.silver.name=Small Light Gray Cushion
+item.textiles.wool_cushion.gray.name=Small Gray Cushion
+item.textiles.wool_cushion.black.name=Small Black Cushion
+item.textiles.wool_cushion.brown.name=Small Brown Cushion
+
+# Entities
+entity.SmallCushion.name=Small Cushion
 
 # Potions
 effect.textiles.overencumbered=Overencumbered

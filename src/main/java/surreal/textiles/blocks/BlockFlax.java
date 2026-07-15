@@ -8,11 +8,8 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,22 +18,26 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import net.minecraftforge.common.IShearable;
 import surreal.textiles.ModConfig;
 import surreal.textiles.RegistryManager;
+import surreal.textiles.event.DropHandler;
 import surreal.textiles.items.ItemMaterial;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 @SuppressWarnings("deprecation")
-public class BlockFlax extends BlockCrops {
+public class BlockFlax extends BlockCrops implements IShearable {
 
     private static final int MAX_AGE = 5;
 
     protected static final PropertyInteger AGE = PropertyInteger.create("age", 0, MAX_AGE);
-    protected static final PropertyBool BOTTOM = PropertyBool.create("bottom");
+    public static final PropertyBool BOTTOM = PropertyBool.create("bottom");
 
     protected static final AxisAlignedBB[] BOUNDING_BOXES;
 
@@ -161,23 +162,24 @@ public class BlockFlax extends BlockCrops {
     }
 
     // Item Stuff
-    @ParametersAreNonnullByDefault
     @Override
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
-        if (!player.isCreative() && (stack.getItem() == Items.SHEARS || stack.getItem().getHarvestLevel(stack, "shears", player, state) > -1) && getAge(state) == getMaxAge()) {
-            worldIn.setBlockState(pos, state.withProperty(AGE, 4), 2);
+    public boolean isShearable(@Nonnull final ItemStack item, final IBlockAccess world, final BlockPos pos) {
+        final IBlockState state = world.getBlockState(pos);
+        return !state.getValue(BOTTOM) && getAge(state) >= MAX_AGE;
+    }
 
-            ItemMaterial.Type blossomType = null;
-
-            float chance = worldIn.rand.nextFloat();
-
-            if (chance < 0.2F) blossomType = ItemMaterial.Type.EXQUISITE_FLAX_BLOSSOMS;
-            else if (chance < 0.4F) blossomType = ItemMaterial.Type.VIBRANT_FLAX_BLOSSOMS;
-            else if (chance < 0.8F) blossomType = ItemMaterial.Type.PALE_FLAX_BLOSSOMS;
-
-            if (blossomType != null) spawnAsEntity(worldIn, pos, RegistryManager.INSTANCE.getMaterial(blossomType));
+    @Nonnull
+    @Override
+    public List<ItemStack> onSheared(@Nonnull final ItemStack item, final IBlockAccess world, final BlockPos pos,
+                                     final int fortune) {
+        final ItemStack drop;
+        if (world instanceof World w) {
+            DropHandler.queueShearedFlax(w, pos);
+            drop = rollBlossomDrop(w.rand);
+        } else {
+            drop = rollBlossomDrop(RANDOM);
         }
-        else super.harvestBlock(worldIn, player, pos, state, te, stack);
+        return drop != null ? Collections.singletonList(drop) : Collections.emptyList();
     }
 
     @Nonnull
@@ -189,33 +191,31 @@ public class BlockFlax extends BlockCrops {
     @ParametersAreNonnullByDefault
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        int age = getAge(state);
-        boolean isBottom = state.getValue(BOTTOM);
+        final int age = getAge(state);
+        final boolean isBottom = state.getValue(BOTTOM);
 
-        Random rand = world instanceof World ? ((World) world).rand : RANDOM;
+        final ModConfig.Drops config = ModConfig.drops;
+        final Random rand = world instanceof World w ? w.rand : RANDOM;
 
-        int seedAmount = MathHelper.getInt(rand, 0 , Math.min(age, 2));
+        final int seedAmount = MathHelper.getInt(rand, 0 , Math.min(age, 2));
         if (age > 0 && seedAmount > 0) drops.add(new ItemStack(getSeed(), seedAmount));
-        else if (ModConfig.drops.alwaysDropSeeds) drops.add(new ItemStack(getSeed(), 1));
+        else if (config.alwaysDropSeeds) drops.add(new ItemStack(getSeed(), 1));
 
-        ItemMaterial.Type blossomType = null;
-
-        if (age > 0) {
-            int stalkAmount = MathHelper.getInt(rand, 1, 2);
-            if (!isBottom && stalkAmount == 2) {
-                stalkAmount = 1;
-                float chance = rand.nextFloat();
-
-                if (chance < 0.2F) blossomType = ItemMaterial.Type.EXQUISITE_FLAX_BLOSSOMS;
-                else if (chance < 0.4F) blossomType = ItemMaterial.Type.VIBRANT_FLAX_BLOSSOMS;
-                else if (chance < 0.8F) blossomType = ItemMaterial.Type.PALE_FLAX_BLOSSOMS;
+        if (age >= MAX_AGE) {
+            final float stalkRoll = rand.nextFloat();
+            if (stalkRoll < config.flaxStalkDrop) {
+                final int amount = config.flaxStalkDropFixed
+                        + rand.nextInt(config.flaxStalkDropBonus + 1);
+                if (amount > 0) {
+                    drops.add(RegistryManager.INSTANCE.getMaterial(ItemMaterial.Type.FLAX_STALKS, amount));
+                }
             }
-
-            ItemStack stalk = RegistryManager.INSTANCE.getMaterial(ItemMaterial.Type.FLAX_STALKS);
-            stalk.setCount(stalkAmount);
-
-            drops.add(stalk);
-            if (blossomType != null) drops.add(RegistryManager.INSTANCE.getMaterial(blossomType));
+            if (!isBottom) {
+                final ItemStack blossomDrop = rollBlossomDrop(rand);
+                if (blossomDrop != null) {
+                    drops.add(blossomDrop);
+                }
+            }
         }
     }
 
@@ -224,6 +224,19 @@ public class BlockFlax extends BlockCrops {
     @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
         return new ItemStack(getSeed());
+    }
+
+    @Nullable
+    private static ItemStack rollBlossomDrop(final Random rand) {
+        final float roll = rand.nextFloat();
+        final ModConfig.Drops config = ModConfig.drops;
+        float thresh = (float) config.flaxPaleDrop;
+        if (roll < thresh) return RegistryManager.INSTANCE.getMaterial(ItemMaterial.Type.PALE_FLAX_BLOSSOMS);
+        thresh += (float) config.flaxVibrantDrop;
+        if (roll < thresh) return RegistryManager.INSTANCE.getMaterial(ItemMaterial.Type.VIBRANT_FLAX_BLOSSOMS);
+        thresh += (float) config.flaxExquisiteDrop;
+        if (roll < thresh) return RegistryManager.INSTANCE.getMaterial(ItemMaterial.Type.EXQUISITE_FLAX_BLOSSOMS);
+        return null;
     }
 
     // Property Stuff

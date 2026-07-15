@@ -1,5 +1,6 @@
 package surreal.textiles.util;
 
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemShulkerBox;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -55,6 +56,27 @@ public enum TextilesUtils {
             k++;
         }
         return k;
+    }
+
+    public static String getDyeOreName(final EnumDyeColor col) {
+        return switch (col) {
+            case WHITE -> "White";
+            case ORANGE -> "Orange";
+            case MAGENTA -> "Magenta";
+            case LIGHT_BLUE -> "LightBlue";
+            case YELLOW -> "Yellow";
+            case LIME -> "Lime";
+            case PINK -> "Pink";
+            case GRAY -> "Gray";
+            case SILVER -> "LightGray";
+            case CYAN -> "Cyan";
+            case PURPLE -> "Purple";
+            case BLUE -> "Blue";
+            case BROWN -> "Brown";
+            case GREEN -> "Green";
+            case RED -> "Red";
+            case BLACK -> "Black";
+        };
     }
 
 }

@@ -42,6 +42,7 @@ public class TileSack extends TileEntity implements ITickable {
     private int localState = 0; // tick timer on server, last known user count on client
     private int dyeColor = -1;
     private int lastSyncDyeColor = -1; // last sent on server, last received on client
+    private boolean destroyedByCreativePlayer;
 
     public IItemHandlerModifiable getInventory() {
         return inventory;
@@ -144,6 +145,14 @@ public class TileSack extends TileEntity implements ITickable {
             final IBlockState state = world.getBlockState(pos);
             world.notifyBlockUpdate(pos, state, state, 3);
         }
+    }
+
+    public void setDestroyedByCreativePlayer(final boolean destroyedByCreativePlayer) {
+        this.destroyedByCreativePlayer = destroyedByCreativePlayer;
+    }
+
+    public boolean shouldDrop() {
+        return !destroyedByCreativePlayer || !inventory.isEmpty();
     }
 
     @Override

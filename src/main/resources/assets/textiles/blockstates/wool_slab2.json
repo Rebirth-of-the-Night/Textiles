@@ -1,0 +1,56 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "textiles:lower_wool_slab"
+  },
+  "variants": {
+    "half": {
+      "bottom": {},
+      "top": {
+        "model": "textiles:upper_wool_slab"
+      }
+    },
+    "color": {
+      "silver": {
+        "textures": {
+          "wool": "blocks/wool_colored_silver"
+        }
+      },
+      "cyan": {
+        "textures": {
+          "wool": "blocks/wool_colored_cyan"
+        }
+      },
+      "purple": {
+        "textures": {
+          "wool": "blocks/wool_colored_purple"
+        }
+      },
+      "blue": {
+        "textures": {
+          "wool": "blocks/wool_colored_blue"
+        }
+      },
+      "brown": {
+        "textures": {
+          "wool": "blocks/wool_colored_brown"
+        }
+      },
+      "green": {
+        "textures": {
+          "wool": "blocks/wool_colored_green"
+        }
+      },
+      "red": {
+        "textures": {
+          "wool": "blocks/wool_colored_red"
+        }
+      },
+      "black": {
+        "textures": {
+          "wool": "blocks/wool_colored_black"
+        }
+      }
+    }
+  }
+}

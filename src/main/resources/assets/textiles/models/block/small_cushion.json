@@ -1,0 +1,24 @@
+{
+  "format_version": "1.9.0",
+  "credit": "Made by Foreck with Blockbench",
+  "textures": {
+    "0": "textiles:blocks/small_cushion_white_bot",
+    "1": "textiles:blocks/small_cushion_white_top",
+    "2": "textiles:blocks/small_cushion_white_side",
+    "particle": "textiles:blocks/small_cushion_white_bot"
+  },
+  "elements": [
+    {
+      "from": [0.06, 0.06, 0.06],
+      "to": [15.94, 3.94, 15.94],
+      "faces": {
+        "north": {"uv": [0, 12, 16, 16], "texture": "#2"},
+        "east": {"uv": [0, 12, 16, 16], "texture": "#2"},
+        "south": {"uv": [0, 12, 16, 16], "texture": "#2"},
+        "west": {"uv": [0, 12, 16, 16], "texture": "#2"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#1"},
+        "down": {"uv": [0, 0, 16, 16], "texture": "#0"}
+      }
+    }
+  ]
+}

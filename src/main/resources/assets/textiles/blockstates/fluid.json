@@ -1,0 +1,11 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "flaxseed_oil": {
+      "model": "forge:fluid",
+      "custom": {
+        "fluid": "flaxseed_oil"
+      }
+    }
+  }
+}

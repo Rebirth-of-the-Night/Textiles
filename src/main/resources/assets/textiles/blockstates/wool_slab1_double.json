@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "color=white": {
+      "model": "white_wool"
+    },
+    "color=orange": {
+      "model": "orange_wool"
+    },
+    "color=magenta": {
+      "model": "magenta_wool"
+    },
+    "color=light_blue": {
+      "model": "light_blue_wool"
+    },
+    "color=yellow": {
+      "model": "yellow_wool"
+    },
+    "color=lime": {
+      "model": "lime_wool"
+    },
+    "color=pink": {
+      "model": "pink_wool"
+    },
+    "color=gray": {
+      "model": "gray_wool"
+    }
+  }
+}

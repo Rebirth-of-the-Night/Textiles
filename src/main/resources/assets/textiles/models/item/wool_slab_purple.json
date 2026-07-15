@@ -1,0 +1,6 @@
+{
+  "parent": "textiles:block/lower_wool_slab",
+  "textures": {
+    "wool": "blocks/wool_colored_purple"
+  }
+}

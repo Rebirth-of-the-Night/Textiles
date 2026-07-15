@@ -7,7 +7,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import net.minecraftforge.items.ItemStackHandler;
 import surreal.textiles.ModConfig;
 import surreal.textiles.Textiles;
 import surreal.textiles.blocks.BlockBasket;
@@ -32,7 +31,9 @@ public abstract class TileBasket extends TileEntity {
 
     private final BlockBasket.Type type;
     private final String tileEntityId;
-    private final ItemStackHandler inventory;
+    private final BlockItemInventory inventory;
+
+    private boolean destroyedByCreativePlayer;
 
     private TileBasket(final BlockBasket.Type type, final String tileEntityId) {
         this.type = type;
@@ -46,6 +47,14 @@ public abstract class TileBasket extends TileEntity {
 
     public IItemHandlerModifiable getInventory() {
         return inventory;
+    }
+
+    public void setDestroyedByCreativePlayer(final boolean destroyedByCreativePlayer) {
+        this.destroyedByCreativePlayer = destroyedByCreativePlayer;
+    }
+
+    public boolean shouldDrop() {
+        return !destroyedByCreativePlayer || !inventory.isEmpty();
     }
 
     public NBTTagCompound writeStateToNBT(final NBTTagCompound tag) {

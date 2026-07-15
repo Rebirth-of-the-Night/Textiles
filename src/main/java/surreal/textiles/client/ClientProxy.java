@@ -22,8 +22,10 @@ import surreal.textiles.blocks.BlockSack;
 import surreal.textiles.client.event.InventoryRenderHandler;
 import surreal.textiles.client.models.BlockSpindleModel;
 import surreal.textiles.client.renderer.RenderEntityFallingSack;
+import surreal.textiles.client.renderer.RenderEntityWoolCushion;
 import surreal.textiles.compat.TextilesCompat;
 import surreal.textiles.entities.EntityFallingSack;
+import surreal.textiles.entities.EntityWoolCushion;
 import surreal.textiles.items.ItemBlockSack;
 import surreal.textiles.tiles.TileSack;
 
@@ -40,6 +42,7 @@ public class ClientProxy extends CommonProxy {
 
         ModelLoaderRegistry.registerLoader(new BlockSpindleModel.Loader());
         RenderingRegistry.registerEntityRenderingHandler(EntityFallingSack.class, RenderEntityFallingSack::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityWoolCushion.class, RenderEntityWoolCushion::new);
     }
 
     @SubscribeEvent
@@ -50,7 +53,8 @@ public class ClientProxy extends CommonProxy {
     @SubscribeEvent
     public void registerTextures(TextureStitchEvent.Pre event) {
         TextureMap map = event.getMap();
-        map.registerSprite(new ResourceLocation(Textiles.MODID, "fluids/flaxseed_oil"));
+        map.registerSprite(new ResourceLocation(Textiles.MODID, "blocks/flaxseed_oil_still"));
+        map.registerSprite(new ResourceLocation(Textiles.MODID, "blocks/flaxseed_oil_flowing"));
     }
 
     @Override

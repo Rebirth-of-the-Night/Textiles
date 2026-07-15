@@ -180,17 +180,21 @@ public class BlockSack extends BlockContainer {
                          final IBlockState state, final int fortune) {}
 
     @Override
+    public void onBlockHarvested(final World world, final BlockPos pos, final IBlockState state,
+                                 final EntityPlayer player) {
+        if (world.getTileEntity(pos) instanceof TileSack sack) {
+            sack.setDestroyedByCreativePlayer(player.capabilities.isCreativeMode);
+        }
+    }
+
+    @Override
     public void breakBlock(final World world, final BlockPos pos, final IBlockState state) {
-        if (allowDrops && !world.isRemote) {
-            if (world.getTileEntity(pos) instanceof TileSack sack) {
-                final ItemStack stack = new ItemStack(this, 1, sack.getDyeColor() >= 0 ? 1 : 0);
-                final NBTTagCompound stackData = new NBTTagCompound();
-                stackData.setTag("BlockEntityTag", sack.writeToExternalNBT(new NBTTagCompound()));
-                stack.setTagCompound(stackData);
-                spawnAsEntity(world, pos, stack);
-            } else {
-                spawnAsEntity(world, pos, new ItemStack(this));
-            }
+        if (allowDrops && !world.isRemote && world.getTileEntity(pos) instanceof TileSack sack && sack.shouldDrop()) {
+            final ItemStack stack = new ItemStack(this, 1, sack.getDyeColor() >= 0 ? 1 : 0);
+            final NBTTagCompound stackData = new NBTTagCompound();
+            stackData.setTag("BlockEntityTag", sack.writeToExternalNBT(new NBTTagCompound()));
+            stack.setTagCompound(stackData);
+            spawnAsEntity(world, pos, stack);
         }
         super.breakBlock(world, pos, state);
     }
