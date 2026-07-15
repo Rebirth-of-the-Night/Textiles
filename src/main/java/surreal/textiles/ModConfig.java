@@ -28,16 +28,34 @@ public class ModConfig {
         @Config.Comment("If Flax Crop should always drop seed no matter it's age.")
         public boolean alwaysDropSeeds = false;
 
+        @Config.Name("Flax Stalk Drop")
+        @Config.Comment("Chance for fully-grown flax crops to drop Flax Stalks.")
+        @Config.RangeDouble(min = 0D, max = 1D)
+        public double flaxStalkDrop = 1.0;
+
+        @Config.Name("Flax Stalk Drop Fixed")
+        @Config.Comment("Number of guaranteed Flax Stalks that should drop from a fully-grown flax crop.")
+        @Config.RangeInt(min = 0)
+        public int flaxStalkDropFixed = 1;
+
+        @Config.Name("Flax Stalk Drop Bonus")
+        @Config.Comment("Maximum number of bonus Flax Stalks that can drop from a fully-grown flax crop.")
+        @Config.RangeInt(min = 0)
+        public int flaxStalkDropBonus = 2;
+
         @Config.Name("Flax Pale Drop")
         @Config.Comment("Chance for fully-grown flax crops to drop Pale Flax Blossoms.")
+        @Config.RangeDouble(min = 0D, max = 1D)
         public double flaxPaleDrop = 0.4;
 
         @Config.Name("Flax Vibrant Drop")
         @Config.Comment("Chance for fully-grown flax crops to drop Vibrant Flax Blossoms.")
+        @Config.RangeDouble(min = 0D, max = 1D)
         public double flaxVibrantDrop = 0.2;
 
         @Config.Name("Flax Exquisite Drop")
         @Config.Comment("Chance for fully-grown flax crops to drop Exquisite Flax Blossoms.")
+        @Config.RangeDouble(min = 0D, max = 1D)
         public double flaxExquisiteDrop = 0.2;
     }
 

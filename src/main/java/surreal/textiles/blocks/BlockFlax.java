@@ -177,7 +177,7 @@ public class BlockFlax extends BlockCrops implements IShearable {
             DropHandler.queueShearedFlax(w, pos);
             drop = rollBlossomDrop(w.rand);
         } else {
-            drop = rollBlossomDrop(null);
+            drop = rollBlossomDrop(RANDOM);
         }
         return drop != null ? Collections.singletonList(drop) : Collections.emptyList();
     }
@@ -191,25 +191,31 @@ public class BlockFlax extends BlockCrops implements IShearable {
     @ParametersAreNonnullByDefault
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        int age = getAge(state);
-        boolean isBottom = state.getValue(BOTTOM);
+        final int age = getAge(state);
+        final boolean isBottom = state.getValue(BOTTOM);
 
-        Random rand = world instanceof World ? ((World) world).rand : RANDOM;
+        final ModConfig.Drops config = ModConfig.drops;
+        final Random rand = world instanceof World w ? w.rand : RANDOM;
 
-        int seedAmount = MathHelper.getInt(rand, 0 , Math.min(age, 2));
+        final int seedAmount = MathHelper.getInt(rand, 0 , Math.min(age, 2));
         if (age > 0 && seedAmount > 0) drops.add(new ItemStack(getSeed(), seedAmount));
-        else if (ModConfig.drops.alwaysDropSeeds) drops.add(new ItemStack(getSeed(), 1));
+        else if (config.alwaysDropSeeds) drops.add(new ItemStack(getSeed(), 1));
 
         if (age >= MAX_AGE) {
-            int stalkAmount = MathHelper.getInt(rand, 1, 2);
-            if (!isBottom && stalkAmount == 2) {
-                stalkAmount = 1;
+            final float stalkRoll = rand.nextFloat();
+            if (stalkRoll < config.flaxStalkDrop) {
+                final int amount = config.flaxStalkDropFixed
+                        + rand.nextInt(config.flaxStalkDropBonus + 1);
+                if (amount > 0) {
+                    drops.add(RegistryManager.INSTANCE.getMaterial(ItemMaterial.Type.FLAX_STALKS, amount));
+                }
+            }
+            if (!isBottom) {
                 final ItemStack blossomDrop = rollBlossomDrop(rand);
                 if (blossomDrop != null) {
                     drops.add(blossomDrop);
                 }
             }
-            drops.add(RegistryManager.INSTANCE.getMaterial(ItemMaterial.Type.FLAX_STALKS, stalkAmount));
         }
     }
 
@@ -221,8 +227,8 @@ public class BlockFlax extends BlockCrops implements IShearable {
     }
 
     @Nullable
-    private static ItemStack rollBlossomDrop(@Nullable final Random rand) {
-        final float roll = rand != null ? rand.nextFloat() : (float) Math.random();
+    private static ItemStack rollBlossomDrop(final Random rand) {
+        final float roll = rand.nextFloat();
         final ModConfig.Drops config = ModConfig.drops;
         float thresh = (float) config.flaxPaleDrop;
         if (roll < thresh) return RegistryManager.INSTANCE.getMaterial(ItemMaterial.Type.PALE_FLAX_BLOSSOMS);
