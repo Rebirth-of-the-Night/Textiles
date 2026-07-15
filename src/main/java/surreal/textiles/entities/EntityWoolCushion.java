@@ -90,6 +90,11 @@ public class EntityWoolCushion extends Entity implements IEntityAdditionalSpawnD
     }
 
     @Override
+    public double getMountedYOffset() {
+        return 0D;
+    }
+
+    @Override
     public boolean canBeCollidedWith() {
         return true;
     }

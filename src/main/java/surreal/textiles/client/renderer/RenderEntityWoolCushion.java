@@ -47,36 +47,24 @@ public class RenderEntityWoolCushion extends Render<EntityWoolCushion> {
                          final float entityYaw, final float partialTicks) {
         bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
         GlStateManager.pushMatrix();
-        GlStateManager.disableLighting();
-        Tessellator tess = Tessellator.getInstance();
-        BufferBuilder buf = tess.getBuffer();
+        GlStateManager.translate((float) x - 0.5F, (float) y, (float) z - 0.5F);
 
         if (renderOutlines) {
             GlStateManager.enableColorMaterial();
             GlStateManager.enableOutlineMode(getTeamColor(entity));
         }
 
-        buf.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-        BlockPos pos = new BlockPos(entity.posX, entity.posY, entity.posZ);
-        GlStateManager.translate(
-                (float) (x - pos.getX() - 0.5D),
-                (float) (y - pos.getY()),
-                (float) (z - pos.getZ() - 0.5D));
         final BlockRendererDispatcher brd = Minecraft.getMinecraft().getBlockRendererDispatcher();
         final IBakedModel model = brd.getBlockModelShapes().getModelManager()
                 .getModel(CUSHION_MODELS.get(entity.getVariant()));
-        brd.getBlockModelRenderer().renderModel(
-                entity.world, model, Blocks.AIR.getDefaultState(), pos, buf, false, MathHelper.getPositionRandom(pos));
-        tess.draw();
+        brd.getBlockModelRenderer().renderModelBrightnessColor(model, 1F, 1F, 1F, 1F);
 
         if (renderOutlines) {
             GlStateManager.disableOutlineMode();
             GlStateManager.disableColorMaterial();
         }
 
-        GlStateManager.enableLighting();
         GlStateManager.popMatrix();
-
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 

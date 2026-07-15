@@ -45,6 +45,7 @@ public abstract class BlockWoolSlab extends BlockSlab {
         super(Material.CLOTH);
         setHardness(0.8F);
         setSoundType(SoundType.CLOTH);
+        useNeighborBrightness = true;
     }
 
     @Override

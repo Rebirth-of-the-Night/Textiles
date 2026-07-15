@@ -9,6 +9,7 @@ public class BlockWoolStairs extends BlockStairs {
 
     public BlockWoolStairs(final EnumDyeColor variant) {
         super(Blocks.WOOL.getDefaultState().withProperty(BlockColored.COLOR, variant));
+        useNeighborBrightness = true;
     }
 
 }
