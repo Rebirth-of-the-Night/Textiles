@@ -8,12 +8,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Objects;
 
-@SideOnly(Side.CLIENT)
 public interface ModelRegistry {
+    @SideOnly(Side.CLIENT)
     default void registerModels() {
         ModelLoader.setCustomModelResourceLocation(getItem(), 0, getModelLocation());
     }
 
+    @SideOnly(Side.CLIENT)
     default ModelResourceLocation getModelLocation() {
         return new ModelResourceLocation(Objects.requireNonNull(getItem().getRegistryName()), "inventory");
     }

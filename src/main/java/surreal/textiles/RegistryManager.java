@@ -606,7 +606,7 @@ public class RegistryManager {
             Item cushionItem = CUSHIONS.get(i);
 
             ResourceLocation fabricLocation = new ResourceLocation(
-                    MODID, Objects.requireNonNull(SPINDLE.getRegistryName()).getPath() + "_" + color.getDyeColorName());
+                    MODID, Objects.requireNonNull(SPINDLE.getRegistryName()).getPath() + "_" + color.getName());
             ResourceLocation cushionLocation = cushionItem.getRegistryName();
 
             ItemStack fabric = SPINDLE.newStack(BlockSpindle.Type.fromDye(color), 1);

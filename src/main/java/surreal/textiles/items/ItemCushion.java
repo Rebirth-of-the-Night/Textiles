@@ -40,10 +40,20 @@ public class ItemCushion extends ItemBlock implements ModelRegistry {
         if (!itemstack.isEmpty()) {
             IBlockState iblockstate = worldIn.getBlockState(pos);
             if (player.canPlayerEdit(pos, facing, itemstack) && shouldMakeDouble(iblockstate, facing) && tryPlace(worldIn, pos, player, itemstack)) return EnumActionResult.SUCCESS;
-            else if (player.canPlayerEdit(pos.offset(facing), facing, itemstack) && canPlaceBlockOnSide(worldIn, pos, facing, player, itemstack)) return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+            else if (player.canPlayerEdit(pos.offset(facing), facing, itemstack) && canPlaceBlockAt(worldIn, pos, facing, player)) return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
         }
 
         return EnumActionResult.FAIL;
+    }
+
+    private boolean canPlaceBlockAt(final World world, BlockPos pos, EnumFacing side, final EntityPlayer player) {
+        IBlockState state = world.getBlockState(pos);
+        Block block = state.getBlock();
+
+        if (block == Blocks.SNOW_LAYER || block.isReplaceable(world, pos)) side = EnumFacing.UP;
+        else if (!block.isReplaceable(world, pos)) pos = pos.offset(side);
+
+        return world.mayPlace(this.block, pos, false, side, player);
     }
 
     // Runs when shouldMakeDouble returns false
@@ -51,13 +61,7 @@ public class ItemCushion extends ItemBlock implements ModelRegistry {
     @SideOnly(Side.CLIENT)
     @Override
     public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
-        IBlockState state = worldIn.getBlockState(pos);
-        Block block = state.getBlock();
-
-        if (block == Blocks.SNOW_LAYER || block.isReplaceable(worldIn, pos)) side = EnumFacing.UP;
-        else if (!block.isReplaceable(worldIn, pos)) pos = pos.offset(side);
-
-        return worldIn.mayPlace(this.block, pos, false, side, player);
+        return canPlaceBlockAt(worldIn, pos, side, player);
     }
 
     private boolean shouldMakeDouble(IBlockState state, EnumFacing side) {
