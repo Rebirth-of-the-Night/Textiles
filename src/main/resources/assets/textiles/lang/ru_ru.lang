@@ -50,6 +50,60 @@ tile.textiles.basket_1.name=Прочная корзина
 
 tile.textiles.sack.name=Мешок
 
+tile.textiles.wool_slab1.white.name=Белая шерстяная плита
+tile.textiles.wool_slab1.orange.name=Оранжевая шерстяная плита
+tile.textiles.wool_slab1.magenta.name=Пурпурная шерстяная плита
+tile.textiles.wool_slab1.light_blue.name=Светло-голубая шерстяная плита
+tile.textiles.wool_slab1.yellow.name=Жёлтая шерстяная плита
+tile.textiles.wool_slab1.lime.name=Лаймовая шерстяная плита
+tile.textiles.wool_slab1.pink.name=Розовая шерстяная плита
+tile.textiles.wool_slab1.gray.name=Серая шерстяная плита
+tile.textiles.wool_slab2.silver.name=Светло-серая шерстяная плита
+tile.textiles.wool_slab2.cyan.name=Бирюзовая шерстяная плита
+tile.textiles.wool_slab2.purple.name=Фиолетовая шерстяная плита
+tile.textiles.wool_slab2.blue.name=Синяя шерстяная плита
+tile.textiles.wool_slab2.brown.name=Коричневая шерстяная плита
+tile.textiles.wool_slab2.green.name=Зелёная шерстяная плита
+tile.textiles.wool_slab2.red.name=Красная шерстяная плита
+tile.textiles.wool_slab2.black.name=Чёрная шерстяная плита
+
+tile.textiles.wool_stairs_white.name=Белые шерстяные ступени
+tile.textiles.wool_stairs_orange.name=Оранжевые шерстяные ступени
+tile.textiles.wool_stairs_magenta.name=Пурпурные шерстяные ступени
+tile.textiles.wool_stairs_light_blue.name=Светло-голубые шерстяные ступени
+tile.textiles.wool_stairs_yellow.name=Жёлтые шерстяные ступени
+tile.textiles.wool_stairs_lime.name=Лаймовые шерстяные ступени
+tile.textiles.wool_stairs_pink.name=Розовые шерстяные ступени
+tile.textiles.wool_stairs_gray.name=Серые шерстяные ступени
+tile.textiles.wool_stairs_silver.name=Светло-серые шерстяные ступени
+tile.textiles.wool_stairs_cyan.name=Бирюзовые шерстяные ступени
+tile.textiles.wool_stairs_purple.name=Фиолетовые шерстяные ступени
+tile.textiles.wool_stairs_blue.name=Синие шерстяные ступени
+tile.textiles.wool_stairs_brown.name=Коричневые шерстяные ступени
+tile.textiles.wool_stairs_green.name=Зелёные шерстяные ступени
+tile.textiles.wool_stairs_red.name=Красные шерстяные ступени
+tile.textiles.wool_stairs_black.name=Чёрные шерстяные ступени
+
+item.textiles.wool_cushion.red.name=Маленькая красная подушка
+item.textiles.wool_cushion.orange.name=Маленькая оранжевая подушка
+item.textiles.wool_cushion.yellow.name=Маленькая жёлтая подушка
+item.textiles.wool_cushion.lime.name=Маленькая лаймовая подушка
+item.textiles.wool_cushion.green.name=Маленькая зелёная подушка
+item.textiles.wool_cushion.cyan.name=Маленькая бирюзовая подушка
+item.textiles.wool_cushion.light_blue.name=Маленькая светло-голубая подушка
+item.textiles.wool_cushion.blue.name=Маленькая синяя подушка
+item.textiles.wool_cushion.purple.name=Маленькая фиолетовая подушка
+item.textiles.wool_cushion.magenta.name=Маленькая пурпурная подушка
+item.textiles.wool_cushion.pink.name=Маленькая розовая подушка
+item.textiles.wool_cushion.white.name=Маленькая белая подушка
+item.textiles.wool_cushion.silver.name=Маленькая светло-серая подушка
+item.textiles.wool_cushion.gray.name=Маленькая серая подушка
+item.textiles.wool_cushion.black.name=Маленькая чёрная подушка
+item.textiles.wool_cushion.brown.name=Маленькая коричневая подушка
+
+# Entities
+entity.SmallCushion.name=Маленькая подушка
+
 # Items
 item.textiles.material.wicker_patch.name=Плетёный лоскут
 item.textiles.material.twine.name=Верёвка
