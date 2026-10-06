@@ -120,7 +120,7 @@ public class EntityWoolCushion extends Entity implements IEntityAdditionalSpawnD
     public void onStruckByLightning(final EntityLightningBolt lightningBolt) {} // wool is a great insulator
 
     private void damageCushion(@Nullable final EntityPlayer attacker) {
-        if (world.isRemote) return;
+        if (isDead || world.isRemote) return;
         if (attacker != null) {
             if (attacker.capabilities.isCreativeMode) {
                 breakCushion(false);
