@@ -143,8 +143,8 @@ public class EntityWoolCushion extends Entity implements IEntityAdditionalSpawnD
     @Override
     public boolean processInitialInteract(final EntityPlayer player, final EnumHand hand) {
         if (player.isSneaking()) return false;
-        if (isBeingRidden()) return true;
         if (ModConfig.smallCushions.disallowCushionTravelling && player.isRiding()) return false;
+        if (isBeingRidden()) return true;
         if (!world.isRemote) {
             player.startRiding(this);
         }

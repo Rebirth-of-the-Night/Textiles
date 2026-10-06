@@ -22,6 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import surreal.textiles.ModConfig;
 import surreal.textiles.blocks.properties.PropertyAxis;
+import surreal.textiles.entities.EntitySitDummy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -34,8 +35,8 @@ public class BlockCushion extends BlockSlabBase {
     public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyAxis.create("axis");
 
     protected static final AxisAlignedBB
-        X_TOP, X_BOTTOM,
-        Z_TOP, Z_BOTTOM;
+            X_TOP, X_BOTTOM,
+            Z_TOP, Z_BOTTOM;
 
     public BlockCushion() {
         super(Material.CLOTH);
@@ -43,6 +44,57 @@ public class BlockCushion extends BlockSlabBase {
         setHardness(0.8F).setResistance(8.0F);
         setDefaultState(getDefaultState().withProperty(AXIS, EnumFacing.Axis.Y).withProperty(HALF, EnumBlockHalf.TOP));
         useNeighborBrightness = true;
+    }
+
+    @Override
+    public boolean onBlockActivated(final World world, final BlockPos pos, final IBlockState state,
+                                    final EntityPlayer player, final EnumHand hand, final EnumFacing facing,
+                                    final float hitX, final float hitY, final float hitZ) {
+        if (facing != EnumFacing.UP || player.isSneaking()) return false;
+        if (ModConfig.cushions.disallowCushionTravelling && player.isRiding()) return false;
+        for (final EntitySitDummy seat : world.getEntitiesWithinAABB(EntitySitDummy.class, new AxisAlignedBB(
+                        pos.getX(), pos.getY() + 0.25D, pos.getZ(), pos.getX() + 1D, pos.getY() + 1.25D, pos.getZ() + 1D))) {
+            if (seat.isBeingRidden()) return true;
+        }
+        if (!world.isRemote) {
+            final EntitySitDummy seat = createSeatEntity(world, pos, state);
+            world.spawnEntity(seat);
+            player.startRiding(seat);
+        }
+        return true;
+    }
+
+    protected EntitySitDummy createSeatEntity(final World world, final BlockPos pos, final IBlockState state) {
+        final double x, y, z;
+        switch (state.getValue(AXIS)) {
+            case X:
+                x = pos.getX() + switch (state.getValue(HALF)) {
+                    case TOP -> 0.75D;
+                    case BOTTOM -> 0.25D;
+                };
+                y = pos.getY() + 1D;
+                z = pos.getZ() + 0.5D;
+                break;
+            case Y:
+                x = pos.getX() + 0.5D;
+                y = pos.getY() + switch (state.getValue(HALF)) {
+                    case TOP -> 1D;
+                    case BOTTOM -> 0.5D;
+                };
+                z = pos.getZ() + 0.5D;
+                break;
+            case Z:
+                x = pos.getX() + 0.5D;
+                y = pos.getY() + 1D;
+                z = pos.getZ() + switch (state.getValue(HALF)) {
+                    case TOP -> 0.75D;
+                    case BOTTOM -> 0.25D;
+                };
+                break;
+            default:
+                throw new IllegalStateException("Tried to sit on invalid cushion: " + state); // this shouldn't happen
+        }
+        return new EntitySitDummy(world, x, y, z, pos);
     }
 
     @ParametersAreNonnullByDefault
@@ -78,8 +130,8 @@ public class BlockCushion extends BlockSlabBase {
         else if (axis == face.getAxis()) {
             if (half == EnumBlockHalf.TOP) {
                 return face.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
-            }
-            else return face.getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
+            } else
+                return face.getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
         }
 
         return BlockFaceShape.UNDEFINED;
@@ -129,8 +181,7 @@ public class BlockCushion extends BlockSlabBase {
         else if (axis == EnumFacing.Axis.X) {
             if (half == EnumBlockHalf.TOP) return X_TOP;
             else return X_BOTTOM;
-        }
-        else {
+        } else {
             if (half == EnumBlockHalf.TOP) return Z_TOP;
             else return Z_BOTTOM;
         }
@@ -146,8 +197,7 @@ public class BlockCushion extends BlockSlabBase {
         else if (axis == face.getAxis()) {
             if (half == EnumBlockHalf.TOP) {
                 return face.getAxisDirection() == EnumFacing.AxisDirection.POSITIVE;
-            }
-            else return face.getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
+            } else return face.getAxisDirection() == EnumFacing.AxisDirection.NEGATIVE;
         }
 
         return false;
@@ -177,6 +227,11 @@ public class BlockCushion extends BlockSlabBase {
 
         public BlockCushionDouble(Block singleSlab) {
             this.singleSlab = singleSlab;
+        }
+
+        @Override
+        protected EntitySitDummy createSeatEntity(final World world, final BlockPos pos, final IBlockState state) {
+            return new EntitySitDummy(world, pos.getX() + 0.5D, pos.getY() + 1D, pos.getZ() + 0.5D, pos);
         }
 
         @ParametersAreNonnullByDefault

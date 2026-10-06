@@ -77,12 +77,16 @@ public class ModConfig {
         })
         @Config.RangeDouble(min = 0D)
         public double walkingSpeed = 0.8D;
+
+        @Config.Name("Disallow Cushion Travelling")
+        @Config.Comment("If enabled, players cannot try to sit on another cushion if they are already sitting on one.")
+        public boolean disallowCushionTravelling = true;
     }
 
     public static class SmallCushions {
         @Config.Name("Disallow Cushion Travelling")
         @Config.Comment("If enabled, players cannot try to sit on another cushion if they are already sitting on one.")
-        public boolean disallowCushionTravelling = false;
+        public boolean disallowCushionTravelling = true;
     }
 
     public static class FiberBales {
