@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import surreal.textiles.ModConfig;
 import surreal.textiles.RegistryManager;
 
 import javax.annotation.Nullable;
@@ -143,6 +144,7 @@ public class EntityWoolCushion extends Entity implements IEntityAdditionalSpawnD
     public boolean processInitialInteract(final EntityPlayer player, final EnumHand hand) {
         if (player.isSneaking()) return false;
         if (isBeingRidden()) return true;
+        if (ModConfig.smallCushions.disallowCushionTravelling && player.isRiding()) return false;
         if (!world.isRemote) {
             player.startRiding(this);
         }
