@@ -6,12 +6,11 @@ plugins {
     id 'maven-publish'
     id 'org.jetbrains.gradle.plugin.idea-ext' version '1.1.7'
     id 'eclipse'
-    id 'com.gtnewhorizons.retrofuturagradle' version '1.4.1'
+    id 'com.gtnewhorizons.retrofuturagradle' version '2.0.2'
 }
 
 version = project.mod_version
 group = project.maven_group
-archivesBaseName = project.archives_base_name
 
 // Set the toolchain version to decouple the Java we run Gradle with from the Java used to compile and run the mod
 java {
@@ -70,10 +69,19 @@ tasks.injectTags.configure {
     outputClassName.set("${project.group}.${project.mod_id}.Tags")
 }
 
+tasks.applyJST.configure {
+    // https://github.com/GTNewHorizons/RetroFuturaGradle/issues/101
+    javaLauncher.set(minecraft.getToolchainLauncher(project, 25))
+}
+
 repositories {
     maven {
         name 'CleanroomMC Maven'
         url 'https://maven.cleanroommc.com'
+    }
+    maven {
+        name 'GTNH'
+        url 'https://nexus.gtnewhorizons.com/repository/public/'
     }
     maven {
         name 'SpongePowered Maven'
@@ -104,16 +112,18 @@ dependencies {
         }
     }
 
-    annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:0.4.2'
-    compileOnly 'com.github.bsideup.jabel:jabel-javac-plugin:0.4.2'
+    annotationProcessor platform('net.bytebuddy:byte-buddy-parent:1.18.14')
+    compileOnly platform('net.bytebuddy:byte-buddy-parent:1.18.14')
+    annotationProcessor 'com.github.bsideup.jabel:jabel-javac-plugin:1.0.1'
+    compileOnly 'com.github.bsideup.jabel:jabel-javac-plugin:1.0.1'
 }
 
 configure([tasks.compileJava]) {
-    sourceCompatibility = 17 // for the IDE support
+    sourceCompatibility = 25 // for the IDE support
     options.release = 8
 
     javaCompiler = javaToolchains.compilerFor {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -149,6 +159,7 @@ processResources {
 }
 
 jar {
+    archiveBaseName.set(project.archives_base_name)
     manifest {
         def attribute_map = [:]
         if (project.use_coremod.toBoolean()) {

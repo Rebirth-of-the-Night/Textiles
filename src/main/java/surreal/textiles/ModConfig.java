@@ -8,6 +8,7 @@ public class ModConfig {
     public static final Drops drops = new Drops();
     public static final FeatherBundle featherBundle = new FeatherBundle();
     public static final Cushions cushions = new Cushions();
+    public static final SmallCushions smallCushions = new SmallCushions();
     public static final FiberBales fibers = new FiberBales();
     public static final Fabric fabric = new Fabric();
     public static final Sack sack = new Sack();
@@ -76,6 +77,16 @@ public class ModConfig {
         })
         @Config.RangeDouble(min = 0D)
         public double walkingSpeed = 0.8D;
+
+        @Config.Name("Disallow Cushion Travelling")
+        @Config.Comment("If enabled, players cannot try to sit on another cushion if they are already sitting on one.")
+        public boolean disallowCushionTravelling = true;
+    }
+
+    public static class SmallCushions {
+        @Config.Name("Disallow Cushion Travelling")
+        @Config.Comment("If enabled, players cannot try to sit on another cushion if they are already sitting on one.")
+        public boolean disallowCushionTravelling = true;
     }
 
     public static class FiberBales {

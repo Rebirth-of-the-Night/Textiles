@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> {} }:
 
 let
-  zulu = pkgs.zulu17;
+  zulu = pkgs.zulu25;
   zulu8 = pkgs.zulu8;
 
   gradlePropPrefix = "ORG_GRADLE_PROJECT_";

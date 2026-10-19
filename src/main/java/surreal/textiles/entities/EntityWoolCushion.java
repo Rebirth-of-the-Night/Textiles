@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
+import surreal.textiles.ModConfig;
 import surreal.textiles.RegistryManager;
 
 import javax.annotation.Nullable;
@@ -119,7 +120,7 @@ public class EntityWoolCushion extends Entity implements IEntityAdditionalSpawnD
     public void onStruckByLightning(final EntityLightningBolt lightningBolt) {} // wool is a great insulator
 
     private void damageCushion(@Nullable final EntityPlayer attacker) {
-        if (world.isRemote) return;
+        if (isDead || world.isRemote) return;
         if (attacker != null) {
             if (attacker.capabilities.isCreativeMode) {
                 breakCushion(false);
@@ -142,6 +143,7 @@ public class EntityWoolCushion extends Entity implements IEntityAdditionalSpawnD
     @Override
     public boolean processInitialInteract(final EntityPlayer player, final EnumHand hand) {
         if (player.isSneaking()) return false;
+        if (ModConfig.smallCushions.disallowCushionTravelling && player.isRiding()) return false;
         if (isBeingRidden()) return true;
         if (!world.isRemote) {
             player.startRiding(this);
